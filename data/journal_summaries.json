@@ -1,0 +1,236 @@
+{
+  "new yorker": {
+    "name": "The New Yorker",
+    "summary": "This page is a general contact/submissions page for *The New Yorker* rather than a dedicated literary journal submissions page, but it does contain actionable guidelines. The magazine publishes literary fiction, poetry, humorous fiction (Shouts & Murmurs), and short films, with a general emphasis on polished, high-caliber work consistent with the publication's well-known prestige aesthetic — no specific thematic focus is stated, but the humor column explicitly requires comedic fiction, not personal essays. No word count limits are specified for fiction, poetry submissions are capped at six poems per submission (no more than twice in twelve months), and response times are up to 90 days for fiction and films, and up to six months for poetry and Shouts & Murmurs. Key restrictions include: previously published work is not accepted for poetry or cartoons (including on personal blogs or websites), fiction submissions require PDF attachments sent by email or mail (no Submittable), poetry and cartoons use Submittable only, and writers should assume rejection if they receive no response within the stated windows, as the magazine only contacts submitters upon acceptance.",
+    "url": "https://www.newyorker.com/about/contact",
+    "fetched_at": "2026-05-29T14:46:39.365523+00:00"
+  },
+  "noon annual": {
+    "name": "NOON Annual",
+    "summary": "**Summary:**\n\nNOON, edited by Diane Williams, is known for publishing highly compressed, experimental literary fiction and prose with an emphasis on unusual voice and formal precision — consistent with Williams' own aesthetic of strange, spare, sentence-level writing. No word count range or response time is specified on this page, and submissions are accepted on an ongoing basis with no reading period mentioned. Writers must submit by **postal mail only** (no digital submissions accepted), include a self-addressed stamped envelope, note that international reply coupons are not accepted, and ensure all work is in English; simultaneous submissions are allowed but require immediate notification upon acceptance elsewhere.",
+    "url": "https://noonannual.com/submit/",
+    "fetched_at": "2026-05-29T14:46:45.100635+00:00"
+  },
+  "santa monica review": {
+    "name": "Santa Monica Review",
+    "summary": "**Summary of Santa Monica Review Submission Guidelines**\n\nThe Santa Monica Review publishes literary fiction and nonfiction only (short stories, essays, and interviews), with a strong aesthetic commitment to serious literary writing in the tradition of authors like Charles Baxter and Aimee Bender; they make a particular effort to feature writers based in Southern California, though they publish writers from beyond the region as well. No word count range is specified on the page, simultaneous submissions are accepted with notification, and writers can expect a response time averaging two months. Notably, the journal does **not** accept email submissions (postal mail with SASE required), does not consider previously published work, and does not pay in cash — only in copies, a subscription, and promotion; writers should also read the journal before submitting to calibrate their work to its sensibility.",
+    "url": "https://www.smc.edu/sm-review/submission-guidelines.html",
+    "fetched_at": "2026-05-29T14:46:51.399704+00:00"
+  },
+  "after dinner conversation": {
+    "name": "After Dinner Conversation",
+    "summary": "**After Dinner Conversation** publishes short fiction across any genre that centers genuine ethical dilemmas — specifically, situations where the \"right\" answer is genuinely unknowable rather than merely difficult to act on — drawing comparisons to *The Trolley Problem*, Ursula K. Le Guin, and shows like *The Good Place* and *Westworld*. The journal accepts unsolicited submissions year-round with a standard response time of 2–3 months, though a paid \"Fast Pass\" option promises a decision in 3–5 days; no word count range is specified in the visible content, and the submission cap is three stories per six-month period. Writers should know that 90% of rejections are due to thematic mismatch rather than writing quality, so reading example stories before submitting is strongly advised, and the editors will stop reading after three glaring typos — they state this bluntly and mean it.",
+    "url": "https://www.afterdinnerconversation.com/submissions?srsltid=AfmBOoriOllp2rUY-AMfxGAI-M1nkgA3SK4vTk8L84UrafP8vDjr_Wrd",
+    "fetched_at": "2026-05-29T15:17:46.207161+00:00"
+  },
+  "alta journal": {
+    "name": "Alta Journal",
+    "summary": "**Alta Journal** publishes fiction and poetry rooted in California and the West, prioritizing work with a strong sense of place, lively writing, and emotional resonance — think regionally grounded storytelling and verse rather than abstract or placeless work. For fiction, they prefer pieces under 4,000 words; for poetry, 90 lines or fewer with a maximum of four poems submitted together in a single file; response time for both is within 90 days, with no reply meaning a pass. A critical restriction to note: they **do not accept simultaneous submissions**, they only contact writers they intend to publish, and they strongly expect submitters to be familiar with the magazine beforehand — ignoring any of these points would likely disqualify a submission.",
+    "url": "https://altajournal.submittable.com/submit",
+    "fetched_at": "2026-05-29T15:17:52.154903+00:00"
+  },
+  "apalachee review": {
+    "name": "Apalachee Review",
+    "summary": "**Apalachee Review** publishes poetry, fiction, and creative nonfiction from both emerging and established writers, favoring work with strong literary craft; for nonfiction, they seek \"interestingly written\" pieces on any subject but explicitly avoid journalism, scholarly writing, and book reviews. Fiction submissions are capped at 6,000 words (or 2–3 flash/micro pieces), poetry at 3–5 poems, nonfiction follows the same length limit as fiction, and the journal publishes once a year with a response time of 4–6 months (though delays are common near press time). Simultaneous submissions are explicitly encouraged, but writers must notify the journal if a piece is accepted elsewhere; novel manuscripts and full collections will not be considered, novel chapters are welcome only if they stand alone, and writers based outside the U.S. must query before submitting.",
+    "url": "https://apalacheereview.org/submission-guidelines/",
+    "fetched_at": "2026-05-29T15:17:58.688345+00:00"
+  },
+  "apple valley review": {
+    "name": "The Apple Valley Review",
+    "summary": "**Summary:**\n\nThe Apple Valley Review is a well-regarded online journal publishing short fiction, poetry, and essays with a clear emphasis on carefully crafted, literary work — its track record of appearances in *Best American Short Stories*, *Best American Essays*, and similar anthologies signals a preference for polished, serious writing across all three genres. Submissions are accepted year-round via email (not through an online portal), with a response time of 1–8 weeks; no word count limits are specified on this page, so writers should consult the full guidelines at applevalleyreview.org directly. Notably, the journal accepts simultaneous submissions, does not pay, and does not accept postal or online form submissions — email is the only route in, and all published work is automatically considered for an annual Editor's Prize.",
+    "url": "https://www.newpages.com/magazines/apple-valley-review/",
+    "fetched_at": "2026-05-29T15:18:04.791350+00:00"
+  },
+  "baffler": {
+    "name": "The Baffler",
+    "summary": "This page is an \"About\" page for *The Baffler* and does not contain submission guidelines. It describes the magazine as a left-leaning publication focused on political criticism, cultural analysis, fiction, poetry, and art, which gives some sense of editorial direction, but no practical submission information is provided. There are no word counts, reading periods, response times, or specific submission preferences listed. A writer should visit a dedicated submissions page — if one exists — to find actionable guidelines before submitting.",
+    "url": "https://thebaffler.com/about",
+    "fetched_at": "2026-05-29T15:18:09.746412+00:00"
+  },
+  "baltimore review": {
+    "name": "Baltimore Review",
+    "summary": "**The Baltimore Review** publishes poems, short stories, creative nonfiction, and videos, with a mission to showcase diverse, high-quality writing from Baltimore, the U.S., and internationally, favoring both emerging and established voices across a range of forms. The journal accepts non-theme submissions year-round and runs two themed contests annually with deadlines of May 31 and November 30; response time is approximately 3 months or less, though specific word count limits are not provided on this page and writers should consult the full submission guidelines at baltimorereview.org. Notably, the journal pays $40 for non-contest work plus a copy of the annual print compilation, publishes online quarterly with an annual print collection, and editors have individual preferences listed on their Staff page, which writers should review before submitting.",
+    "url": "https://www.everywritersresource.com/literarymagazines/baltimore-review/",
+    "fetched_at": "2026-05-29T15:18:19.541398+00:00"
+  },
+  "barcelona review": {
+    "name": "The Barcelona Review",
+    "summary": "**The Barcelona Review** seeks original, high-quality contemporary fiction in English, Spanish, or Catalan with a strong, distinctive literary voice; nonfiction must relate to the world of books and writing, with personal essays and criticism welcome. Fiction runs 1,000–5,500 words and nonfiction up to 5,000 words; the journal publishes six times per year, accepts simultaneous submissions, and response times are noted as slower than average with a higher-than-average non-response rate. Writers should know the journal pays no money, accepts no reprints, caps submissions at two per year, and explicitly will not consider fables, fairy tale retellings, or vignettes — familiarity with the archive before submitting is strongly advised.",
+    "url": "https://duotrope.com/magazine/the-barcelona-review-46",
+    "fetched_at": "2026-05-29T15:18:25.026566+00:00"
+  },
+  "blue earth review": {
+    "name": "Blue Earth Review",
+    "summary": "**Blue Earth Review** is a graduate-run literary magazine from Minnesota State University, Mankato that seeks ambitious, exuberant work across fiction, creative nonfiction (memoir and personal essay), poetry, and visual art — favoring small, focused pieces with dramatic impact that complicate conversations and explore what it means to be human; they welcome all genres including literary, sci-fi, fantasy, horror, and magical realism, and are especially drawn to nonfiction that operates beyond pure narrative through metaphor and layered meaning.\n\nFiction submissions are capped at 4,000 words and creative nonfiction is preferred under 3,000 words; the journal publishes twice yearly (fall and spring), reads general submissions year-round, and accepts simultaneous submissions as long as writers notify them immediately upon acceptance elsewhere.\n\nWriters should know that BER does not accept AI-generated work, only considers previously unpublished pieces, acquires First North American Serial Rights upon acceptance, pays in two contributor copies, requires Word (.doc/.docx) files only, and asks that writers submit one piece at a time and wait for a response before resubmitting — no literary criticism is accepted for the nonfiction category.",
+    "url": "https://blueearthreview.submittable.com/",
+    "fetched_at": "2026-05-29T15:18:32.910254+00:00"
+  },
+  "blue lake review": {
+    "name": "Blue Lake Review",
+    "summary": "**Blue Lake Review** publishes literary, mainstream, and experimental fiction alongside poetry of all types, favoring authentic, emotionally resonant writing that avoids cleverness for its own sake, sentimentality, and showy vocabulary — they want work that is fresh and genuine. Fiction runs 100–6,000 words (submissions over 3,000 words are limited to one story at a time; under 3,000 words, multiple stories may be submitted up to that total); no word count range is specified for poetry, no reading periods are listed, and no response time is given, though writers should wait at least a month after a rejection before resubmitting fiction. Key restrictions include: no genre fiction or novel excerpts, no rhyming poetry, no simultaneous submission without prompt withdrawal notification if accepted elsewhere, no compensation is offered, and writers should be aware that unprofessional conduct (including insults) can result in a ban from future consideration.",
+    "url": "https://bluelakereview.submittable.com/",
+    "fetched_at": "2026-05-29T15:18:39.564893+00:00"
+  },
+  "bourbon penn": {
+    "name": "Bourbon Penn",
+    "summary": "This page is an archive/issue listing for Bourbon Penn and does not contain submission guidelines. It shows recent issue contents and contributor names but provides no information about aesthetic focus, word count limits, reading periods, response times, or submission restrictions. A writer would need to find the journal's dedicated submissions page to get any useful guidelines.",
+    "url": "https://www.bourbonpenn.com/",
+    "fetched_at": "2026-05-29T15:18:43.325788+00:00"
+  },
+  "collateral journal": {
+    "name": "Collateral Journal",
+    "summary": "**Collateral** publishes poetry, fiction, creative nonfiction, and visual art focused on the impact of war and military service *beyond combat itself* — reintegration, homecoming, injury, the military/civilian divide, and related themes — with a clear preference for fresh, unexpected approaches to these experiences. Submissions are accepted year-round with deadlines of March 1 (spring issue) and September 1 (fall issue); fiction and creative nonfiction have a 5,000-word limit, poetry is submitted in batches of 1–5 poems (max 10 pages), and writers should expect response times of 4–6 months due to the volunteer-run nature of the journal. Previously published prose and poetry are not accepted (though previously published visual art is fine), simultaneous submissions are allowed but must be flagged immediately if accepted elsewhere, writers must wait one year after publication before resubmitting, and only one submission per genre should be active at a time.",
+    "url": "https://collateral.submittable.com/submit",
+    "fetched_at": "2026-05-29T15:18:50.029728+00:00"
+  },
+  "columbia review": {
+    "name": "The Columbia Review",
+    "summary": "The Columbia Review has a broad, inclusive aesthetic with no apparent thematic restrictions, accepting fiction, poetry, nonfiction, photography, and visual art from any writer regardless of gender, ethnicity, or university affiliation, with a prestigious legacy of publishing major literary figures. No word count limits are specified on this page, the journal publishes twice a year, and the approximate response time is three months; online submissions are accepted via their website. There are no notable red flags or unusual restrictions, though the lack of specific submission guidelines on this page means writers should consult columbiareviewmag.com/submit directly for any current formatting or length requirements.",
+    "url": "https://www.everywritersresource.com/literarymagazines/the-columbia-review/",
+    "fetched_at": "2026-05-29T15:18:58.196766+00:00"
+  },
+  "craft": {
+    "name": "CRAFT",
+    "summary": "This page does not contain useful submission guidelines for a specific literary journal. It is a general Writer's Digest article about how to write cover letters for literary journal submissions, using a fictional example to illustrate common mistakes. It does not describe any particular journal's aesthetic focus, word count requirements, reading periods, response times, or submission restrictions.",
+    "url": "https://www.writersdigest.com/whats-new/literary-journal-submissions-101",
+    "fetched_at": "2026-05-29T15:19:02.201935+00:00"
+  },
+  "dublin review": {
+    "name": "The Dublin Review",
+    "summary": "**The Dublin Review** publishes previously unpublished fiction and non-fiction in English, with no poetry accepted; the journal emphasizes literary quality and actively encourages submissions from writers belonging to underrepresented groups. There is no stated word count ceiling, but their fee scale begins at €300 for pieces of 2,500 words or under and scales up, suggesting they publish work ranging from shorter pieces to longer-form essays and stories; no specific reading periods or response timeframes are mentioned beyond a vague \"as soon as we can.\" Submissions are accepted online only (no postal submissions), and writers should note there is no confirmation email sent, so keeping a personal record of the submission date is strongly recommended.",
+    "url": "https://thedublinreview.com/submissions/",
+    "fetched_at": "2026-05-29T15:19:11.218315+00:00"
+  },
+  "fictive dream": {
+    "name": "Fictive Dream",
+    "summary": "**Fictive Dream** is an online short story magazine seeking contemporary fiction with a strong fictive dream quality — writing that immerses readers completely in its world — and values distinctive voice, clarity, precision of language, and emotional or thematic insight into the human condition, welcoming challenging, playful, unsettling, or cryptic work across any subject. Stories must be between 500 and 2,500 words, submissions are open year-round with no specific reading periods, and the editors aim to respond within three weeks. Writers should note that the journal accepts no previously published work (including blog or social media posts), requires stories to be submitted as Word attachments (no PDFs, no pasted text), accepts simultaneous submissions if you notify them immediately upon acceptance elsewhere, allows only one submission at a time with a two-month wait after a rejection, offers no payment, and requires a three-month exclusivity window post-publication before the work can appear elsewhere.",
+    "url": "https://www.writing.ie/resources/fictive-dream/",
+    "fetched_at": "2026-05-29T15:19:20.107645+00:00"
+  },
+  "hobart": {
+    "name": "Hobart",
+    "summary": "**Summary of Hobart's Submission Guidelines**\n\nThis page is primarily a glowing editorial review of Hobart's twelfth issue rather than a submission guidelines page. Based on the content, Hobart publishes risk-taking, experimental fiction with a range of voices, tones, and perspectives — work that is cutting-edge, fun, and unafraid to shift form, length, or point of view within a single issue, with themes including loneliness, loss, and human connection handled with literary seriousness.\n\nNo practical submission details are provided — there is no mention of word count limits, reading periods, or response times anywhere on this page. There are no stated restrictions, preferences, or red flags for submitters, as the page functions as a journal profile and issue review rather than a calls-for-submissions document.\n\n**A writer seeking actual submission guidelines should visit Hobart's website directly**, as this page does not contain the information needed to submit work.",
+    "url": "https://fictionwritersreview.com/review/journal-of-the-week-hobart/",
+    "fetched_at": "2026-05-29T15:19:28.442494+00:00"
+  },
+  "kyoto journal": {
+    "name": "Kyoto Journal",
+    "summary": "**Kyoto Journal Submission Summary**\n\nKyoto Journal publishes Asia-focused nonfiction, essays, reportage, poetry, fiction, interviews, humor, and translation across a general (non-academic) readership, prioritizing work with lasting cultural value, intercultural insight, and specificity over superficial \"first impressions\" pieces — the editorial voice favors writing that is original, sincere, and comes \"from the heart.\"\n\nPersonal experience pieces (Asian Encounters) should run around 800–1,500 words; feature articles typically stay under 3,000 words; the journal is all-volunteer and response time is not guaranteed, with unsuccessful submissions often receiving no reply, and backlogs are common especially for poetry, fiction, and book reviews, which may be held indefinitely pending a suitable thematic context.\n\nAll submissions must have a clear, demonstrable connection to Asia — academic papers are explicitly discouraged; contributors are unpaid (compensation is a free print copy); submitting grants the journal rights to cross-post work on their website unless you opt out at submission; and writers should use a specific editorial email rather than the general contact address or their work will not reach the editors.",
+    "url": "https://kyotojournal.org/submit-to-kj/",
+    "fetched_at": "2026-05-29T15:19:36.606803+00:00"
+  },
+  "lascaux review": {
+    "name": "The Lascaux Review",
+    "summary": "This submission portal page contains very limited guidelines content — the full guidelines are housed on separate pages not included here. Based only on what's available, The Lascaux Review publishes poetry and flash fiction (among likely other forms) in an online journal format, and also runs an annual Lascaux Prize in Flash Fiction with a $1,000 prize and a June 30 submission deadline. Response time for regular journal submissions is targeted at under one month, while contest judging aims to conclude within three months of closing, though volunteer readers mean that timeline is not guaranteed. A notable practical point: multiple poems or flash pieces must be submitted in a single file, and writers are advised to lead with their strongest work first; the $15 entry fee applies to the flash contest only, not regular journal submissions.",
+    "url": "https://lascauxreview.submittable.com/submit",
+    "fetched_at": "2026-05-29T15:19:43.246602+00:00"
+  },
+  "lit magazine": {
+    "name": "LIT Magazine",
+    "summary": "**The Watershed Journal** is a regionally focused literary magazine serving the Pennsylvania Wilds, prioritizing diverse voices and perspectives from a historically underrepresented rural area; they publish poetry, flash fiction, essays, local journalism, excerpts, photography, and artwork, with a strong preference for work that reflects the people and places of their specific region.\n\nWritten submissions are capped at 1,500 words with a maximum of 2 submissions per quarter, and while no formal reading period dates or response times are specified, the journal fills on a rolling basis and closes submissions once page space is taken, so early submission is strongly advised.\n\nPrint publication is restricted to writers from ten named Pennsylvania counties, though work not selected for print may still appear as an online exclusive; the journal will not publish graphic sex or violence, racial epithets, or gratuitous profanity, does not accept stock or public domain imagery, and does not retain any publishing rights.",
+    "url": "https://thewatershedjournal.org/submit/",
+    "fetched_at": "2026-05-29T15:19:51.347852+00:00"
+  },
+  "litro magazine": {
+    "name": "Litro Magazine",
+    "summary": "This page does not contain useful submission guidelines. It is a Pan Macmillan editorial piece from 2015 recommending literary magazines to read and subscribe to, not a submissions page for any individual journal. No word counts, reading periods, response times, aesthetic preferences for submitters, or submission restrictions are provided for any of the publications listed. A writer looking to submit work should visit each journal's website directly to find their actual guidelines.",
+    "url": "https://www.panmacmillan.com/blogs/literary/the-best-literary-magazines-around",
+    "fetched_at": "2026-05-29T15:19:56.875035+00:00"
+  },
+  "macguffin": {
+    "name": "The MacGuffin",
+    "summary": "**The MacGuffin** is a triannually published print literary journal out of Schoolcraft College; based on the submission form structure, it publishes poetry and fiction, though the page cuts off before fiction-specific aesthetic details are provided — genre-specific guidelines live within each individual submission form. For poetry, they consider up to 5 poems per submission (each up to 200 lines, all in one file); simultaneous submissions are accepted with prompt notification required upon acceptance elsewhere; no response time is listed, but the annual **Poet Hunt** contest (entry fee: $15, up to 5 poems) runs April 1–June 15 with winners announced in September. Key restrictions to know: no previously published work (print or online), no translations, no cover letters needed, all files must be submitted as .docx, do not send unsolicited revisions, and all withdrawals must go through Submittable rather than email.",
+    "url": "https://themacguffin.submittable.com/submit",
+    "fetched_at": "2026-05-29T15:20:04.045721+00:00"
+  },
+  "necessary fiction": {
+    "name": "Necessary Fiction",
+    "summary": "This page does not contain useful submission guidelines for a specific literary journal. It is a general Writer's Digest article from 2011 about how to write cover letters for literary journal submissions, using a fictional journal as an example. There is no information about a specific journal's aesthetic focus, word count limits, reading periods, or submission restrictions. A writer looking for submission guidelines should visit the specific journal's official website directly.",
+    "url": "https://www.writersdigest.com/whats-new/literary-journal-submissions-101",
+    "fetched_at": "2026-05-29T15:20:08.960801+00:00"
+  },
+  "reed magazine": {
+    "name": "Reed Magazine",
+    "summary": "## Reed Magazine – Submission Guidelines Summary\n\nReed Magazine, published out of San Jose State University, focuses on poetry, prose poems, short fiction, and creative nonfiction, suggesting a literary academic aesthetic though the page provides no detail about specific themes, voice preferences, or editorial sensibility. Submissions are accepted from **August 1 to December 1**, with fiction capped at **6,000 words**, nonfiction at **3,000 words**, and poetry limited to **up to 5 poems**; no response time is listed. Notably, **art submissions are not accepted** — the journal personally solicits visual art — and writers should be aware that this listing offers no information about simultaneous submissions, payment, or editorial focus, so consulting the journal's actual website directly is strongly advised before submitting.",
+    "url": "https://www.writerscafe.org/magazines/Reed-Magazine/288/",
+    "fetched_at": "2026-05-29T15:20:15.613939+00:00"
+  },
+  "saturday evening post": {
+    "name": "The Saturday Evening Post",
+    "summary": "The Saturday Evening Post publishes well-researched nonfiction across topics like health, history, finance, travel, and politics, as well as short fiction and cartoons, with an editorial focus on providing fresh perspective on the American experience. Nonfiction submissions must be 1,000–3,000 words; fiction guidelines are housed separately on their site; cartoon submissions are capped at 10 per week; and writers should allow 90 days for a response across all categories. Notably, the Post does not accept poetry (except for their limerick contest), requires all submissions to be previously unpublished, strongly prefers electronic submissions, and writers mailing hard copies must include a self-addressed stamped envelope or their materials will not be returned.",
+    "url": "https://www.saturdayeveningpost.com/mission/submission-guidelines/",
+    "fetched_at": "2026-05-29T15:20:24.116069+00:00"
+  },
+  "south carolina review": {
+    "name": "South Carolina Review",
+    "summary": "This page does not contain useful submission guidelines for a specific literary journal. It is a general Writer's Digest article from 2011 about how to write a cover letter for literary journal submissions, using a fictitious example to illustrate common mistakes. There is no information about a specific journal's aesthetic focus, word count limits, reading periods, or submission restrictions. A writer looking for guidelines for a particular journal should visit that journal's official submissions page directly.",
+    "url": "https://www.writersdigest.com/whats-new/literary-journal-submissions-101",
+    "fetched_at": "2026-05-29T15:20:28.416840+00:00"
+  },
+  "summerset review": {
+    "name": "The Summerset Review",
+    "summary": "## Summerset Review – Submission Guidelines Summary\n\n**1. Aesthetic Focus:** The Summerset Review is a quarterly literary journal founded in 2002, publishing fiction, nonfiction, and poetry across literary and creative nonfiction subgenres; however, the page provides minimal detail about specific themes, voice, or stylistic preferences beyond a general literary orientation.\n\n**2. Practical Limits:** The journal reads year-round (January 1–December 31) with a response time of 3–6 months; no specific word count limits are listed on this page, though the editor points prose writers to a separate advice page (summersetreview.org/advice.htm) that may contain additional guidance.\n\n**3. Notable Restrictions and Preferences:** There is no reading fee and simultaneous submissions are accepted, which are writer-friendly policies; however, the editor explicitly instructs writers to read the journal before submitting, and the sparse editorial focus description means writers should consult both the journal itself and the linked prose advice page before sending work.",
+    "url": "https://www.pw.org/literary_magazines/summerset_review",
+    "fetched_at": "2026-05-29T15:20:38.146543+00:00"
+  },
+  "tint journal": {
+    "name": "Tint Journal",
+    "summary": "Tint Journal publishes original English-language writing exclusively by ESL (English as a Second Language) writers — those fluent in another language first — across short fiction, creative nonfiction, flash fiction, flash nonfiction, and poetry, with a mission centered on multilingual and cross-cultural literary voices. Prose submissions should be 1,000–4,000 words, flash pieces must not exceed 600 words, and poetry is limited to one poem of up to four pages; submissions are only accepted during open calls, with a response time of up to two months after a call closes. Critical restrictions to note: the journal accepts no AI-generated or AI-modified texts, no translations (work must be an original English creation), no previously published pieces without prior contact, and only one piece per category at a time — and crucially, writers must qualify as ESL speakers, making this journal entirely inaccessible to native English speakers.",
+    "url": "https://tintjournal.com/submit/submission-guidelines",
+    "fetched_at": "2026-05-29T15:20:45.723750+00:00"
+  },
+  "valparaiso fiction review": {
+    "name": "Valparaiso Fiction Review",
+    "summary": "**Valparaiso Fiction Review** publishes original, unpublished short fiction only — no poetry, novels, or children's fiction, though self-contained novel excerpts are acceptable; the guidelines don't describe specific aesthetic or thematic preferences beyond the fiction category itself. Submissions should be 1,000–9,000 words (with possible exceptions), formatted in 12pt font, double-spaced, in .doc/.docx/.rtf, submitted online only on a rolling basis with no deadline, and writers can expect a response within 3–6 months. Simultaneous submissions are permitted but require immediate notification if accepted elsewhere, and writers should note that acceptance transfers first serial publication rights to the journal.",
+    "url": "https://scholar.valpo.edu/vfr/guidelines.html",
+    "fetched_at": "2026-05-29T15:20:51.026524+00:00"
+  },
+  "wrathbearing tree": {
+    "name": "The Wrath-Bearing Tree",
+    "summary": "This page does not contain useful submission guidelines for writers. It is primarily a blog post announcing an interview with the Middle West Press editor-publisher, along with background on The Wrath-Bearing Tree journal and brief descriptions of Middle West Press anthology projects. While it mentions that The Wrath-Bearing Tree publishes essays, reviews, fiction, and poetry focused on military and social violence from those with lived experience of it, no specific submission guidelines, word count limits, reading periods, or response times are provided. A writer seeking to submit to either outlet should visit those publications' websites directly for current guidelines.",
+    "url": "https://www.middlewestpress.com/2023/07/middle-west-press-editor-publisher.html",
+    "fetched_at": "2026-05-29T15:20:56.165181+00:00"
+  },
+  "café irreal": {
+    "name": "The Café Irreal",
+    "summary": "**Aesthetic Focus:** The Cafe Irreal publishes \"irreal\" fiction — a form of the fantastic that deliberately avoids realistic characterization, resolved plots, and recognizable settings, instead evoking a reality that is constantly undermined; think Kafka, Borges, Lispector, and Kobo Abe, where absurdity functions as normalcy rather than punchline.\n\n**Practical Limits:** Stories must be under 2,000 words with no stated minimum; the journal is a quarterly webzine, though no specific reading periods or response times are mentioned in the available text; submissions are accepted via email only (editors@cafeirreal.com), pasted directly into the body of the message — no attachments accepted.\n\n**Notable Restrictions and Red Flags:** Writers must include name, address, email, and a short bio in the email body, with \"submission\" in the subject line; translations are welcome; and critically, the journal explicitly does *not* want realistic portrayals, emotional investment in characters, or tidy resolutions — submitting conventional literary fiction or genre fantasy would almost certainly be a mismatch.",
+    "url": "http://cafeirreal.alicewhittenburg.com/index.htm",
+    "fetched_at": "2026-06-05T20:48:56.404301+00:00"
+  },
+  "masters review new voices": {
+    "name": "The Masters Review New Voices",
+    "summary": "**The Masters Review** seeks bold, authentic prose from emerging writers — fiction and creative nonfiction across all styles and topics, with a strong emphasis on originality, urgency, and a distinctly individual voice, as reflected in guest judge Ramona Ausubel's call for work \"bright with your own obsessions.\"\n\nSubmissions open April 6 and close June 7, 2026 at 11:59pm PDT, with a word limit of under 8,000 words, a $20 entry fee per submission, and responses guaranteed by end of September 2026.\n\nKey restrictions to note: work must be previously unpublished (including personal blogs and social media), writers with a single-author book under contract or published by a major press are ineligible, no translations are accepted, and writers published in previous anthology editions cannot submit — while writers from historically marginalized groups may submit for free for the first fifty qualifying submissions.",
+    "url": "https://mastersreview.com/submissions/",
+    "fetched_at": "2026-06-05T20:49:02.458635+00:00"
+  },
+  "paris review": {
+    "name": "The Paris Review",
+    "summary": "**Paris Review Submission Summary**\n\nThe Paris Review publishes literary prose and poetry in English, and strongly encourages writers to read recent issues before submitting to understand the caliber and style of work they favor; translations are also welcome if accompanied by the original text. Prose submissions are capped at 40 pages, with a limit of one prose piece or six poems per submission period; online submissions via Submittable are accepted during specific months (prose: February, June, October; poetry: January, April, July, October), while mail submissions are accepted year-round. Writers should be aware that response times run 6–8 months, simultaneous submissions are permitted but require immediate notification upon acceptance elsewhere, and unsolicited art submissions are not accepted under any circumstances.",
+    "url": "https://www.theparisreview.org/about/submissions",
+    "fetched_at": "2026-06-05T20:49:07.472466+00:00"
+  },
+  "a public space": {
+    "name": "A Public Space",
+    "summary": "This page is primarily an \"About\" and history page for *A Public Space* magazine, not a dedicated submissions guidelines page, so specific practical details are limited. That said, here is what can be gathered:\n\n*A Public Space* focuses on \"overlooked and unclassifiable work\" published beyond established literary confines, favoring ambitious, unconventional writing across fiction, poetry, and nonfiction, with an international scope reflected in its contributing editors across multiple countries. No word count ranges, reading periods, or response times are listed on this page. Writers should note that the journal prizes originality and work that resists easy categorization, but without a dedicated submissions page, a writer would need to seek out their actual guidelines elsewhere before submitting.",
+    "url": "https://apublicspace.org/about",
+    "fetched_at": "2026-06-05T20:49:13.631336+00:00"
+  },
+  "raising mothers": {
+    "name": "Raising Mothers",
+    "summary": "**Summary of Raising Mothers Submission Guidelines**\n\nRaising Mothers publishes experimental and traditional fiction, flash/micro fiction, creative nonfiction, interviews, book reviews, and comic/graphic narratives, with a strong focus on non-heteronormative family structures, queer parenting, chosen families, and marginalized parenting experiences; the editorial preference is for literary quality that is \"strong, engaging, and non-academic\" rather than scholarly in tone.\n\nThe journal accepts simultaneous submissions (with immediate notification if accepted elsewhere), responds within 3–6 months, requires 12pt double-spaced .doc/.docx files (PDFs for comics), and does not list a specific word count range, though a word count must be included in the submitted document.\n\nCritically, this journal is **exclusively open to self-identified mothers/parents who are BIPOC, LGBTQIA+, disabled, gender-marginalized, or living at intersections of these identities** (with a separate track for un-mothered/child-centered perspectives regardless of parent status); multiple submissions are restricted to paying members only, previously published work is not accepted, AI-generated content is automatically rejected,",
+    "url": "https://raisingmothers.substack.com/p/guidelines",
+    "fetched_at": "2026-06-05T20:49:20.774426+00:00"
+  },
+  "short story long": {
+    "name": "Short Story, Long",
+    "summary": "This page doesn't contain useful submission guidelines. It appears to be a Substack publication called *Short Story, Long* by Aaron Burch that publishes \"longer short stories\" biweekly, but the page lacks any actionable details about aesthetic focus, word counts, reading periods, or submission instructions. A writer should seek out a dedicated submissions page or contact the editor directly for that information.",
+    "url": "https://ashortstorylong.substack.com/",
+    "fetched_at": "2026-06-05T20:49:31.386088+00:00"
+  },
+  "texas review": {
+    "name": "The Texas Review",
+    "summary": "**West Texas Literary Review** seeks poetry, flash fiction, essays, and photography that are \"thoughtful, deliberate, and authentic,\" with no strict thematic or stylistic requirements beyond a general emphasis on work with something genuine to say. The journal publishes two issues annually (Spring and Fall) and evaluates all submissions blindly on aesthetic merit, though no specific word counts, reading period dates, or response times are listed on this page. Notably, the journal welcomes both established and first-time writers equally, and contributors receive a free print copy — but writers should visit the full submissions page for any word count limits or open/closed reading period details not provided here.",
+    "url": "https://www.westtexasreview.com/",
+    "fetched_at": "2026-06-05T20:49:36.952743+00:00"
+  }
+}

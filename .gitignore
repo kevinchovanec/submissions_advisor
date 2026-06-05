@@ -1,0 +1,39 @@
+# Personal submission data — keep local only
+data/submission_tracking.xlsx
+data/submissions.xlsx
+data/stories/
+
+# Cover letter templates with personal info — keep local only
+data/cover_letter_templates/short.md
+data/cover_letter_templates/standard.md
+data/cover_letter_templates/bio.md
+
+# Generated outputs
+outputs/
+
+# Regenerable cache
+data/about_pages_cache.json
+
+# API keys
+.env
+
+# Local launch script (has hardcoded username/path)
+launch.bat
+
+# Claude Code local settings (has personal paths)
+.claude/settings.local.json
+
+# Project planning / AI instructions (personal/local)
+CLAUDE.md
+
+# One-off scripts
+fill_missing_urls.py
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# Streamlit
+.streamlit/secrets.toml
