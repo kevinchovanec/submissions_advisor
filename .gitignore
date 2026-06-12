@@ -25,9 +25,16 @@ launch.bat
 
 # Project planning / AI instructions (personal/local)
 CLAUDE.md
+docs/handoff.md
+docs/to_do.md
+docs/react_migration.md
 
 # One-off scripts
 fill_missing_urls.py
+
+# Frontend build artifacts (committed only via CI)
+frontend/node_modules/
+frontend/dist/
 
 # Python
 __pycache__/

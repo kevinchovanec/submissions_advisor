@@ -10,11 +10,9 @@ import anthropic
 import requests
 from bs4 import BeautifulSoup
 
-from datetime import date as _date
-from stories import log_submission, load_story
+from storage import StorageBackend
 from summarize_journals import load_summaries_for
-from workbook import format_feedback_brief, get_feedback_for_journal, add_submission as wb_add_submission, WORKBOOK_PATH
-from cover_letters import list_templates, load_template
+from workbook import format_feedback_brief, get_feedback_for_journal
 
 MODEL = "claude-sonnet-4-6"
 MAX_PAGE_CHARS = 3000
@@ -156,6 +154,7 @@ def _format_journal_list(journals: list[dict], summaries: dict[str, str]) -> str
 
 def _build_initial_context(
     journals: list[dict],
+    storage: StorageBackend,
     editor_feedback: list[dict],
     pending_context: str = "",
     genre_mode: str = "Literary",
@@ -175,7 +174,7 @@ def _build_initial_context(
     feedback_brief = format_feedback_brief(editor_feedback) if editor_feedback else ""
     if feedback_brief:
         parts.append(feedback_brief)
-    templates = list_templates()
+    templates = storage.list_templates()
     if templates:
         tmpl_lines = ["Cover letter templates available (call get_cover_letter_template to fetch):"]
         for t in templates:
@@ -189,10 +188,12 @@ def stream_response(
     api_history: list[dict],
     new_user_message: str,
     journals: list[dict],
+    storage: StorageBackend,
     story_context: str | None = None,
     editor_feedback: list[dict] | None = None,
     pending_context: str = "",
     genre_mode: str = "Literary",
+    api_key: str | None = None,
 ) -> Generator[str, None, list[dict]]:
     """
     Stream Claude's response. Handles multi-turn tool use internally.
@@ -205,11 +206,11 @@ def stream_response(
     editor_feedback: raw feedback list from workbook (first turn: brief list in context;
                      on demand: full text via get_editor_feedback tool).
     """
-    client = anthropic.Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
+    client = anthropic.Anthropic(api_key=api_key or os.environ.get("ANTHROPIC_API_KEY"))
     _feedback = editor_feedback or []
 
     if not api_history:
-        journal_context = _build_initial_context(journals, _feedback, pending_context, genre_mode)
+        journal_context = _build_initial_context(journals, storage, _feedback, pending_context, genre_mode)
         if story_context:
             opening = f"{story_context}\n\n---\n\n{journal_context}"
             ack = (
@@ -274,12 +275,7 @@ def stream_response(
                 journal = tool_use.input.get("journal", "")
                 notes = tool_use.input.get("notes", "")
                 try:
-                    log_submission(slug, journal, outcome="pending", notes=notes)
-                    # Mirror to Excel tracker if available
-                    if WORKBOOK_PATH.exists():
-                        post = load_story(slug)
-                        if post:
-                            wb_add_submission(WORKBOOK_PATH, journal, post.get("title", slug), _date.today())
+                    storage.log_submission(slug, journal, outcome="pending", notes=notes)
                     result = f"Logged: '{journal}' saved to story file as pending."
                 except Exception as e:
                     result = f"Could not log submission: {e}"
@@ -288,7 +284,7 @@ def stream_response(
             elif tool_use.name == "get_cover_letter_template":
                 tmpl_name = tool_use.input.get("name", "")
                 yield f"\n*Loading '{tmpl_name}' cover letter template...*\n"
-                tmpl = load_template(tmpl_name)
+                tmpl = storage.load_template(tmpl_name)
                 result = tmpl if tmpl else f"Template '{tmpl_name}' not found. Available: short, bio, ai."
 
             else:

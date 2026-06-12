@@ -4,8 +4,11 @@ pandas
 openpyxl
 rapidfuzz
 anthropic
-streamlit
 python-frontmatter
 pyyaml
 python-dotenv
 ddgs
+supabase
+fastapi
+uvicorn[standard]
+python-multipart

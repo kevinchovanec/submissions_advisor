@@ -1,7 +1,6 @@
-"""
-Streamlit UI for Submissions Advisor.
-Run with: streamlit run app.py
-"""
+# DEPRECATED — replaced by the React + FastAPI frontend (api/ + frontend/).
+# Kept for reference. Requires: pip install streamlit
+# Run with: streamlit run app.py
 
 import datetime as _dt
 import hashlib
@@ -29,11 +28,9 @@ from fetch_about import fetch_about_pages
 from agent import stream_response
 from summarize_journals import missing_summaries, generate_summaries, no_url_count
 from find_urls import find_missing_urls
-from stories import (
-    list_stories, load_story, create_story, update_story,
-    log_submission, update_submission_outcome, format_for_agent, submitted_journals,
-    sync_from_tracker,
-)
+from storage import format_story_for_agent, format_pending_for_context
+from storage_local import StorageLocal
+from stories import sync_from_tracker
 from workbook import (
     load as load_workbook,
     get_sheet_names,
@@ -41,14 +38,22 @@ from workbook import (
     update_outcome as wb_update_outcome,
     add_submission as wb_add_submission,
     add_feedback as wb_add_feedback,
-    tracker_submissions_for_agent,
     format_all_pending_for_agent,
+    tracker_submissions_for_agent,
     WORKBOOK_PATH,
 )
 
+# ---------------------------------------------------------------------------
+# Cloud mode detection
+# ---------------------------------------------------------------------------
+
+_CLOUD_MODE = bool(os.environ.get("SUPABASE_URL") and os.environ.get("SUPABASE_KEY"))
+if _CLOUD_MODE:
+    from supabase import create_client as _create_sb_client
+    _sb_client = _create_sb_client(os.environ["SUPABASE_URL"], os.environ["SUPABASE_KEY"])
 
 # ---------------------------------------------------------------------------
-# Page config
+# Page config  (must be first Streamlit call)
 # ---------------------------------------------------------------------------
 
 st.set_page_config(
@@ -68,6 +73,100 @@ def _fmt_date(d) -> str:
         return d.date().isoformat()
     return str(d)[:10]
 
+
+# ---------------------------------------------------------------------------
+# Cloud auth + API key gates  (cloud mode only — stops before main app)
+# ---------------------------------------------------------------------------
+
+if _CLOUD_MODE:
+    # Restore session on every rerun
+    if "sb_access_token" in st.session_state:
+        try:
+            _sb_client.auth.set_session(
+                st.session_state.sb_access_token,
+                st.session_state.sb_refresh_token,
+            )
+        except Exception:
+            for _k in ("sb_access_token", "sb_refresh_token", "sb_user_id"):
+                st.session_state.pop(_k, None)
+            st.rerun()
+
+    # --- Login / signup gate ---
+    if "sb_user_id" not in st.session_state:
+        _col, _ = st.columns([1, 1])
+        with _col:
+            _tab_in, _tab_up = st.tabs(["Log in", "Sign up"])
+            with _tab_in:
+                with st.form("cloud_login"):
+                    _email = st.text_input("Email")
+                    _pw = st.text_input("Password", type="password")
+                    if st.form_submit_button("Log in"):
+                        try:
+                            _resp = _sb_client.auth.sign_in_with_password(
+                                {"email": _email, "password": _pw}
+                            )
+                            st.session_state.sb_user_id = _resp.user.id
+                            st.session_state.sb_access_token = _resp.session.access_token
+                            st.session_state.sb_refresh_token = _resp.session.refresh_token
+                            st.rerun()
+                        except Exception as _e:
+                            st.error(f"Login failed: {_e}")
+            with _tab_up:
+                with st.form("cloud_signup"):
+                    _email = st.text_input("Email")
+                    _pw = st.text_input("Password", type="password")
+                    _pw2 = st.text_input("Confirm password", type="password")
+                    if st.form_submit_button("Create account"):
+                        if _pw != _pw2:
+                            st.error("Passwords don't match.")
+                        else:
+                            try:
+                                _resp = _sb_client.auth.sign_up(
+                                    {"email": _email, "password": _pw}
+                                )
+                                st.success(
+                                    "Account created! Check your email to confirm, then log in."
+                                )
+                            except Exception as _e:
+                                st.error(f"Sign up failed: {_e}")
+        st.stop()
+
+    # --- Anthropic API key gate ---
+    if "anthropic_api_key" not in st.session_state:
+        _col, _ = st.columns([1, 1])
+        with _col:
+            st.subheader("Enter your Anthropic API key")
+            st.markdown(
+                "The AI advisor runs on your own Anthropic account. "
+                "Your key is held in your browser session only — it is never saved to the database."
+            )
+            with st.form("api_key_form"):
+                _key = st.text_input(
+                    "API key", type="password", placeholder="sk-ant-..."
+                )
+                st.caption(
+                    "Get your key at [console.anthropic.com](https://console.anthropic.com). "
+                    "Typical sessions cost a few cents, billed directly to your account."
+                )
+                if st.form_submit_button("Continue"):
+                    if _key.strip().startswith("sk-"):
+                        st.session_state.anthropic_api_key = _key.strip()
+                        st.rerun()
+                    else:
+                        st.error("That doesn't look like an Anthropic API key (should start with sk-).")
+        st.stop()
+
+    os.environ["ANTHROPIC_API_KEY"] = st.session_state.anthropic_api_key
+
+# ---------------------------------------------------------------------------
+# Storage initialization
+# ---------------------------------------------------------------------------
+
+if _CLOUD_MODE:
+    from storage_supabase import StorageSupabase
+    storage = StorageSupabase(_sb_client, st.session_state.sb_user_id)
+else:
+    storage = StorageLocal()
 
 # Accumulated journal list persists across pastes
 if "journals" not in st.session_state:
@@ -89,6 +188,15 @@ if "genre_mode" not in st.session_state:
 # ---------------------------------------------------------------------------
 
 with st.sidebar:
+    if _CLOUD_MODE:
+        st.caption(f"Signed in as {st.session_state.get('sb_user_id', '')[:8]}…")
+        if st.button("Log out", key="logout"):
+            _sb_client.auth.sign_out()
+            for _k in ("sb_access_token", "sb_refresh_token", "sb_user_id", "anthropic_api_key"):
+                st.session_state.pop(_k, None)
+            st.rerun()
+        st.divider()
+
     st.header("Rankings")
     try:
         _all_rankings = load_rankings()
@@ -368,7 +476,7 @@ if st.session_state.get("last_matched"):
 # ---------------------------------------------------------------------------
 
 with tab_stories:
-    stories = list_stories()
+    stories = storage.list_stories()
 
     # Sync from tracker (runs once on demand)
     if WORKBOOK_PATH.exists():
@@ -387,7 +495,7 @@ with tab_stories:
                     _total_added += sync_from_tracker(_s["slug"], _subs_flat)
                 if _total_added:
                     st.success(f"Synced {_total_added} submission(s) from tracker into story files.")
-                    stories = list_stories()  # refresh
+                    stories = storage.list_stories()  # refresh
                 else:
                     st.info("Stories are already up to date with the tracker.")
             except Exception as _e:
@@ -500,7 +608,7 @@ with tab_stories:
             )
             if st.form_submit_button("Create story"):
                 if new_title.strip():
-                    create_story(new_title.strip(), new_wc or None, new_style.strip(), new_desc.strip())
+                    storage.create_story(new_title.strip(), new_wc or None, new_style.strip(), new_desc.strip())
                     st.session_state.ai_prefill = {}
                     st.success(f"Created '{new_title}'")
                     st.rerun()
@@ -510,25 +618,25 @@ with tab_stories:
     with col_detail:
         if stories and selected_title:
             slug = {s["title"]: s["slug"] for s in stories}[selected_title]
-            post = load_story(slug)
+            story = storage.load_story(slug)
 
             st.subheader(selected_title)
 
             with st.expander("Edit story details", expanded=False):
                 with st.form("edit_story"):
                     e_wc = st.number_input("Word count", min_value=0, step=100,
-                                           value=post.get("word_count") or 0)
-                    e_style = st.text_input("Style / aesthetic", value=post.get("style", ""))
-                    e_desc = st.text_area("Description", value=post.content, height=150)
+                                           value=story.get("word_count") or 0)
+                    e_style = st.text_input("Style / aesthetic", value=story.get("style", ""))
+                    e_desc = st.text_area("Description", value=story.get("description", ""), height=150)
                     if st.form_submit_button("Save changes"):
-                        update_story(slug, e_wc or None, e_style.strip(), e_desc.strip())
+                        storage.update_story(slug, e_wc or None, e_style.strip(), e_desc.strip())
                         st.success("Saved.")
                         st.rerun()
 
-            submissions = post.get("submitted_to", [])
-            st.markdown(f"**Word count:** {post.get('word_count') or '—'}")
-            st.markdown(f"**Style:** {post.get('style') or '—'}")
-            st.markdown(f"**Description:** {post.content.strip() or '—'}")
+            submissions = story.get("submitted_to", [])
+            st.markdown(f"**Word count:** {story.get('word_count') or '—'}")
+            st.markdown(f"**Style:** {story.get('style') or '—'}")
+            st.markdown(f"**Description:** {story.get('description', '').strip() or '—'}")
 
             st.divider()
             st.subheader("Submission log")
@@ -546,21 +654,7 @@ with tab_stories:
                     upd_outcome = st.selectbox("New outcome", ["pending", "rejected", "accepted", "withdrawn"])
                     upd_notes = st.text_input("Notes (optional)")
                     if st.form_submit_button("Update"):
-                        update_submission_outcome(slug, upd_journal, upd_outcome, upd_notes)
-                        if WORKBOOK_PATH.exists():
-                            _raw_map = {"rejected": "Nope", "accepted": "Yep", "withdrawn": "Withdrawn", "pending": None}
-                            _raw_val = _raw_map.get(upd_outcome)
-                            if _raw_val:
-                                try:
-                                    wb_update_outcome(WORKBOOK_PATH, upd_journal, post.get("title", slug), _raw_val)
-                                except ValueError:
-                                    # Submission not in Excel yet — add it now with the new outcome
-                                    _sub_entry = next(
-                                        (s for s in submissions if s["journal"].strip().lower() == upd_journal.strip().lower()),
-                                        {},
-                                    )
-                                    _sub_date = _sub_entry.get("date") or _dt.date.today()
-                                    wb_add_submission(WORKBOOK_PATH, upd_journal, post.get("title", slug), _sub_date, _raw_val)
+                        storage.update_outcome(slug, upd_journal, upd_outcome, upd_notes)
                         st.success("Updated.")
                         st.rerun()
             else:
@@ -573,12 +667,7 @@ with tab_stories:
                 sub_notes = st.text_input("Notes (optional)")
                 if st.form_submit_button("Log as submitted (pending)"):
                     if sub_journal.strip():
-                        log_submission(slug, sub_journal.strip(), "pending", sub_notes.strip())
-                        if WORKBOOK_PATH.exists():
-                            try:
-                                wb_add_submission(WORKBOOK_PATH, sub_journal.strip(), post.get("title", slug), _dt.date.today())
-                            except Exception as _e:
-                                st.warning(f"Saved to story file but could not update Excel tracker: {_e}")
+                        storage.log_submission(slug, sub_journal.strip(), "pending", sub_notes.strip())
                         st.success(f"Logged submission to {sub_journal}.")
                         st.rerun()
                     else:
@@ -590,7 +679,12 @@ with tab_stories:
 # ---------------------------------------------------------------------------
 
 with tab_tracker:
-    if not WORKBOOK_PATH.exists():
+    if _CLOUD_MODE:
+        st.info(
+            "In online mode, your submission history is managed in the **Stories** tab. "
+            "The Excel tracker is a local-only feature."
+        )
+    elif not WORKBOOK_PATH.exists():
         st.info(
             "Place your submissions Excel file in the `data/` folder as `submissions.xlsx` or "
             "`submission_tracking.xlsx`. You can also upload it here."
@@ -693,10 +787,17 @@ with tab_tracker:
                                     norm_val = {"Nope": "rejected", "Yep": "accepted", "Withdrawn": "withdrawn"}[raw_val]
                                     try:
                                         wb_update_outcome(WORKBOOK_PATH, sub["journal"], title, raw_val)
-                                        # Mirror to Markdown file
-                                        _slug = next((s["slug"] for s in list_stories() if s["title"].strip().lower() == title.strip().lower()), None)
+                                        # Mirror to story file
+                                        _slug = next(
+                                            (s["slug"] for s in storage.list_stories()
+                                             if s["title"].strip().lower() == title.strip().lower()),
+                                            None,
+                                        )
                                         if _slug:
-                                            update_submission_outcome(_slug, sub["journal"], norm_val)
+                                            # update_outcome in storage would double-mirror to Excel;
+                                            # call stories directly to avoid that
+                                            from stories import update_submission_outcome as _update_md
+                                            _update_md(_slug, sub["journal"], norm_val)
                                         st.success(f"{sub['journal']} → {new_out}.")
                                         st.rerun()
                                     except Exception as _e:
@@ -731,10 +832,15 @@ with tab_tracker:
                     if sub_story and sub_journal.strip():
                         try:
                             wb_add_submission(WORKBOOK_PATH, sub_journal.strip(), sub_story, sub_date)
-                            # Mirror to Markdown file
-                            _slug = next((s["slug"] for s in list_stories() if s["title"].strip().lower() == sub_story.strip().lower()), None)
+                            # Mirror to story file (skip Excel mirror since we just wrote above)
+                            _slug = next(
+                                (s["slug"] for s in storage.list_stories()
+                                 if s["title"].strip().lower() == sub_story.strip().lower()),
+                                None,
+                            )
                             if _slug:
-                                log_submission(_slug, sub_journal.strip(), "pending")
+                                from stories import log_submission as _log_md
+                                _log_md(_slug, sub_journal.strip(), "pending")
                             st.success(f"Logged '{sub_story}' → {sub_journal}.")
                             st.rerun()
                         except Exception as _e:
@@ -749,8 +855,13 @@ with tab_tracker:
 # ---------------------------------------------------------------------------
 
 with tab_feedback:
-    if not WORKBOOK_PATH.exists():
+    if _CLOUD_MODE:
+        _fb_data = storage.list_feedback()
+        _fb_ok = True
+    elif not WORKBOOK_PATH.exists():
         st.info("No workbook loaded. Add your submissions Excel file via the Tracker tab.")
+        _fb_data = []
+        _fb_ok = False
     else:
         try:
             _fb_data = load_workbook(WORKBOOK_PATH)["feedback"]
@@ -760,20 +871,20 @@ with tab_feedback:
             _fb_data = []
             _fb_ok = False
 
-        if _fb_ok:
-            if _fb_data:
-                for _fb in _fb_data:
-                    _date_str = _fmt_date(_fb.get("date"))
-                    _story_str = _fb.get("story") or ""
-                    _header = _fb["journal"]
-                    if _story_str:
-                        _header += f" — {_story_str}"
-                    if _date_str:
-                        _header += f" ({_date_str})"
-                    with st.expander(_header):
-                        st.write(_fb["text"])
-            else:
-                st.caption("No editor notes recorded yet.")
+    if _fb_ok:
+        if _fb_data:
+            for _fb in _fb_data:
+                _date_str = _fmt_date(_fb.get("date"))
+                _story_str = _fb.get("story") or ""
+                _header = _fb["journal"]
+                if _story_str:
+                    _header += f" — {_story_str}"
+                if _date_str:
+                    _header += f" ({_date_str})"
+                with st.expander(_header):
+                    st.write(_fb["text"])
+        else:
+            st.caption("No editor notes recorded yet.")
 
         st.divider()
         st.subheader("Add editor note")
@@ -786,7 +897,10 @@ with tab_feedback:
             if st.form_submit_button("Save note"):
                 if fb_j.strip() and fb_t.strip():
                     try:
-                        wb_add_feedback(WORKBOOK_PATH, fb_j.strip(), fb_s.strip(), fb_t.strip(), fb_d)
+                        if _CLOUD_MODE:
+                            storage.add_feedback(fb_j.strip(), fb_s.strip(), fb_d, fb_t.strip())
+                        else:
+                            wb_add_feedback(WORKBOOK_PATH, fb_j.strip(), fb_s.strip(), fb_t.strip(), fb_d)
                         st.success("Note saved.")
                         st.rerun()
                     except Exception as _e:
@@ -807,25 +921,29 @@ with tab_discuss:
         return [j for j in ranked_only(journals) if j.get("normalized_name") not in _rejected]
 
     active_slug = st.session_state.active_story_slug
-    story_context = format_for_agent(active_slug) if active_slug else None
+    _active_story = storage.load_story(active_slug) if active_slug else None
+    story_context = format_story_for_agent(_active_story) if _active_story else None
 
     editor_feedback = []
     pending_context = ""
-    if WORKBOOK_PATH.exists():
+    if _CLOUD_MODE:
+        editor_feedback = storage.list_feedback()
+        pending_context = format_pending_for_context(storage.list_all_pending())
+    elif WORKBOOK_PATH.exists():
         try:
             _wb = load_workbook(WORKBOOK_PATH)
             editor_feedback = _wb["feedback"]
             pending_context = format_all_pending_for_agent(_wb["journals"])
-            # Append per-story tracker history to story context if a story is active
             if story_context and active_slug:
-                _post = load_story(active_slug)
-                _title = _post.get("title", "") if _post else ""
+                _title = _active_story["title"] if _active_story else ""
                 if _title:
                     _tracker_subs = tracker_submissions_for_agent(_title, _wb["journals"])
                     if _tracker_subs:
                         story_context = story_context + "\n\n" + _tracker_subs
         except Exception:
             pass
+    if not pending_context:
+        pending_context = format_pending_for_context(storage.list_all_pending())
 
     if not matched_journals:
         st.info("Match your Duotrope journals first (Paste tab), then come back here to discuss your story.")
@@ -865,8 +983,7 @@ with tab_discuss:
         col_header, col_clear = st.columns([4, 1])
         with col_header:
             if story_context:
-                post = load_story(active_slug)
-                st.write(f"**{len(accepted_ranked(matched_journals))} journals loaded · Active story: {post.get('title')}**")
+                st.write(f"**{len(accepted_ranked(matched_journals))} journals loaded · Active story: {_active_story['title']}**")
             else:
                 st.write(f"**{len(accepted_ranked(matched_journals))} journals loaded.** Select a story in the Stories tab, or just describe your story below.")
         with col_clear:
@@ -897,6 +1014,7 @@ with tab_discuss:
                             st.session_state.api_history,
                             user_input,
                             accepted_ranked(matched_journals),
+                            storage,
                             story_context=story_context,
                             editor_feedback=editor_feedback or None,
                             pending_context=pending_context,
@@ -917,3 +1035,5 @@ with tab_discuss:
                     st.session_state.chat_history.append({"role": "assistant", "content": full_response})
                 if updated_api_history is not None:
                     st.session_state.api_history = updated_api_history
+                if full_response:
+                    st.rerun()

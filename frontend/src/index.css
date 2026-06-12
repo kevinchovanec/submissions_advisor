@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply text-gray-900 bg-gray-50;
+  }
+  pre, code {
+    @apply font-mono text-sm;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center gap-1.5 rounded px-3 py-1.5 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-primary {
+    @apply btn bg-indigo-600 text-white hover:bg-indigo-700 focus:ring-indigo-500;
+  }
+  .btn-secondary {
+    @apply btn bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 focus:ring-indigo-500;
+  }
+  .btn-danger {
+    @apply btn bg-red-50 text-red-700 border border-red-200 hover:bg-red-100 focus:ring-red-400;
+  }
+  .input {
+    @apply block w-full rounded border border-gray-300 px-3 py-1.5 text-sm shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 disabled:bg-gray-100;
+  }
+  .label {
+    @apply block text-sm font-medium text-gray-700 mb-1;
+  }
+  .card {
+    @apply bg-white rounded-lg border border-gray-200 p-4 shadow-sm;
+  }
+}
+
+/* Chat message prose */
+.chat-content p { @apply mb-2 last:mb-0; }
+.chat-content ul { @apply list-disc pl-5 mb-2; }
+.chat-content ol { @apply list-decimal pl-5 mb-2; }
+.chat-content li { @apply mb-0.5; }
+.chat-content strong { @apply font-semibold; }
+.chat-content em { @apply italic; }
+.chat-content code { @apply bg-gray-100 rounded px-1 py-0.5 text-xs; }
+.chat-content pre { @apply bg-gray-900 text-gray-100 rounded p-3 my-2 overflow-x-auto text-xs; }
+.chat-content pre code { @apply bg-transparent p-0; }

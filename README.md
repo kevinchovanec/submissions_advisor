@@ -1,6 +1,6 @@
 # Submissions Advisor
 
-A tool for short fiction writers to find the best open literary journals for each story. Paste in results from a Duotrope search, and the app cross-references them against a curated ranked list of ~550 literary and genre journals — ranked by a weighted prestige score drawn from prize wins, circulation, and pay — and returns a prioritized list. A conversational AI agent lets you describe your story, get tailored journal recommendations, and draft cover letters, all in one place.
+A tool for short fiction writers to find the best open literary journals for each story. Paste in a list of open journals — from Duotrope, The Submission Grinder, a spreadsheet, or anywhere else — and the app cross-references them against a curated ranked list of ~550 literary and genre journals, ranked by a weighted prestige score drawn from prize wins, circulation, and pay. A conversational AI agent lets you describe your story, get tailored journal recommendations, and draft cover letters, all in one place.
 
 ---
 
@@ -87,18 +87,27 @@ On Mac/Linux (Terminal):
 echo 'export ANTHROPIC_API_KEY="your-key-here"' >> ~/.zshrc && source ~/.zshrc
 ```
 
-### Step 4 — Launch the app
+### Step 4 — Create your launcher
+
+A `launch.example.bat` file (Windows) and `launch.example.sh` (Mac/Linux) are included in the project folder.
+
+**Windows:**
+1. Copy `launch.example.bat` and rename the copy to `launch.bat`
+2. Open `launch.bat` in a text editor and replace `YOUR_USERNAME` with your Windows username
+3. Double-click `launch.bat` to start — it activates the environment, starts the server, and opens the app in your browser automatically
+4. Right-click → **Send to → Desktop (create shortcut)** to put it on your desktop
+
+**Mac/Linux:**
+1. Copy `launch.example.sh` and rename the copy to `launch.sh`
+2. Make it executable: `chmod +x launch.sh`
+3. Double-click it (or run `./launch.sh`) to launch
+
+The app opens at `http://localhost:8000`. Leave the terminal window open while using it — closing it stops the server. You can also run the server directly with:
 
 ```
 conda activate submission_advisor
-streamlit run app.py
+python launch_app.py
 ```
-
-The app opens automatically in your browser at `http://localhost:8501`. Leave the terminal window open while using the app — closing it stops the server.
-
-**Optional: create a desktop shortcut**
-
-A `launch.example.bat` file is included in the project folder. Copy it, rename the copy to `launch.bat`, and replace `YOUR_USERNAME` with your Windows username. Double-clicking it will activate the environment and launch the app without opening a terminal manually. Right-click → **Send to → Desktop (create shortcut)** to put it on your desktop.
 
 ---
 
@@ -122,7 +131,7 @@ Then open `standard.md` in any text editor and replace the bracketed placeholder
 
 ## Using the app
 
-The app has two mostly independent halves: **journal matching** (which requires a Duotrope subscription) and **story management + AI advice** (which requires an Anthropic API key). You can use either half without the other.
+The app has two mostly independent halves: **journal matching** and **story management + AI advice** (which requires an Anthropic API key). You can use either half without the other.
 
 ### Genre mode
 
@@ -132,14 +141,27 @@ Use the **Genre** selector in the sidebar to switch between literary and science
 
 ### Journal matching
 
-The matching feature works with [Duotrope](https://duotrope.com), which requires a paid subscription. It cross-references Duotrope's list of currently open journals against the built-in ranked list and returns only the journals that are both open and ranked, sorted by prestige.
+The matching feature cross-references a list of open journals against the built-in ranked list and returns only the journals that are both open and ranked, sorted by prestige. It's optimized for [Duotrope](https://duotrope.com) exports but accepts any source that gives you a list of journal names.
+
+#### Using Duotrope (recommended)
+
+Duotrope is a paid subscription service (~$5/month) that maintains a curated, up-to-date list of open markets with deadlines, response times, and pay rates. It's the easiest way to get a reliable "currently open" list.
 
 1. Log into Duotrope and run a search — filter by open markets, fiction, your preferred length, etc.
-2. Select all results on the page (Ctrl+A or Cmd+A in the results area), copy, and paste into the **Paste Duotrope data** tab
+2. Select all results on the page (Ctrl+A or Cmd+A in the results area), copy, and paste into the **Paste** tab
 3. Click **Add batch** — Duotrope shows 50 results per page, so repeat for each page
 4. Click **Match against rankings**
-5. If any matches are flagged as uncertain, a review panel appears — check them and reject any that look wrong
-6. Download the ranked list as Excel or CSV
+5. Download the ranked list as Excel or CSV
+
+#### Alternatives to Duotrope
+
+You don't need a Duotrope subscription to use the matching feature. Any of these work:
+
+- **[The Submission Grinder](https://thesubmissiongrinder.com)** — free alternative with similar open-market data. Copy and paste results from a search, or export as CSV.
+- **Any CSV file** — upload a spreadsheet with a column of journal names. A `name` or `journal` column is all that's required; `deadline`, `response`, and `submit_url` columns are used if present.
+- **A plain text list** — paste journal names one per line. The app parses the first column of any tab-separated text, so results tables from most submission tracking sites will work.
+
+The tradeoff: Duotrope tells you which journals are open *right now*. If you're pasting from a static list or spreadsheet, you'll want to verify open/closed status yourself before submitting.
 
 To pick up where you left off in a previous session, upload your previously downloaded CSV via the **Upload CSV** tab — the app recognizes it and restores your results without re-pasting.
 
@@ -226,14 +248,14 @@ The agent only fetches journal pages when it's seriously considering a journal �
 
 ## Troubleshooting
 
-**The app won't start / "streamlit: command not found"**
-Make sure you ran `conda activate submission_advisor` in the same terminal window before running `streamlit run app.py`.
+**The app won't start / browser doesn't open**
+Make sure you ran `conda activate submission_advisor` before launching. If the browser opens but shows an error, wait a few more seconds and refresh — the server may still be starting.
 
 **"No module named X" error**
 Run `pip install -r requirements.txt` again with the environment activated.
 
-**The AI features don't work / "API key not found"**
-Double-check that your API key is set. In your terminal, run `echo $ANTHROPIC_API_KEY` (Mac/Linux) or `echo %ANTHROPIC_API_KEY%` (Windows) — it should print your key. If it prints nothing, revisit Step 3.
+**The AI features don't work / "No API key" error**
+Check that your `.env` file exists in the project folder and contains `ANTHROPIC_API_KEY=sk-ant-...`. The app loads it automatically on startup.
 
 **A journal name didn't match correctly**
 Add a manual correction to `data/manual_overrides.csv`:
@@ -249,31 +271,39 @@ Names should be lowercase, with any leading "the" removed and punctuation stripp
 
 ```
 submissions_advisor/
-├── data/
-│   ├── rankings_cache.json            # built-in ranked journal list (~550 journals)
-│   ├── custom_rankings_cache.json     # your uploaded rankings, if any (gitignored)
-│   ├── manual_overrides.csv           # hand-corrected name matches
-│   ├── cover_letter_templates/        # your cover letter templates
-│   │   ├── standard_example.md        # generic starting point (tracked in git)
-│   │   ├── short.md                   # your short template (gitignored)
-│   │   ├── standard.md                # your standard template (gitignored)
-│   │   └── bio.md                     # your bio template (gitignored)
-│   └── stories/                       # per-story files (gitignored)
-├── docs/
-│   └── to_do.md                       # roadmap for hosted public version
-├── outputs/                           # exported Excel files (gitignored)
+├── api/
+│   ├── main.py                        # FastAPI app — all endpoints
+│   ├── dependencies.py                # auth middleware, storage injection
+│   └── models.py                      # Pydantic request/response models
+├── frontend/
+│   ├── src/                           # React source (TypeScript + Vite)
+│   ├── dist/                          # pre-built bundle (committed via CI)
+│   └── package.json
 ├── src/
 │   ├── agent.py                       # conversational AI agent
 │   ├── cover_letters.py               # template loader
-│   ├── fetch_about.py                 # journal page fetcher
-│   ├── ingest.py                      # Duotrope paste parser
+│   ├── ingest.py                      # journal list parser (Duotrope, CSV, plain text)
 │   ├── match.py                       # fuzzy name matching
-│   ├── output.py                      # Excel export builder
 │   ├── scrape_rankings.py             # rankings loader
+│   ├── storage.py                     # storage interface (abstract base class)
+│   ├── storage_local.py               # local file backend
+│   ├── storage_supabase.py            # Supabase cloud backend
 │   ├── stories.py                     # story file read/write
 │   ├── summarize_journals.py          # journal summary cache
-│   └── workbook.py                    # submission tracker Excel read/write
-├── app.py                             # Streamlit UI
+│   └── workbook.py                    # Excel tracker read/write (local mode)
+├── data/
+│   ├── rankings_cache.json            # built-in ranked journal list (~550 journals)
+│   ├── manual_overrides.csv           # hand-corrected name matches
+│   ├── cover_letter_templates/        # your cover letter templates (gitignored)
+│   │   └── standard_example.md        # generic starting point
+│   └── stories/                       # per-story files (gitignored)
+├── sql/
+│   └── schema.sql                     # Supabase schema (cloud mode)
+├── .github/workflows/
+│   └── build-frontend.yml             # builds and commits frontend/dist/ on push
+├── launch_app.py                      # local launcher — starts server and opens browser
+├── launch.example.bat                 # Windows launcher template
+├── launch.example.sh                  # Mac/Linux launcher template
 ├── requirements.txt
 └── README.md
 ```

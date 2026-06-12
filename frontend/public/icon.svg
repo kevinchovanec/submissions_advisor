@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="80" fill="#4f46e5"/>
+  <!-- Document lines -->
+  <rect x="136" y="152" width="240" height="22" rx="11" fill="white"/>
+  <rect x="136" y="194" width="240" height="22" rx="11" fill="white"/>
+  <rect x="136" y="236" width="168" height="22" rx="11" fill="white"/>
+  <!-- Ranked list items -->
+  <rect x="136" y="296" width="22" height="22" rx="6" fill="#a5b4fc"/>
+  <rect x="172" y="301" width="130" height="12" rx="6" fill="rgba(255,255,255,0.75)"/>
+  <rect x="136" y="334" width="22" height="22" rx="6" fill="#a5b4fc"/>
+  <rect x="172" y="339" width="100" height="12" rx="6" fill="rgba(255,255,255,0.75)"/>
+  <rect x="136" y="372" width="22" height="22" rx="6" fill="#a5b4fc"/>
+  <rect x="172" y="377" width="80" height="12" rx="6" fill="rgba(255,255,255,0.75)"/>
+</svg>
