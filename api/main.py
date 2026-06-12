@@ -368,6 +368,27 @@ def match_journals(req: MatchRequest):
     return {"ranked": ranked, "unranked": unranked}
 
 
+@app.get("/api/submissions")
+def list_all_submissions(storage=Depends(get_storage)):
+    """All submissions across every story, sorted by date descending."""
+    rows = []
+    for s in storage.list_stories():
+        full = storage.load_story(s["slug"])
+        if full is None:
+            continue
+        for sub in full.get("submitted_to", []):
+            rows.append({
+                "story_slug": s["slug"],
+                "story_title": full["title"],
+                "journal": sub.get("journal", ""),
+                "date": sub.get("date", ""),
+                "outcome": sub.get("outcome", "pending"),
+                "notes": sub.get("notes", ""),
+            })
+    rows.sort(key=lambda r: r["date"] or "", reverse=True)
+    return rows
+
+
 @app.get("/api/pending")
 def list_pending(storage=Depends(get_storage)):
     return storage.list_all_pending()

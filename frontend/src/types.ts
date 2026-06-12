@@ -60,6 +60,15 @@ export interface Conversation {
   messages: ChatMessage[];
 }
 
+export interface SubmissionRow {
+  story_slug: string;
+  story_title: string;
+  journal: string;
+  date: string;
+  outcome: string;
+  notes: string;
+}
+
 export interface MatchResult {
   ranked: Journal[];
   unranked: Journal[];

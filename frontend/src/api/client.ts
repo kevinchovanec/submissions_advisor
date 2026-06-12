@@ -6,6 +6,7 @@ import type {
   MatchResult,
   PendingSub,
   Story,
+  SubmissionRow,
   Template,
   Conversation,
 } from '../types'
@@ -25,6 +26,8 @@ export interface ApiClient {
   // Submissions
   logSubmission(slug: string, data: { journal: string; outcome?: string; notes?: string; sub_date?: string }): Promise<void>
   updateOutcome(slug: string, journal: string, data: { outcome: string; notes?: string }): Promise<void>
+  // Tracker
+  listAllSubmissions(): Promise<SubmissionRow[]>
   // Pending
   listPending(): Promise<PendingSub[]>
   // Templates
@@ -97,6 +100,8 @@ export function createApiClient(accessToken: string | null, apiKey: string | nul
 
     logSubmission: (slug, data) => req('POST', `/api/stories/${slug}/submissions`, data),
     updateOutcome: (slug, journal, data) => req('PUT', `/api/stories/${slug}/submissions/${encodeURIComponent(journal)}`, data),
+
+    listAllSubmissions: () => req('GET', '/api/submissions'),
 
     listPending: () => req('GET', '/api/pending'),
 
