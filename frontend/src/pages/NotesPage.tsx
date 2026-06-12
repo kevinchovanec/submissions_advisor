@@ -46,7 +46,7 @@ export default function NotesPage() {
       ) : (
         <div className="space-y-3">
           {notes.map((note, i) => (
-            <NoteCard key={i} note={note} />
+            <NoteCard key={note.id ?? i} note={note} />
           ))}
         </div>
       )}
@@ -107,11 +107,82 @@ function AddNoteForm({
 }
 
 function NoteCard({ note }: { note: FeedbackNote }) {
+  const { apiClient } = useAuth()
+  const qc = useQueryClient()
+  const [editing, setEditing] = useState(false)
   const [expanded, setExpanded] = useState(false)
+  const [journal, setJournal] = useState(note.journal)
+  const [story, setStory] = useState(note.story)
+  const [date, setDate] = useState(note.date ?? '')
+  const [text, setText] = useState(note.text)
+
+  const updateMutation = useMutation({
+    mutationFn: () =>
+      apiClient.updateFeedback(note.id!, { journal, story, feedback_date: date || undefined, text }),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['feedback'] })
+      setEditing(false)
+    },
+  })
+
+  const deleteMutation = useMutation({
+    mutationFn: () => apiClient.deleteFeedback(note.id!),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['feedback'] }),
+  })
+
   const preview = note.text.length > 200 ? note.text.slice(0, 200) + '…' : note.text
 
+  if (editing) {
+    return (
+      <div className="card space-y-3">
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <label className="label">Journal *</label>
+            <input className="input" value={journal} onChange={(e) => setJournal(e.target.value)} />
+          </div>
+          <div>
+            <label className="label">Story</label>
+            <input className="input" value={story} onChange={(e) => setStory(e.target.value)} />
+          </div>
+        </div>
+        <div>
+          <label className="label">Date</label>
+          <input className="input" type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+        </div>
+        <div>
+          <label className="label">Feedback text *</label>
+          <textarea className="input min-h-[80px]" value={text} onChange={(e) => setText(e.target.value)} />
+        </div>
+        {updateMutation.isError && (
+          <p className="text-sm text-red-600">{(updateMutation.error as Error).message}</p>
+        )}
+        <div className="flex gap-2">
+          <button
+            className="btn-primary text-sm"
+            disabled={!journal.trim() || !text.trim() || updateMutation.isPending}
+            onClick={() => updateMutation.mutate()}
+          >
+            {updateMutation.isPending ? 'Saving…' : 'Save'}
+          </button>
+          <button
+            className="btn-secondary text-sm"
+            onClick={() => {
+              setEditing(false)
+              setJournal(note.journal)
+              setStory(note.story)
+              setDate(note.date ?? '')
+              setText(note.text)
+            }}
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    )
+  }
+
   return (
-    <div className="card">
+    <div className="card group">
       <div className="flex items-start justify-between gap-2">
         <div className="min-w-0">
           <p className="font-medium text-sm">{note.journal}</p>
@@ -120,6 +191,20 @@ function NoteCard({ note }: { note: FeedbackNote }) {
             {note.date && <span>{note.date}</span>}
           </p>
         </div>
+        {note.id && (
+          <div className="flex items-center gap-3 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
+            <button className="text-xs text-indigo-600 hover:underline" onClick={() => setEditing(true)}>
+              Edit
+            </button>
+            <button
+              className="text-xs text-red-500 hover:underline"
+              disabled={deleteMutation.isPending}
+              onClick={() => { if (window.confirm('Delete this note?')) deleteMutation.mutate() }}
+            >
+              {deleteMutation.isPending ? 'Deleting…' : 'Delete'}
+            </button>
+          </div>
+        )}
       </div>
       <div className="mt-2 text-sm text-gray-700 whitespace-pre-wrap">
         {expanded ? note.text : preview}

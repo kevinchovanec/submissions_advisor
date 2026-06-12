@@ -95,6 +95,26 @@ class StorageBackend(ABC):
     def add_feedback(self, journal: str, story: str, feedback_date, text: str) -> None:
         """Append an editor feedback note."""
 
+    @abstractmethod
+    def update_feedback(self, feedback_id: str, journal: str, story: str, feedback_date, text: str) -> None:
+        """Update an existing feedback note by id."""
+
+    @abstractmethod
+    def delete_feedback(self, feedback_id: str) -> None:
+        """Delete a feedback note by id."""
+
+    # ------------------------------------------------------------------
+    # Deletion
+    # ------------------------------------------------------------------
+
+    @abstractmethod
+    def delete_story(self, slug: str) -> None:
+        """Delete a story and all its submissions."""
+
+    @abstractmethod
+    def delete_submission(self, slug: str, journal: str) -> None:
+        """Delete the most recent submission to journal for story slug."""
+
 
 # ---------------------------------------------------------------------------
 # Agent context formatting helpers (pure functions, not backend-specific)

@@ -43,6 +43,16 @@ export default function TrackerPage() {
     },
   })
 
+  const deleteSubmissionMutation = useMutation({
+    mutationFn: ({ story_slug, journal }: { story_slug: string; journal: string }) =>
+      apiClient.deleteSubmission(story_slug, journal),
+    onSuccess: (_data, vars) => {
+      qc.invalidateQueries({ queryKey: ['submissions'] })
+      qc.invalidateQueries({ queryKey: ['story', vars.story_slug] })
+      qc.invalidateQueries({ queryKey: ['stories'] })
+    },
+  })
+
   const groups: StoryGroup[] = useMemo(() => {
     const map = new Map<string, StoryGroup>()
     for (const row of rows) {
@@ -105,7 +115,8 @@ export default function TrackerPage() {
             onSave={(journal, outcome, notes, sub_date) =>
               outcomeMutation.mutate({ story_slug: g.slug, journal, outcome, notes, sub_date })
             }
-            saving={outcomeMutation.isPending}
+            onDelete={(journal) => deleteSubmissionMutation.mutate({ story_slug: g.slug, journal })}
+            saving={outcomeMutation.isPending || deleteSubmissionMutation.isPending}
           />
         ))}
       </div>
@@ -113,10 +124,11 @@ export default function TrackerPage() {
   )
 }
 
-function StoryCard({ group, onNavigate, onSave, saving }: {
+function StoryCard({ group, onNavigate, onSave, onDelete, saving }: {
   group: StoryGroup
   onNavigate: () => void
   onSave: (journal: string, outcome: string, notes: string, sub_date?: string) => void
+  onDelete: (journal: string) => void
   saving: boolean
 }) {
   const total = group.pending.length + group.closed.length
@@ -141,7 +153,7 @@ function StoryCard({ group, onNavigate, onSave, saving }: {
       {group.pending.length > 0 && (
         <div className="space-y-1 mb-3">
           {group.pending.map((row) => (
-            <SubRow key={`${row.journal}-${row.date}`} row={row} onSave={onSave} saving={saving} />
+            <SubRow key={`${row.journal}-${row.date}`} row={row} onSave={onSave} onDelete={onDelete} saving={saving} />
           ))}
         </div>
       )}
@@ -155,7 +167,7 @@ function StoryCard({ group, onNavigate, onSave, saving }: {
               <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-1">Past</p>
             )}
             {group.closed.map((row) => (
-              <SubRow key={`${row.journal}-${row.date}`} row={row} onSave={onSave} saving={saving} />
+              <SubRow key={`${row.journal}-${row.date}`} row={row} onSave={onSave} onDelete={onDelete} saving={saving} />
             ))}
           </div>
         </>
@@ -164,9 +176,10 @@ function StoryCard({ group, onNavigate, onSave, saving }: {
   )
 }
 
-function SubRow({ row, onSave, saving }: {
+function SubRow({ row, onSave, onDelete, saving }: {
   row: SubmissionRow
   onSave: (journal: string, outcome: string, notes: string, sub_date?: string) => void
+  onDelete: (journal: string) => void
   saving: boolean
 }) {
   const [editing, setEditing] = useState(false)
@@ -206,6 +219,13 @@ function SubRow({ row, onSave, saving }: {
         <div className="flex gap-2">
           <button className="text-xs text-indigo-600 hover:underline" onClick={handleSave} disabled={saving}>Save</button>
           <button className="text-xs text-gray-400 hover:underline" onClick={() => setEditing(false)}>Cancel</button>
+          <button
+            className="text-xs text-red-500 hover:underline"
+            disabled={saving}
+            onClick={() => { if (window.confirm(`Delete submission to ${row.journal}?`)) onDelete(row.journal) }}
+          >
+            Delete
+          </button>
         </div>
       </div>
     )

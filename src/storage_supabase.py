@@ -238,6 +238,7 @@ class StorageSupabase(StorageBackend):
         )
         return [
             {
+                "id": f["id"],
                 "journal": f["journal"],
                 "story": f.get("story", ""),
                 "date": f.get("feedback_date"),
@@ -254,6 +255,39 @@ class StorageSupabase(StorageBackend):
             "feedback_date": str(feedback_date) if feedback_date else None,
             "feedback_text": text,
         }).execute()
+
+    def update_feedback(self, feedback_id: str, journal: str, story: str, feedback_date, text: str) -> None:
+        self._client.table("feedback").update({
+            "journal": journal,
+            "story": story,
+            "feedback_date": str(feedback_date) if feedback_date else None,
+            "feedback_text": text,
+        }).eq("id", feedback_id).eq("user_id", self._user_id).execute()
+
+    def delete_feedback(self, feedback_id: str) -> None:
+        self._client.table("feedback").delete().eq("id", feedback_id).eq("user_id", self._user_id).execute()
+
+    # ------------------------------------------------------------------
+    # Deletion
+    # ------------------------------------------------------------------
+
+    def delete_story(self, slug: str) -> None:
+        self._client.table("submissions").delete().eq("user_id", self._user_id).eq("story_slug", slug).execute()
+        self._client.table("stories").delete().eq("user_id", self._user_id).eq("slug", slug).execute()
+
+    def delete_submission(self, slug: str, journal: str) -> None:
+        res = (
+            self._client.table("submissions")
+            .select("id")
+            .eq("user_id", self._user_id)
+            .eq("story_slug", slug)
+            .ilike("journal", journal)
+            .order("sub_date", desc=True)
+            .limit(1)
+            .execute()
+        )
+        if res.data:
+            self._client.table("submissions").delete().eq("id", res.data[0]["id"]).execute()
 
 
 # ---------------------------------------------------------------------------

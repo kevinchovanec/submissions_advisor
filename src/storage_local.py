@@ -234,12 +234,13 @@ class StorageLocal(StorageBackend):
             data = wb_load(wb_path)
             return [
                 {
+                    "id": str(i),
                     "journal": f.get("journal", ""),
                     "story": f.get("story", ""),
                     "date": f.get("date"),
                     "text": f.get("text", ""),
                 }
-                for f in data.get("feedback", [])
+                for i, f in enumerate(data.get("feedback", []))
             ]
         except Exception:
             return []
@@ -250,6 +251,34 @@ class StorageLocal(StorageBackend):
             raise FileNotFoundError("No workbook found — upload a submissions Excel file first.")
         from workbook import add_feedback as wb_add_fb
         wb_add_fb(wb_path, journal, story, text, feedback_date)
+
+    def update_feedback(self, feedback_id: str, journal: str, story: str, feedback_date, text: str) -> None:
+        raise NotImplementedError("Feedback editing is not supported in local mode.")
+
+    def delete_feedback(self, feedback_id: str) -> None:
+        raise NotImplementedError("Feedback deletion is not supported in local mode.")
+
+    # ------------------------------------------------------------------
+    # Deletion
+    # ------------------------------------------------------------------
+
+    def delete_story(self, slug: str) -> None:
+        path = _story_path(slug)
+        if path.exists():
+            path.unlink()
+
+    def delete_submission(self, slug: str, journal: str) -> None:
+        path = _story_path(slug)
+        if not path.exists():
+            return
+        post = frontmatter.load(str(path))
+        submissions = post.get("submitted_to", [])
+        for i in range(len(submissions) - 1, -1, -1):
+            if submissions[i]["journal"].lower() == journal.lower():
+                submissions.pop(i)
+                break
+        post["submitted_to"] = submissions
+        _save_post(path, post)
 
     def _mirror_update_outcome(self, journal: str, story_title: str, outcome: str) -> None:
         wb_path = self._workbook_path()

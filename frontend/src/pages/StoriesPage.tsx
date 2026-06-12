@@ -193,7 +193,7 @@ function CreateStoryForm({ onCreated, onCancel }: { onCreated: (slug: string) =>
 
 // -------------------------------------------------------------------------
 
-function StoryDetail({ slug, onDiscuss, onDeleted: _onDeleted }: { slug: string; onDiscuss: () => void; onDeleted: () => void }) {
+function StoryDetail({ slug, onDiscuss, onDeleted }: { slug: string; onDiscuss: () => void; onDeleted: () => void }) {
   const { apiClient, apiKey } = useAuth()
   const qc = useQueryClient()
   const [editing, setEditing] = useState(false)
@@ -244,6 +244,15 @@ function StoryDetail({ slug, onDiscuss, onDeleted: _onDeleted }: { slug: string;
     },
   })
 
+  const deleteStoryMutation = useMutation({
+    mutationFn: () => apiClient.deleteStory(slug),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['stories'] })
+      qc.invalidateQueries({ queryKey: ['submissions'] })
+      onDeleted()
+    },
+  })
+
   const logMutation = useMutation({
     mutationFn: (journal: string) => apiClient.logSubmission(slug, { journal }),
     onSuccess: () => {
@@ -262,6 +271,15 @@ function StoryDetail({ slug, onDiscuss, onDeleted: _onDeleted }: { slug: string;
     },
   })
 
+  const deleteSubmissionMutation = useMutation({
+    mutationFn: (journal: string) => apiClient.deleteSubmission(slug, journal),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['story', slug] })
+      qc.invalidateQueries({ queryKey: ['stories'] })
+      qc.invalidateQueries({ queryKey: ['submissions'] })
+    },
+  })
+
   if (isLoading || !story) return <p className="text-sm text-gray-400">Loading…</p>
 
   return (
@@ -271,6 +289,13 @@ function StoryDetail({ slug, onDiscuss, onDeleted: _onDeleted }: { slug: string;
         <div className="flex gap-2">
           <button className="btn-secondary text-xs" onClick={onDiscuss}>Open in Discuss →</button>
           {!editing && <button className="btn-secondary text-xs" onClick={startEdit}>Edit</button>}
+          <button
+            className="text-xs text-red-500 hover:underline px-2 py-1"
+            disabled={deleteStoryMutation.isPending}
+            onClick={() => { if (window.confirm(`Delete "${story.title}" and all its submissions?`)) deleteStoryMutation.mutate() }}
+          >
+            {deleteStoryMutation.isPending ? 'Deleting…' : 'Delete story'}
+          </button>
         </div>
       </div>
 
@@ -368,6 +393,7 @@ function StoryDetail({ slug, onDiscuss, onDeleted: _onDeleted }: { slug: string;
                     key={`${sub.journal}-${sub.date}`}
                     sub={sub}
                     onUpdate={(outcome, notes, sub_date) => outcomeMutation.mutate({ journal: sub.journal, outcome, notes, sub_date })}
+                    onDelete={() => { if (window.confirm(`Delete submission to ${sub.journal}?`)) deleteSubmissionMutation.mutate(sub.journal) }}
                   />
                 ))}
               </tbody>
@@ -406,9 +432,10 @@ function LogSubmissionForm({ onLog, onCancel, loading }: { onLog: (j: string) =>
 
 const OUTCOMES = ['pending', 'accepted', 'rejected', 'withdrawn', 'shortlisted']
 
-function SubmissionRow({ sub, onUpdate }: {
+function SubmissionRow({ sub, onUpdate, onDelete }: {
   sub: { journal: string; date: string; outcome: string; notes: string }
   onUpdate: (outcome: string, notes: string, sub_date: string) => void
+  onDelete: () => void
 }) {
   const [editing, setEditing] = useState(false)
   const [outcome, setOutcome] = useState(sub.outcome)
@@ -439,7 +466,8 @@ function SubmissionRow({ sub, onUpdate }: {
       </td>
       <td className="px-3 py-2 whitespace-nowrap">
         <button className="text-xs text-indigo-600 hover:underline mr-2" onClick={() => { onUpdate(outcome, notes, subDate); setEditing(false) }}>Save</button>
-        <button className="text-xs text-gray-400 hover:underline" onClick={() => setEditing(false)}>Cancel</button>
+        <button className="text-xs text-gray-400 hover:underline mr-2" onClick={() => setEditing(false)}>Cancel</button>
+        <button className="text-xs text-red-500 hover:underline" onClick={onDelete}>Delete</button>
       </td>
     </tr>
   ) : (

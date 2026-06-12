@@ -38,6 +38,11 @@ export interface ApiClient {
   // Feedback
   listFeedback(): Promise<FeedbackNote[]>
   addFeedback(data: { journal: string; story?: string; feedback_date?: string; text: string }): Promise<void>
+  updateFeedback(id: string, data: { journal: string; story?: string; feedback_date?: string; text: string }): Promise<void>
+  deleteFeedback(id: string): Promise<void>
+  // Stories / submissions deletion
+  deleteStory(slug: string): Promise<void>
+  deleteSubmission(slug: string, journal: string): Promise<void>
   // Conversations
   listConversations(slug: string): Promise<Conversation[]>
   saveConversation(slug: string, messages: ChatMessage[]): Promise<void>
@@ -113,6 +118,11 @@ export function createApiClient(accessToken: string | null, apiKey: string | nul
 
     listFeedback: () => req('GET', '/api/feedback'),
     addFeedback: (data) => req('POST', '/api/feedback', data),
+    updateFeedback: (id, data) => req('PUT', `/api/feedback/${encodeURIComponent(id)}`, data),
+    deleteFeedback: (id) => req('DELETE', `/api/feedback/${encodeURIComponent(id)}`),
+
+    deleteStory: (slug) => req('DELETE', `/api/stories/${slug}`),
+    deleteSubmission: (slug, journal) => req('DELETE', `/api/stories/${slug}/submissions/${encodeURIComponent(journal)}`),
 
     listConversations: (slug) => req('GET', `/api/conversations/${slug}`),
     saveConversation: (slug, messages) => req('POST', `/api/conversations/${slug}`, { messages }),

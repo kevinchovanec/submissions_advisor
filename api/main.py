@@ -36,6 +36,7 @@ from .models import (
     ChatRequest,
     ConversationSave,
     FeedbackCreate,
+    FeedbackUpdate,
     GenerateCardRequest,
     LoginRequest,
     MatchRequest,
@@ -202,6 +203,12 @@ def generate_card(req: GenerateCardRequest, x_anthropic_key: str | None = Header
 # Submissions
 # ---------------------------------------------------------------------------
 
+@app.delete("/api/stories/{slug}")
+def delete_story(slug: str, storage=Depends(get_storage)):
+    storage.delete_story(slug)
+    return {"ok": True}
+
+
 @app.post("/api/stories/{slug}/submissions", status_code=201)
 def log_submission(slug: str, req: SubmissionCreate, storage=Depends(get_storage)):
     storage.log_submission(slug, req.journal, req.outcome, req.notes, req.sub_date)
@@ -211,6 +218,12 @@ def log_submission(slug: str, req: SubmissionCreate, storage=Depends(get_storage
 @app.put("/api/stories/{slug}/submissions/{journal}")
 def update_outcome(slug: str, journal: str, req: OutcomeUpdate, storage=Depends(get_storage)):
     storage.update_outcome(slug, journal, req.outcome, req.notes, req.sub_date)
+    return {"ok": True}
+
+
+@app.delete("/api/stories/{slug}/submissions/{journal}")
+def delete_submission(slug: str, journal: str, storage=Depends(get_storage)):
+    storage.delete_submission(slug, journal)
     return {"ok": True}
 
 
@@ -249,6 +262,24 @@ def list_feedback(storage=Depends(get_storage)):
 @app.post("/api/feedback", status_code=201)
 def add_feedback(req: FeedbackCreate, storage=Depends(get_storage)):
     storage.add_feedback(req.journal, req.story, req.feedback_date, req.text)
+    return {"ok": True}
+
+
+@app.put("/api/feedback/{feedback_id}")
+def update_feedback(feedback_id: str, req: FeedbackUpdate, storage=Depends(get_storage)):
+    try:
+        storage.update_feedback(feedback_id, req.journal, req.story, req.feedback_date, req.text)
+    except NotImplementedError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    return {"ok": True}
+
+
+@app.delete("/api/feedback/{feedback_id}")
+def delete_feedback(feedback_id: str, storage=Depends(get_storage)):
+    try:
+        storage.delete_feedback(feedback_id)
+    except NotImplementedError as e:
+        raise HTTPException(status_code=400, detail=str(e))
     return {"ok": True}
 
 

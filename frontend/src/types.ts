@@ -36,6 +36,7 @@ export interface Template {
 }
 
 export interface FeedbackNote {
+  id?: string;
   journal: string;
   story: string;
   date: string | null;

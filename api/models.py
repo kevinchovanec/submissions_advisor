@@ -82,6 +82,12 @@ class FeedbackCreate(BaseModel):
     feedback_date: str | None = None
     text: str
 
+class FeedbackUpdate(BaseModel):
+    journal: str
+    story: str = ""
+    feedback_date: str | None = None
+    text: str
+
 
 # ---------------------------------------------------------------------------
 # Conversations
