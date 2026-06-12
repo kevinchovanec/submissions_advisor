@@ -29,15 +29,58 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [accessToken, setAccessToken] = useState<string | null>(() => sessionStorage.getItem(SESSION_TOKEN_KEY))
   const [apiKey, setApiKeyState] = useState<string | null>(() => sessionStorage.getItem(SESSION_APIKEY_KEY))
 
+  // On mount: check health and attempt token refresh if a refresh token is stored
   useEffect(() => {
+    const storedRefresh = sessionStorage.getItem(SESSION_REFRESH_KEY)
+
     fetch('/api/health')
       .then((r) => r.json())
-      .then((d) => {
+      .then(async (d) => {
         setCloudMode(d.cloud_mode ?? false)
         setServerHasKey(d.has_api_key ?? false)
+
+        if (d.cloud_mode && storedRefresh) {
+          try {
+            const res = await fetch('/api/auth/refresh', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ refresh_token: storedRefresh }),
+            })
+            if (res.ok) {
+              const data = await res.json()
+              sessionStorage.setItem(SESSION_TOKEN_KEY, data.access_token)
+              sessionStorage.setItem(SESSION_REFRESH_KEY, data.refresh_token)
+              sessionStorage.setItem(SESSION_USER_KEY, data.user_id)
+              setAccessToken(data.access_token)
+              setUserId(data.user_id)
+            }
+          } catch { /* ignore — user will need to log in manually */ }
+        }
       })
       .catch(() => {})
       .finally(() => setIsReady(true))
+  }, [])
+
+  // Refresh token every 50 minutes to prevent expiry mid-session
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      const storedRefresh = sessionStorage.getItem(SESSION_REFRESH_KEY)
+      if (!storedRefresh) return
+      try {
+        const res = await fetch('/api/auth/refresh', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ refresh_token: storedRefresh }),
+        })
+        if (res.ok) {
+          const data = await res.json()
+          sessionStorage.setItem(SESSION_TOKEN_KEY, data.access_token)
+          sessionStorage.setItem(SESSION_REFRESH_KEY, data.refresh_token)
+          setAccessToken(data.access_token)
+        }
+      } catch { /* ignore */ }
+    }, 50 * 60 * 1000)
+    return () => clearInterval(interval)
   }, [])
 
   function login(uid: string, token: string, refresh: string) {

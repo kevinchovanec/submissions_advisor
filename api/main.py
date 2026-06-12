@@ -40,6 +40,7 @@ from .models import (
     LoginRequest,
     MatchRequest,
     OutcomeUpdate,
+    RefreshRequest,
     SignupRequest,
     StoryCreate,
     StoryUpdate,
@@ -89,6 +90,19 @@ def auth_signup(req: SignupRequest, sb=Depends(get_sb_client)):
         return {"message": "Account created — check your email to confirm."}
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+
+
+@app.post("/api/auth/refresh")
+def auth_refresh(req: RefreshRequest, sb=Depends(get_sb_client)):
+    try:
+        resp = sb.auth.refresh_session(req.refresh_token)
+        return {
+            "access_token": resp.session.access_token,
+            "refresh_token": resp.session.refresh_token,
+            "user_id": resp.user.id,
+        }
+    except Exception as e:
+        raise HTTPException(status_code=401, detail=str(e))
 
 
 @app.post("/api/auth/logout")

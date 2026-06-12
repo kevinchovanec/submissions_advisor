@@ -16,6 +16,7 @@ export interface ApiClient {
   login(email: string, password: string): Promise<{ user_id: string; access_token: string; refresh_token: string }>
   signup(email: string, password: string): Promise<{ message: string }>
   logout(): Promise<void>
+  refresh(refreshToken: string): Promise<{ access_token: string; refresh_token: string; user_id: string }>
   deleteAccount(): Promise<void>
   // Stories
   listStories(): Promise<Story[]>
@@ -90,6 +91,7 @@ export function createApiClient(accessToken: string | null, apiKey: string | nul
     login: (email, password) => req('POST', '/api/auth/login', { email, password }),
     signup: (email, password) => req('POST', '/api/auth/signup', { email, password }),
     logout: () => req('POST', '/api/auth/logout'),
+    refresh: (refreshToken) => req('POST', '/api/auth/refresh', { refresh_token: refreshToken }),
     deleteAccount: () => req('DELETE', '/api/auth/account'),
 
     listStories: () => req('GET', '/api/stories'),
