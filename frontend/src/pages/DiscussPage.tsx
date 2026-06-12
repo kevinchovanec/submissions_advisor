@@ -299,8 +299,9 @@ function ChatBubble({ message, streaming }: { message: ChatMessage; streaming?: 
             : 'bg-white border border-gray-200 text-gray-800'
         }`}
       >
-        <div className={`chat-content ${streaming ? 'animate-pulse' : ''}`}>
+        <div className="chat-content">
           <MessageContent content={message.content} isUser={isUser} />
+          {streaming && <span className="inline-block w-0.5 h-[1em] bg-current ml-0.5 align-middle animate-pulse" />}
         </div>
       </div>
     </div>
