@@ -24,7 +24,7 @@ import zipfile
 import anthropic as _anthropic
 from fastapi import Depends, FastAPI, File, Header, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse, Response, StreamingResponse
+from fastapi.responses import FileResponse, JSONResponse, Response, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
@@ -627,8 +627,15 @@ def health():
 
 # ---------------------------------------------------------------------------
 # Static files  (React dist/ — served last so /api routes take priority)
+# SPA catch-all: serve index.html for any path that isn't an API route or a
+# real file, so React Router can handle client-side navigation on hard refresh.
 # ---------------------------------------------------------------------------
 
 _dist = Path(__file__).parent.parent / "frontend" / "dist"
 if _dist.exists():
-    app.mount("/", StaticFiles(directory=str(_dist), html=True), name="static")
+    @app.get("/{full_path:path}")
+    async def serve_spa(full_path: str):
+        file_path = _dist / full_path
+        if file_path.exists() and file_path.is_file():
+            return FileResponse(str(file_path))
+        return FileResponse(str(_dist / "index.html"))
