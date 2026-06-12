@@ -128,7 +128,7 @@ class StorageLocal(StorageBackend):
         _save_post(path, post)
         self._mirror_add_submission(journal, post.get("title", slug), sub_date)
 
-    def update_outcome(self, slug: str, journal: str, outcome: str, notes: str = "") -> None:
+    def update_outcome(self, slug: str, journal: str, outcome: str, notes: str = "", sub_date: str | None = None) -> None:
         path = _story_path(slug)
         if not path.exists():
             raise FileNotFoundError(f"Story not found: {slug}")
@@ -139,6 +139,8 @@ class StorageLocal(StorageBackend):
                 entry["outcome"] = outcome
                 if notes:
                     entry["notes"] = notes
+                if sub_date:
+                    entry["date"] = sub_date
                 break
         post["submitted_to"] = submissions
         _save_post(path, post)

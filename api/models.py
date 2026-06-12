@@ -60,6 +60,7 @@ class SubmissionCreate(BaseModel):
 class OutcomeUpdate(BaseModel):
     outcome: str
     notes: str = ""
+    sub_date: str | None = None
 
 
 # ---------------------------------------------------------------------------

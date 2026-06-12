@@ -254,9 +254,12 @@ function StoryDetail({ slug, onDiscuss, onDeleted: _onDeleted }: { slug: string;
   })
 
   const outcomeMutation = useMutation({
-    mutationFn: ({ journal, outcome, notes }: { journal: string; outcome: string; notes: string }) =>
-      apiClient.updateOutcome(slug, journal, { outcome, notes }),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ['story', slug] }),
+    mutationFn: ({ journal, outcome, notes, sub_date }: { journal: string; outcome: string; notes: string; sub_date?: string }) =>
+      apiClient.updateOutcome(slug, journal, { outcome, notes, sub_date }),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['story', slug] })
+      qc.invalidateQueries({ queryKey: ['submissions'] })
+    },
   })
 
   if (isLoading || !story) return <p className="text-sm text-gray-400">Loading…</p>
@@ -364,7 +367,7 @@ function StoryDetail({ slug, onDiscuss, onDeleted: _onDeleted }: { slug: string;
                   <SubmissionRow
                     key={`${sub.journal}-${sub.date}`}
                     sub={sub}
-                    onUpdate={(outcome, notes) => outcomeMutation.mutate({ journal: sub.journal, outcome, notes })}
+                    onUpdate={(outcome, notes, sub_date) => outcomeMutation.mutate({ journal: sub.journal, outcome, notes, sub_date })}
                   />
                 ))}
               </tbody>
@@ -403,10 +406,14 @@ function LogSubmissionForm({ onLog, onCancel, loading }: { onLog: (j: string) =>
 
 const OUTCOMES = ['pending', 'accepted', 'rejected', 'withdrawn', 'shortlisted']
 
-function SubmissionRow({ sub, onUpdate }: { sub: { journal: string; date: string; outcome: string; notes: string }; onUpdate: (outcome: string, notes: string) => void }) {
+function SubmissionRow({ sub, onUpdate }: {
+  sub: { journal: string; date: string; outcome: string; notes: string }
+  onUpdate: (outcome: string, notes: string, sub_date: string) => void
+}) {
   const [editing, setEditing] = useState(false)
   const [outcome, setOutcome] = useState(sub.outcome)
   const [notes, setNotes] = useState(sub.notes)
+  const [subDate, setSubDate] = useState(sub.date)
 
   const outcomeColors: Record<string, string> = {
     pending: 'text-yellow-700 bg-yellow-50',
@@ -419,7 +426,9 @@ function SubmissionRow({ sub, onUpdate }: { sub: { journal: string; date: string
   return editing ? (
     <tr className="bg-indigo-50">
       <td className="px-3 py-2 font-medium">{sub.journal}</td>
-      <td className="px-3 py-2 text-gray-500">{sub.date}</td>
+      <td className="px-3 py-2">
+        <input className="input py-0.5 text-xs" type="date" value={subDate} onChange={(e) => setSubDate(e.target.value)} />
+      </td>
       <td className="px-3 py-2">
         <select className="input py-0.5 text-xs" value={outcome} onChange={(e) => setOutcome(e.target.value)}>
           {OUTCOMES.map((o) => <option key={o} value={o}>{o}</option>)}
@@ -429,7 +438,7 @@ function SubmissionRow({ sub, onUpdate }: { sub: { journal: string; date: string
         <input className="input py-0.5 text-xs" value={notes} onChange={(e) => setNotes(e.target.value)} />
       </td>
       <td className="px-3 py-2 whitespace-nowrap">
-        <button className="text-xs text-indigo-600 hover:underline mr-2" onClick={() => { onUpdate(outcome, notes); setEditing(false) }}>Save</button>
+        <button className="text-xs text-indigo-600 hover:underline mr-2" onClick={() => { onUpdate(outcome, notes, subDate); setEditing(false) }}>Save</button>
         <button className="text-xs text-gray-400 hover:underline" onClick={() => setEditing(false)}>Cancel</button>
       </td>
     </tr>

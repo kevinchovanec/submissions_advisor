@@ -26,7 +26,7 @@ export interface ApiClient {
   generateCard(storyText: string): Promise<GeneratedCard>
   // Submissions
   logSubmission(slug: string, data: { journal: string; outcome?: string; notes?: string; sub_date?: string }): Promise<void>
-  updateOutcome(slug: string, journal: string, data: { outcome: string; notes?: string }): Promise<void>
+  updateOutcome(slug: string, journal: string, data: { outcome: string; notes?: string; sub_date?: string }): Promise<void>
   // Tracker
   listAllSubmissions(): Promise<SubmissionRow[]>
   // Pending

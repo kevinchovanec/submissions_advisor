@@ -52,7 +52,7 @@ class StorageBackend(ABC):
         """Append a submission record. sub_date: ISO string; defaults to today."""
 
     @abstractmethod
-    def update_outcome(self, slug: str, journal: str, outcome: str, notes: str = "") -> None:
+    def update_outcome(self, slug: str, journal: str, outcome: str, notes: str = "", sub_date: str | None = None) -> None:
         """Update the most recent submission to journal for slug."""
 
     @abstractmethod

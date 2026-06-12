@@ -210,7 +210,7 @@ def log_submission(slug: str, req: SubmissionCreate, storage=Depends(get_storage
 
 @app.put("/api/stories/{slug}/submissions/{journal}")
 def update_outcome(slug: str, journal: str, req: OutcomeUpdate, storage=Depends(get_storage)):
-    storage.update_outcome(slug, journal, req.outcome, req.notes)
+    storage.update_outcome(slug, journal, req.outcome, req.notes, req.sub_date)
     return {"ok": True}
 
 

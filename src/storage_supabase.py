@@ -131,7 +131,7 @@ class StorageSupabase(StorageBackend):
             "notes": notes,
         }).execute()
 
-    def update_outcome(self, slug: str, journal: str, outcome: str, notes: str = "") -> None:
+    def update_outcome(self, slug: str, journal: str, outcome: str, notes: str = "", sub_date: str | None = None) -> None:
         res = (
             self._client.table("submissions")
             .select("id")
@@ -147,6 +147,8 @@ class StorageSupabase(StorageBackend):
         update: dict = {"outcome": outcome}
         if notes:
             update["notes"] = notes
+        if sub_date:
+            update["sub_date"] = sub_date
         self._client.table("submissions").update(update).eq("id", res.data[0]["id"]).execute()
 
     def submitted_journals(self, slug: str) -> list[str]:
