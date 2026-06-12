@@ -90,10 +90,10 @@ export default function MatcherPage() {
 
       {/* Paste area */}
       <div className="card mb-4">
-        <label className="label">Paste Duotrope results (one page at a time)</label>
+        <label className="label">Paste open journals (from Duotrope, The Submission Grinder, etc.)</label>
         <textarea
           className="input min-h-[120px] font-mono text-xs mb-3"
-          placeholder="Copy and paste the results table from Duotrope here…"
+          placeholder="Copy and paste a list of open journals here…"
           value={pasteText}
           onChange={(e) => setPasteText(e.target.value)}
         />
