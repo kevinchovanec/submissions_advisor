@@ -30,8 +30,28 @@ def _slug(title: str) -> str:
     return s.strip("-")
 
 
+def _safe_name(name: str) -> str:
+    """Reject names that could escape the data directory via path traversal.
+
+    Blocks path separators, '..', and null bytes — so a slug or template name
+    coming from a URL can never resolve outside STORIES_DIR / TEMPLATES_DIR.
+    """
+    if not name or name in (".", "..") or "/" in name or "\\" in name or "\x00" in name:
+        raise ValueError(f"Invalid name: {name!r}")
+    return name
+
+
 def _story_path(slug: str) -> Path:
-    return STORIES_DIR / f"{slug}.md"
+    return STORIES_DIR / f"{_safe_name(slug)}.md"
+
+
+def _tracker_date(d) -> str:
+    """Normalize a tracker date cell (datetime, date, or string) to an ISO date string."""
+    if hasattr(d, "date"):
+        return d.date().isoformat()
+    if d:
+        return str(d)[:10]
+    return _date.today().isoformat()
 
 
 def _post_to_dict(slug: str, post: frontmatter.Post) -> dict:
@@ -169,6 +189,54 @@ class StorageLocal(StorageBackend):
         return pending
 
     # ------------------------------------------------------------------
+    # Tracker sync
+    # ------------------------------------------------------------------
+
+    def sync_from_tracker(self) -> int:
+        """Merge submission history from the Excel tracker into the story files.
+
+        Matches stories by title and submissions by journal name (both
+        case-insensitive), so re-running only adds what's missing. Returns the
+        count of newly added submissions.
+        """
+        wb_path = self._workbook_path()
+        if wb_path is None:
+            raise FileNotFoundError("No workbook found — add a submissions Excel file to data/ first.")
+        from workbook import load as wb_load, story_view
+
+        view = story_view(wb_load(wb_path)["journals"])
+        STORIES_DIR.mkdir(parents=True, exist_ok=True)
+        added_total = 0
+        for path in STORIES_DIR.glob("*.md"):
+            post = frontmatter.load(str(path))
+            title = post.get("title", path.stem)
+            story_subs = view.get(title) or next(
+                (v for k, v in view.items() if k.strip().lower() == title.strip().lower()), None
+            )
+            if not story_subs:
+                continue
+            existing = post.get("submitted_to", [])
+            seen = {s["journal"].strip().lower() for s in existing}
+            added = 0
+            for outcome, entries in story_subs.items():
+                for e in entries:
+                    if e["journal"].strip().lower() in seen:
+                        continue
+                    existing.append({
+                        "journal": e["journal"],
+                        "date": _tracker_date(e.get("date")),
+                        "outcome": outcome,
+                        "notes": "",
+                    })
+                    seen.add(e["journal"].strip().lower())
+                    added += 1
+            if added:
+                post["submitted_to"] = existing
+                _save_post(path, post)
+                added_total += added
+        return added_total
+
+    # ------------------------------------------------------------------
     # Templates
     # ------------------------------------------------------------------
 
@@ -185,7 +253,7 @@ class StorageLocal(StorageBackend):
 
     def load_template(self, name: str) -> str | None:
         TEMPLATES_DIR.mkdir(parents=True, exist_ok=True)
-        path = TEMPLATES_DIR / f"{name}.md"
+        path = TEMPLATES_DIR / f"{_safe_name(name)}.md"
         if not path.exists():
             return None
         post = frontmatter.load(str(path))
@@ -193,7 +261,7 @@ class StorageLocal(StorageBackend):
 
     def save_template(self, name: str, content: str, description: str = "") -> None:
         TEMPLATES_DIR.mkdir(parents=True, exist_ok=True)
-        path = TEMPLATES_DIR / f"{name}.md"
+        path = TEMPLATES_DIR / f"{_safe_name(name)}.md"
         if path.exists():
             post = frontmatter.load(str(path))
             post.content = content

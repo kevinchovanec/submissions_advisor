@@ -3,8 +3,11 @@ Conversational agent for story-to-journal matching.
 Uses Claude with tool use for on-demand page fetching and editor feedback lookup.
 """
 
+import ipaddress
 import os
+import socket
 from typing import Generator
+from urllib.parse import urljoin, urlparse
 
 import anthropic
 import requests
@@ -17,6 +20,7 @@ from workbook import format_feedback_brief, get_feedback_for_journal
 MODEL = "claude-sonnet-4-6"
 MAX_PAGE_CHARS = 3000
 REQUEST_TIMEOUT = 10
+MAX_REDIRECTS = 4
 
 SYSTEM_PROMPT = """You are a literary advisor helping a writer find the best journals for their short fiction.
 
@@ -120,21 +124,78 @@ GET_COVER_LETTER_TEMPLATE_TOOL = {
 }
 
 
+def _is_public_host(hostname: str) -> bool:
+    """Resolve a hostname and return True only if every resolved address is public.
+
+    Blocks loopback, private, link-local (incl. cloud metadata 169.254.169.254),
+    reserved, multicast, and unspecified ranges — for both IPv4 and IPv6 — so the
+    fetch_page tool can't be used to reach internal services (SSRF).
+    """
+    try:
+        infos = socket.getaddrinfo(hostname, None)
+    except socket.gaierror:
+        return False
+    for info in infos:
+        try:
+            addr = ipaddress.ip_address(info[4][0])
+        except ValueError:
+            return False
+        mapped = getattr(addr, "ipv4_mapped", None)
+        if mapped is not None:
+            addr = mapped
+        if (
+            addr.is_private
+            or addr.is_loopback
+            or addr.is_link_local
+            or addr.is_reserved
+            or addr.is_multicast
+            or addr.is_unspecified
+        ):
+            return False
+    return True
+
+
+def _validate_url(url: str) -> str | None:
+    """Return an error message if the URL is unsafe to fetch, else None."""
+    parsed = urlparse(url)
+    if parsed.scheme not in ("http", "https"):
+        return f"Refusing to fetch non-http(s) URL: {url}"
+    if not parsed.hostname:
+        return f"Invalid URL: {url}"
+    if not _is_public_host(parsed.hostname):
+        return f"Refusing to fetch a private or internal address: {parsed.hostname}"
+    return None
+
+
 def _fetch_page(url: str) -> str:
     try:
-        resp = requests.get(
-            url,
-            timeout=REQUEST_TIMEOUT,
-            headers={"User-Agent": "submissions-advisor/1.0"},
-            allow_redirects=True,
-        )
-        resp.raise_for_status()
-        soup = BeautifulSoup(resp.text, "html.parser")
-        for tag in soup(["script", "style", "nav", "header", "footer"]):
-            tag.decompose()
-        text = soup.get_text(separator=" ", strip=True)
-        text = " ".join(text.split())
-        return text[:MAX_PAGE_CHARS]
+        # Follow redirects manually, re-validating each hop, so a public page
+        # can't 302 the request onto an internal address.
+        current = url
+        for _ in range(MAX_REDIRECTS + 1):
+            err = _validate_url(current)
+            if err:
+                return err
+            resp = requests.get(
+                current,
+                timeout=REQUEST_TIMEOUT,
+                headers={"User-Agent": "submissions-advisor/1.0"},
+                allow_redirects=False,
+            )
+            if resp.is_redirect or resp.is_permanent_redirect:
+                location = resp.headers.get("location")
+                if not location:
+                    break
+                current = urljoin(current, location)
+                continue
+            resp.raise_for_status()
+            soup = BeautifulSoup(resp.text, "html.parser")
+            for tag in soup(["script", "style", "nav", "header", "footer"]):
+                tag.decompose()
+            text = soup.get_text(separator=" ", strip=True)
+            text = " ".join(text.split())
+            return text[:MAX_PAGE_CHARS]
+        return f"Too many redirects fetching: {url}"
     except Exception as e:
         return f"Could not fetch page: {e}"
 
@@ -194,15 +255,15 @@ def stream_response(
     pending_context: str = "",
     genre_mode: str = "Literary",
     api_key: str | None = None,
-) -> Generator[str, None, list[dict]]:
+) -> Generator[str, None, tuple[list[dict], dict]]:
     """
     Stream Claude's response. Handles multi-turn tool use internally.
     Yields text chunks for display. Returns the updated full API history.
 
-    api_history: full message history from previous turns — pass st.session_state.api_history.
+    api_history: full message history from previous turns (sent by the client in the request).
     new_user_message: the user's latest input.
     journals: matched ranked journals (used only on first turn).
-    story_context: formatted story info from stories.format_for_agent() (first turn only).
+    story_context: formatted story info from storage.format_story_for_agent() (first turn only).
     editor_feedback: raw feedback list from workbook (first turn: brief list in context;
                      on demand: full text via get_editor_feedback tool).
     """
@@ -236,6 +297,14 @@ def stream_response(
     system = [{"type": "text", "text": SYSTEM_PROMPT, "cache_control": {"type": "ephemeral"}}]
     tools = [FETCH_TOOL, GET_EDITOR_FEEDBACK_TOOL, LOG_SUBMISSION_TOOL, GET_COVER_LETTER_TEMPLATE_TOOL]
 
+    # Accumulated token usage across every model call in this turn (incl. tool loops).
+    usage = {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation_input_tokens": 0,
+    }
+
     while True:
         response = client.messages.create(
             model=MODEL,
@@ -244,6 +313,12 @@ def stream_response(
             tools=tools,
             messages=full_messages,
         )
+
+        u = response.usage
+        usage["input_tokens"] += u.input_tokens or 0
+        usage["output_tokens"] += u.output_tokens or 0
+        usage["cache_read_input_tokens"] += getattr(u, "cache_read_input_tokens", 0) or 0
+        usage["cache_creation_input_tokens"] += getattr(u, "cache_creation_input_tokens", 0) or 0
 
         tool_uses = []
         for block in response.content:
@@ -298,4 +373,4 @@ def stream_response(
 
         full_messages = full_messages + [{"role": "user", "content": tool_results}]
 
-    return full_messages
+    return full_messages, usage

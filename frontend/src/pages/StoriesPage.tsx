@@ -5,15 +5,31 @@ import { useAuth } from '../context/AuthContext'
 import type { Story } from '../types'
 
 export default function StoriesPage() {
-  const { apiClient } = useAuth()
+  const { apiClient, cloudMode } = useAuth()
   const qc = useQueryClient()
   const navigate = useNavigate()
   const [selectedSlug, setSelectedSlug] = useState<string | null>(null)
   const [showCreate, setShowCreate] = useState(false)
+  const [syncMsg, setSyncMsg] = useState<string | null>(null)
 
   const { data: stories = [], isLoading } = useQuery({
     queryKey: ['stories'],
     queryFn: () => apiClient.listStories(),
+  })
+
+  const syncMutation = useMutation({
+    mutationFn: () => apiClient.syncTracker(),
+    onSuccess: (data) => {
+      qc.invalidateQueries({ queryKey: ['stories'] })
+      qc.invalidateQueries({ queryKey: ['story'] })
+      qc.invalidateQueries({ queryKey: ['submissions'] })
+      setSyncMsg(
+        data.added > 0
+          ? `Synced ${data.added} submission${data.added !== 1 ? 's' : ''} from tracker.`
+          : 'Already up to date with the tracker.'
+      )
+    },
+    onError: (err: Error) => setSyncMsg(err.message),
   })
 
   const selectedStory = selectedSlug
@@ -33,6 +49,19 @@ export default function StoriesPage() {
             + New
           </button>
         </div>
+        {!cloudMode && (
+          <div className="px-4 py-2 border-b border-gray-100">
+            <button
+              className="btn-secondary py-1 px-2 text-xs w-full"
+              disabled={syncMutation.isPending}
+              onClick={() => { setSyncMsg(null); syncMutation.mutate() }}
+              title="Merge submission history from your Excel tracker into your story files"
+            >
+              {syncMutation.isPending ? 'Syncing…' : 'Sync from tracker'}
+            </button>
+            {syncMsg && <p className="text-xs text-gray-500 mt-1">{syncMsg}</p>}
+          </div>
+        )}
         {isLoading ? (
           <p className="p-4 text-sm text-gray-400">Loading…</p>
         ) : stories.length === 0 ? (

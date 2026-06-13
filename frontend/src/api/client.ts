@@ -24,6 +24,7 @@ export interface ApiClient {
   createStory(data: { title: string; word_count?: number | null; style?: string; description?: string }): Promise<{ slug: string }>
   updateStory(slug: string, data: { word_count?: number | null; style?: string; description?: string }): Promise<void>
   generateCard(storyText: string): Promise<GeneratedCard>
+  syncTracker(): Promise<{ added: number }>
   // Submissions
   logSubmission(slug: string, data: { journal: string; outcome?: string; notes?: string; sub_date?: string }): Promise<void>
   updateOutcome(slug: string, journal: string, data: { outcome: string; notes?: string; sub_date?: string }): Promise<void>
@@ -104,6 +105,7 @@ export function createApiClient(accessToken: string | null, apiKey: string | nul
     createStory: (data) => req('POST', '/api/stories', data),
     updateStory: (slug, data) => req('PUT', `/api/stories/${slug}`, data),
     generateCard: (storyText) => req('POST', '/api/stories/generate-card', { story_text: storyText }, true),
+    syncTracker: () => req('POST', '/api/stories/sync-tracker'),
 
     logSubmission: (slug, data) => req('POST', `/api/stories/${slug}/submissions`, data),
     updateOutcome: (slug, journal, data) => req('PUT', `/api/stories/${slug}/submissions/${encodeURIComponent(journal)}`, data),

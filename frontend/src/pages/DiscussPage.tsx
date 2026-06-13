@@ -20,6 +20,7 @@ export default function DiscussPage() {
   const [streaming, setStreaming] = useState(false)
   const [streamingText, setStreamingText] = useState('')
   const [streamError, setStreamError] = useState('')
+  const [tokenUsage, setTokenUsage] = useState<{ input: number; output: number }>({ input: 0, output: 0 })
   const abortRef = useRef<AbortController | null>(null)
   const bottomRef = useRef<HTMLDivElement | null>(null)
 
@@ -57,6 +58,7 @@ export default function DiscussPage() {
       setMessages([])
       setApiHistory([])
       setStreamError('')
+      setTokenUsage({ input: 0, output: 0 })
     },
   })
 
@@ -127,6 +129,11 @@ export default function DiscussPage() {
             setApiHistory(data.history ?? [])
             setMessages((prev) => [...prev, { role: 'assistant', content: accumulated }])
             setStreamingText('')
+            if (data.usage) {
+              const u = data.usage
+              const inTokens = (u.input_tokens ?? 0) + (u.cache_read_input_tokens ?? 0) + (u.cache_creation_input_tokens ?? 0)
+              setTokenUsage((prev) => ({ input: prev.input + inTokens, output: prev.output + (u.output_tokens ?? 0) }))
+            }
             break
           }
           if (data.error) throw new Error(data.error)
@@ -149,6 +156,7 @@ export default function DiscussPage() {
     } else {
       setMessages([])
       setApiHistory([])
+      setTokenUsage({ input: 0, output: 0 })
     }
   }
 
@@ -166,6 +174,7 @@ export default function DiscussPage() {
               setSelectedSlug(e.target.value)
               setMessages([])
               setApiHistory([])
+              setTokenUsage({ input: 0, output: 0 })
             }}
           >
             <option value="">— select —</option>
@@ -193,6 +202,7 @@ export default function DiscussPage() {
                     onClick={() => {
                       setMessages(c.messages)
                       setApiHistory([])
+                      setTokenUsage({ input: 0, output: 0 })
                     }}
                   >
                     {new Date(c.started_at).toLocaleDateString()}
@@ -218,15 +228,25 @@ export default function DiscussPage() {
           <h1 className="font-semibold text-sm text-gray-700">
             {story ? story.title : 'Discuss'}
           </h1>
-          {messages.length > 0 && (
-            <button
-              className="btn-secondary text-xs"
-              onClick={handleEndConversation}
-              disabled={saveMutation.isPending}
-            >
-              {cloudMode ? (saveMutation.isPending ? 'Saving…' : 'End & save') : 'Clear conversation'}
-            </button>
-          )}
+          <div className="flex items-center gap-3">
+            {(tokenUsage.input > 0 || tokenUsage.output > 0) && (
+              <span
+                className="text-xs text-gray-400 whitespace-nowrap"
+                title="Anthropic API tokens used in this conversation (input includes cached tokens · output)"
+              >
+                {tokenUsage.input.toLocaleString()} in · {tokenUsage.output.toLocaleString()} out tokens
+              </span>
+            )}
+            {messages.length > 0 && (
+              <button
+                className="btn-secondary text-xs"
+                onClick={handleEndConversation}
+                disabled={saveMutation.isPending}
+              >
+                {cloudMode ? (saveMutation.isPending ? 'Saving…' : 'End & save') : 'Clear conversation'}
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Messages */}

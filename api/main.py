@@ -2,7 +2,8 @@
 FastAPI backend for Submissions Advisor.
 
 Local mode:  uvicorn api.main:app --reload
-Cloud mode:  set SUPABASE_URL + SUPABASE_KEY, then same command.
+Cloud mode:  set SUPABASE_URL + SUPABASE_ANON_KEY (+ optional SUPABASE_SERVICE_KEY
+             for account deletion), then same command.
 
 Static files (React dist/) are served from frontend/dist/ when that directory exists.
 """
@@ -30,7 +31,14 @@ from fastapi.staticfiles import StaticFiles
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 from agent import stream_response
-from .dependencies import CLOUD_MODE, get_sb_client, get_storage, get_user_id
+from .dependencies import (
+    CLOUD_MODE,
+    anon_client,
+    get_authed,
+    get_storage,
+    get_user_id,
+    service_client,
+)
 from ingest import from_text, normalize_name
 from .models import (
     ChatRequest,
@@ -56,10 +64,15 @@ load_dotenv()
 
 app = FastAPI(title="Submissions Advisor API")
 
+# The SPA is served by this app (and the Vite dev server proxies /api here), so
+# normal use is same-origin and needs no CORS. Cross-origin access is opt-in via
+# a comma-separated ALLOWED_ORIGINS env var; empty by default. Auth uses the
+# Authorization header (not cookies), so credentials are not enabled.
+_allowed_origins = [o.strip() for o in os.environ.get("ALLOWED_ORIGINS", "").split(",") if o.strip()]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
+    allow_origins=_allowed_origins,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -72,7 +85,7 @@ _executor = ThreadPoolExecutor(max_workers=10)
 # ---------------------------------------------------------------------------
 
 @app.post("/api/auth/login")
-def auth_login(req: LoginRequest, sb=Depends(get_sb_client)):
+def auth_login(req: LoginRequest, sb=Depends(anon_client)):
     try:
         resp = sb.auth.sign_in_with_password({"email": req.email, "password": req.password})
         return {
@@ -80,12 +93,13 @@ def auth_login(req: LoginRequest, sb=Depends(get_sb_client)):
             "access_token": resp.session.access_token,
             "refresh_token": resp.session.refresh_token,
         }
-    except Exception as e:
-        raise HTTPException(status_code=401, detail=str(e))
+    except Exception:
+        # Generic message — avoids leaking internals and user-enumeration hints.
+        raise HTTPException(status_code=401, detail="Invalid email or password")
 
 
 @app.post("/api/auth/signup")
-def auth_signup(req: SignupRequest, sb=Depends(get_sb_client)):
+def auth_signup(req: SignupRequest, sb=Depends(anon_client)):
     try:
         sb.auth.sign_up({"email": req.email, "password": req.password})
         return {"message": "Account created — check your email to confirm."}
@@ -94,7 +108,7 @@ def auth_signup(req: SignupRequest, sb=Depends(get_sb_client)):
 
 
 @app.post("/api/auth/refresh")
-def auth_refresh(req: RefreshRequest, sb=Depends(get_sb_client)):
+def auth_refresh(req: RefreshRequest, sb=Depends(anon_client)):
     try:
         resp = sb.auth.refresh_session(req.refresh_token)
         return {
@@ -102,34 +116,51 @@ def auth_refresh(req: RefreshRequest, sb=Depends(get_sb_client)):
             "refresh_token": resp.session.refresh_token,
             "user_id": resp.user.id,
         }
-    except Exception as e:
-        raise HTTPException(status_code=401, detail=str(e))
+    except Exception:
+        raise HTTPException(status_code=401, detail="Session expired — please log in again")
 
 
 @app.post("/api/auth/logout")
-def auth_logout(sb=Depends(get_sb_client), user_id: str = Depends(get_user_id)):
+def auth_logout(authed=Depends(get_authed)):
+    # Best-effort server-side revocation; the client also drops its stored tokens.
+    client, _ = authed
     try:
-        sb.auth.sign_out()
+        client.auth.sign_out()
     except Exception:
         pass
     return {"message": "Logged out"}
 
 
 @app.delete("/api/auth/account")
-def delete_account(sb=Depends(get_sb_client), user_id: str = Depends(get_user_id)):
-    """Delete all user data and remove the auth account. Requires service role key."""
-    for table in ["conversations", "feedback", "templates", "submissions", "stories"]:
-        sb.table(table).delete().eq("user_id", user_id).execute()
+def delete_account(authed=Depends(get_authed)):
+    """Delete all user data, then remove the auth account.
+
+    Data deletion runs through the security-definer delete_user_data() RPC under
+    the caller's own identity. Removing the auth account itself needs the
+    service-role key (auth.admin.delete_user).
+    """
+    client, user_id = authed
     try:
-        sb.auth.admin.delete_user(user_id)
+        client.rpc("delete_user_data", {}).execute()
     except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Could not delete your data: {e}")
+
+    service = service_client()
+    if service is None:
         raise HTTPException(
             status_code=500,
             detail=(
-                "Your submission data was deleted, but the auth account could not be removed. "
-                "Set SUPABASE_KEY to your service role key to enable full account deletion. "
-                f"Details: {e}"
+                "Your submission data was deleted, but the auth account could not be removed "
+                "because no service-role key is configured. Set SUPABASE_SERVICE_KEY to enable "
+                "full account deletion."
             ),
+        )
+    try:
+        service.auth.admin.delete_user(user_id)
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Your data was deleted, but the auth account could not be removed: {e}",
         )
     return {"ok": True}
 
@@ -163,8 +194,18 @@ def update_story(slug: str, req: StoryUpdate, storage=Depends(get_storage)):
     return {"ok": True}
 
 
+@app.delete("/api/stories/{slug}")
+def delete_story(slug: str, storage=Depends(get_storage)):
+    storage.delete_story(slug)
+    return {"ok": True}
+
+
 @app.post("/api/stories/generate-card")
-def generate_card(req: GenerateCardRequest, x_anthropic_key: str | None = Header(default=None)):
+def generate_card(
+    req: GenerateCardRequest,
+    x_anthropic_key: str | None = Header(default=None),
+    user_id: str = Depends(get_user_id),
+):
     effective_key = x_anthropic_key or os.environ.get("ANTHROPIC_API_KEY")
     if not effective_key:
         raise HTTPException(status_code=400, detail="No API key — provide X-Anthropic-Key header or set ANTHROPIC_API_KEY in .env")
@@ -199,15 +240,21 @@ def generate_card(req: GenerateCardRequest, x_anthropic_key: str | None = Header
         raise HTTPException(status_code=500, detail=f"Generation failed: {e}")
 
 
+@app.post("/api/stories/sync-tracker")
+def sync_tracker(storage=Depends(get_storage)):
+    """Merge submission history from the local Excel tracker into story files (local mode only)."""
+    try:
+        added = storage.sync_from_tracker()
+    except NotImplementedError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except FileNotFoundError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    return {"added": added}
+
+
 # ---------------------------------------------------------------------------
 # Submissions
 # ---------------------------------------------------------------------------
-
-@app.delete("/api/stories/{slug}")
-def delete_story(slug: str, storage=Depends(get_storage)):
-    storage.delete_story(slug)
-    return {"ok": True}
-
 
 @app.post("/api/stories/{slug}/submissions", status_code=201)
 def log_submission(slug: str, req: SubmissionCreate, storage=Depends(get_storage)):
@@ -287,17 +334,15 @@ def delete_feedback(feedback_id: str, storage=Depends(get_storage)):
 # Conversations  (cloud mode — stored in Supabase)
 # ---------------------------------------------------------------------------
 
-def _get_conv_client():
-    """Return the raw Supabase client; raise 404 in local mode."""
+def _require_cloud():
     if not CLOUD_MODE:
         raise HTTPException(status_code=404, detail="Conversations not available in local mode")
-    from .dependencies import _sb_client
-    return _sb_client
 
 
 @app.get("/api/conversations/{story_slug}")
-def list_conversations(story_slug: str, user_id: str = Depends(get_user_id)):
-    sb = _get_conv_client()
+def list_conversations(story_slug: str, authed=Depends(get_authed)):
+    _require_cloud()
+    sb, user_id = authed
     res = (
         sb.table("conversations")
         .select("id, story_slug, started_at, messages")
@@ -310,10 +355,11 @@ def list_conversations(story_slug: str, user_id: str = Depends(get_user_id)):
 
 
 @app.post("/api/conversations/{story_slug}", status_code=201)
-def save_conversation(story_slug: str, req: ConversationSave, user_id: str = Depends(get_user_id)):
+def save_conversation(story_slug: str, req: ConversationSave, authed=Depends(get_authed)):
+    _require_cloud()
     if not req.messages:
         raise HTTPException(status_code=400, detail="messages cannot be empty")
-    sb = _get_conv_client()
+    sb, user_id = authed
     sb.table("conversations").insert({
         "user_id": user_id,
         "story_slug": story_slug,
@@ -323,8 +369,9 @@ def save_conversation(story_slug: str, req: ConversationSave, user_id: str = Dep
 
 
 @app.delete("/api/conversations/{story_slug}/{conv_id}")
-def delete_conversation(story_slug: str, conv_id: str, user_id: str = Depends(get_user_id)):
-    sb = _get_conv_client()
+def delete_conversation(story_slug: str, conv_id: str, authed=Depends(get_authed)):
+    _require_cloud()
+    sb, user_id = authed
     sb.table("conversations").delete().eq("id", conv_id).eq("user_id", user_id).execute()
     return {"ok": True}
 
@@ -582,17 +629,17 @@ async def chat(
                 genre_mode=req.genre_mode,
                 api_key=effective_key,
             )
-            updated_history = None
+            result: tuple[list, dict] = ([], {})
             try:
                 while True:
                     chunk = next(gen)
                     asyncio.run_coroutine_threadsafe(queue.put(("text", chunk)), loop)
             except StopIteration as exc:
-                updated_history = exc.value
+                result = exc.value
             except Exception as exc:
                 asyncio.run_coroutine_threadsafe(queue.put(("error", str(exc))), loop)
                 return
-            asyncio.run_coroutine_threadsafe(queue.put(("done", updated_history)), loop)
+            asyncio.run_coroutine_threadsafe(queue.put(("done", result)), loop)
 
         future = loop.run_in_executor(_executor, run_gen)
 
@@ -601,7 +648,8 @@ async def chat(
             if kind == "text":
                 yield f"data: {json.dumps({'text': data})}\n\n"
             elif kind == "done":
-                yield f"data: {json.dumps({'done': True, 'history': data})}\n\n"
+                history, usage = data
+                yield f"data: {json.dumps({'done': True, 'history': history, 'usage': usage})}\n\n"
                 break
             elif kind == "error":
                 yield f"data: {json.dumps({'error': data})}\n\n"
@@ -633,9 +681,13 @@ def health():
 
 _dist = Path(__file__).parent.parent / "frontend" / "dist"
 if _dist.exists():
+    _dist_root = _dist.resolve()
+
     @app.get("/{full_path:path}")
     async def serve_spa(full_path: str):
-        file_path = _dist / full_path
-        if file_path.exists() and file_path.is_file():
+        # Resolve and confirm the path stays inside dist/ before serving, so
+        # crafted paths like ../../etc/passwd can't escape the static root.
+        file_path = (_dist / full_path).resolve()
+        if file_path.is_file() and _dist_root in file_path.parents:
             return FileResponse(str(file_path))
-        return FileResponse(str(_dist / "index.html"))
+        return FileResponse(str(_dist_root / "index.html"))

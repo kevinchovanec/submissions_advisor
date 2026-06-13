@@ -115,6 +115,19 @@ class StorageBackend(ABC):
     def delete_submission(self, slug: str, journal: str) -> None:
         """Delete the most recent submission to journal for story slug."""
 
+    # ------------------------------------------------------------------
+    # Tracker sync (local mode only)
+    # ------------------------------------------------------------------
+
+    def sync_from_tracker(self) -> int:
+        """Merge submission history from the local Excel tracker into story records.
+
+        Matches stories by title and submissions by journal name (both
+        case-insensitive), so re-running only adds what's missing. Returns the
+        number of newly added submissions. Available in local mode only.
+        """
+        raise NotImplementedError("Tracker sync is only available in local mode.")
+
 
 # ---------------------------------------------------------------------------
 # Agent context formatting helpers (pure functions, not backend-specific)

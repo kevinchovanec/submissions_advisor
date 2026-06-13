@@ -244,7 +244,6 @@ submissions_advisor/
 │   ├── storage.py                     # storage interface (ABC)
 │   ├── storage_local.py               # local file backend
 │   ├── storage_supabase.py            # Supabase cloud backend
-│   ├── stories.py                     # story file read/write (local)
 │   └── workbook.py                    # Excel tracker (local)
 ├── data/
 │   ├── rankings_cache.json            # built-in ranked journal list (~550 journals)
