@@ -120,7 +120,7 @@ export default function StoriesPage() {
 // -------------------------------------------------------------------------
 
 function CreateStoryForm({ onCreated, onCancel }: { onCreated: (slug: string) => void; onCancel: () => void }) {
-  const { apiClient, apiKey } = useAuth()
+  const { apiClient, apiKey, serverHasKey } = useAuth()
   const [title, setTitle] = useState('')
   const [wordCount, setWordCount] = useState('')
   const [style, setStyle] = useState('')
@@ -156,7 +156,7 @@ function CreateStoryForm({ onCreated, onCancel }: { onCreated: (slug: string) =>
     <div className="max-w-xl">
       <h2 className="text-xl font-bold mb-4">New Story</h2>
 
-      {apiKey && (
+      {(apiKey || serverHasKey) && (
         <div className="mb-4">
           <button className="text-sm text-indigo-600 hover:underline" onClick={() => setShowAi(!showAi)}>
             {showAi ? 'Hide' : '✨ Generate card with AI'}
@@ -223,7 +223,7 @@ function CreateStoryForm({ onCreated, onCancel }: { onCreated: (slug: string) =>
 // -------------------------------------------------------------------------
 
 function StoryDetail({ slug, onDiscuss, onDeleted }: { slug: string; onDiscuss: () => void; onDeleted: () => void }) {
-  const { apiClient, apiKey } = useAuth()
+  const { apiClient, apiKey, serverHasKey } = useAuth()
   const qc = useQueryClient()
   const [editing, setEditing] = useState(false)
   const [showLogForm, setShowLogForm] = useState(false)
@@ -339,7 +339,7 @@ function StoryDetail({ slug, onDiscuss, onDeleted }: { slug: string; onDiscuss: 
         </div>
       ) : (
         <div className="card space-y-3">
-          {apiKey && (
+          {(apiKey || serverHasKey) && (
             <div>
               <button className="text-xs text-indigo-600 hover:underline" onClick={() => setShowAi(!showAi)}>
                 {showAi ? 'Hide' : '✨ Re-generate with AI'}
