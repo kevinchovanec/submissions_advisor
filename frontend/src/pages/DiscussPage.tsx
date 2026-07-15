@@ -3,6 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useLocation } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { useMatch } from '../context/MatchContext'
+import { useDiscuss } from '../context/DiscussContext'
 import { formatStoryForAgent, formatPendingContext } from '../api/client'
 import type { ChatMessage, Conversation, Story } from '../types'
 
@@ -12,17 +13,28 @@ export default function DiscussPage() {
   const location = useLocation()
   const qc = useQueryClient()
 
-  const [selectedSlug, setSelectedSlug] = useState<string>(location.state?.slug ?? '')
-  const [messages, setMessages] = useState<ChatMessage[]>([])
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [apiHistory, setApiHistory] = useState<any[]>([])
+  const {
+    selectedSlug, messages, apiHistory, tokenUsage,
+    setSelectedSlug, setMessages, setApiHistory, setTokenUsage, resetConversation,
+  } = useDiscuss()
   const [input, setInput] = useState('')
   const [streaming, setStreaming] = useState(false)
   const [streamingText, setStreamingText] = useState('')
   const [streamError, setStreamError] = useState('')
-  const [tokenUsage, setTokenUsage] = useState<{ input: number; output: number }>({ input: 0, output: 0 })
   const abortRef = useRef<AbortController | null>(null)
   const bottomRef = useRef<HTMLDivElement | null>(null)
+
+  // "Open in Discuss →" navigation: adopt the requested story. Switching to a
+  // different story starts a fresh conversation; re-opening the same story
+  // keeps the one in progress.
+  const navSlug = location.state?.slug
+  useEffect(() => {
+    if (navSlug && navSlug !== selectedSlug) {
+      setSelectedSlug(navSlug)
+      resetConversation()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [navSlug])
 
   const { data: stories = [] } = useQuery({
     queryKey: ['stories'],
@@ -55,10 +67,8 @@ export default function DiscussPage() {
     mutationFn: () => apiClient.saveConversation(selectedSlug, messages),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['conversations', selectedSlug] })
-      setMessages([])
-      setApiHistory([])
+      resetConversation()
       setStreamError('')
-      setTokenUsage({ input: 0, output: 0 })
     },
   })
 
@@ -154,9 +164,7 @@ export default function DiscussPage() {
     if (cloudMode) {
       saveMutation.mutate()
     } else {
-      setMessages([])
-      setApiHistory([])
-      setTokenUsage({ input: 0, output: 0 })
+      resetConversation()
     }
   }
 
@@ -172,9 +180,7 @@ export default function DiscussPage() {
             onChange={(e) => {
               if (messages.length > 0 && !confirm('Starting a new story — end the current conversation?')) return
               setSelectedSlug(e.target.value)
-              setMessages([])
-              setApiHistory([])
-              setTokenUsage({ input: 0, output: 0 })
+              resetConversation()
             }}
           >
             <option value="">— select —</option>
