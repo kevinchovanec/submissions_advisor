@@ -61,6 +61,16 @@ export default function MatcherPage() {
     URL.revokeObjectURL(url)
   }
 
+  const REVIEW_THRESHOLD = 95
+  const lowConfidence = journals
+    .filter((j) => j.rank !== null && (j.match_confidence ?? 100) < REVIEW_THRESHOLD)
+    .sort((a, b) => (a.match_confidence ?? 0) - (b.match_confidence ?? 0))
+
+  function handleReject(journal: Journal) {
+    setJournals(journals.filter((j) => j.normalized_name !== journal.normalized_name))
+    setUnranked([...unranked, journal])
+  }
+
   const totalJournals = batches.reduce((n, b) => {
     const lines = b.split('\n').filter((l) => l.trim() && !['title', 'name', 'journal'].includes(l.trim().toLowerCase()))
     return n + lines.length
@@ -176,6 +186,36 @@ export default function MatcherPage() {
           <p className="text-sm text-gray-600">
             <strong>{journals.length}</strong> ranked matches · {unranked.length} unranked
           </p>
+
+          {lowConfidence.length > 0 && (
+            <details open className="rounded-lg border border-amber-300 bg-amber-50 p-3 text-sm">
+              <summary className="cursor-pointer font-medium text-amber-800">
+                ⚠️ Review {lowConfidence.length} low-confidence match{lowConfidence.length !== 1 ? 'es' : ''}
+              </summary>
+              <p className="text-xs text-amber-700 mt-1 mb-2">
+                These pasted names matched a ranked journal below {REVIEW_THRESHOLD}% confidence.
+                Check both names and reject any that are wrong — rejected journals move to the unranked list.
+              </p>
+              <ul className="divide-y divide-amber-200">
+                {lowConfidence.map((j) => (
+                  <li key={j.normalized_name} className="flex items-center gap-3 py-1.5">
+                    <span className="font-medium flex-1">{j.display_name}</span>
+                    <span className="text-amber-800 flex-1">→ <em>{j.matched_name}</em></span>
+                    <span className="font-mono text-xs text-amber-700 w-10 text-right">
+                      {j.match_confidence?.toFixed(0)}%
+                    </span>
+                    <button
+                      className="text-xs text-red-600 border border-red-300 rounded px-2 py-0.5 hover:bg-red-50"
+                      onClick={() => handleReject(j)}
+                    >
+                      Reject
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </details>
+          )}
+
           <div className="overflow-x-auto rounded-lg border border-gray-200">
             <table className="min-w-full divide-y divide-gray-200 text-sm">
               <thead className="bg-gray-50">

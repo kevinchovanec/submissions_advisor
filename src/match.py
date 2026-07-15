@@ -91,7 +91,9 @@ def match(
     if low_confidence:
         print(f"\n--- {len(low_confidence)} low-confidence matches (below {REVIEW_THRESHOLD}) ---")
         for duotrope_name, ranked_name, score in sorted(low_confidence, key=lambda x: x[2]):
-            print(f"  {score:5.1f}  '{duotrope_name}'  →  '{ranked_name}'")
+            # ASCII arrow: Windows consoles default to cp1252, where printing
+            # '→' raises UnicodeEncodeError and would 500 the request.
+            print(f"  {score:5.1f}  '{duotrope_name}'  ->  '{ranked_name}'")
         print(f"Add corrections to {OVERRIDES_PATH}\n")
 
     return results
