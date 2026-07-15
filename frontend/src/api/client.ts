@@ -200,7 +200,9 @@ export function formatStoryForAgent(story: Story): string {
 export function formatPendingContext(pending: PendingSub[]): string {
   if (!pending.length) return ''
   const lines = [
-    'Journals with a submission currently under review (any story — do not suggest these unless the writer explicitly asks about them):',
+    'IMPORTANT — journals with a submission currently under review. NEVER recommend any of these ' +
+      '(for any story) unless the writer explicitly asks about them. Re-check every recommendation ' +
+      'you make against this list:',
   ]
   for (const p of pending) {
     lines.push(`  - ${p.journal} (${p.story_title})`)

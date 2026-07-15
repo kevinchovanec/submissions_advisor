@@ -649,7 +649,13 @@ async def chat(
                 yield f"data: {json.dumps({'text': data})}\n\n"
             elif kind == "done":
                 history, usage = data
-                yield f"data: {json.dumps({'done': True, 'history': history, 'usage': usage})}\n\n"
+                try:
+                    payload = json.dumps({"done": True, "history": history, "usage": usage})
+                except TypeError as exc:
+                    # Never kill the stream mid-flight: surface a proper error
+                    # frame so the client shows a message instead of a dead socket.
+                    payload = json.dumps({"error": f"Could not serialize history: {exc}"})
+                yield f"data: {payload}\n\n"
                 break
             elif kind == "error":
                 yield f"data: {json.dumps({'error': data})}\n\n"

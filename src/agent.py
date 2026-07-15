@@ -13,6 +13,7 @@ import anthropic
 import requests
 from bs4 import BeautifulSoup
 
+from ingest import normalize_name
 from storage import StorageBackend
 from summarize_journals import load_summaries_for
 from workbook import format_feedback_brief, get_feedback_for_journal
@@ -28,6 +29,11 @@ You have access to a ranked list of literary journals that are currently open fo
 ordered by a weighted prestige score (prize wins, circulation, and pay). Higher rank = more prestigious.
 
 When making recommendations:
+- NEVER recommend a journal where the writer already has a submission under review. These are \
+  marked "⛔ UNDER REVIEW" in the journal list and enumerated in the opening context. Before naming \
+  any journal, re-check it against that list — suggesting one wastes a simultaneous-submission slot \
+  and can burn the writer's standing with that editor. Mention such a journal only if the writer \
+  explicitly asks about it.
 - Each journal entry includes a summary of its guidelines — use these to shortlist candidates
 - Use the fetch_page tool only to verify the 2-3 journals you're seriously considering, not for every journal
 - If a journal appears in the editor feedback list, call get_editor_feedback before recommending it \
@@ -200,13 +206,21 @@ def _fetch_page(url: str) -> str:
         return f"Could not fetch page: {e}"
 
 
-def _format_journal_list(journals: list[dict], summaries: dict[str, str]) -> str:
+def _format_journal_list(
+    journals: list[dict],
+    summaries: dict[str, str],
+    pending_by_norm: dict[str, str] | None = None,
+) -> str:
     lines = []
+    pending_by_norm = pending_by_norm or {}
     for j in sorted(journals, key=lambda x: x["rank"]):
         url = j.get("journal_url") or j.get("about_url") or j.get("submit_url") or "no URL"
         name = j.get("display_name") or j.get("name", "")
         summary = summaries.get(j["normalized_name"], "")
         entry = f"#{j['rank']} {name} (score: {j.get('score', 'N/A')}, tier: {j.get('tier', 'N/A')}) — {url}"
+        pending_story = pending_by_norm.get(j["normalized_name"])
+        if pending_story:
+            entry += f"\n  ⛔ UNDER REVIEW — '{pending_story}' is currently submitted here; do NOT recommend"
         if summary:
             entry += f"\n  {summary}"
         lines.append(entry)
@@ -222,7 +236,16 @@ def _build_initial_context(
 ) -> str:
     summaries = load_summaries_for(journals)
     summarized = sum(1 for j in journals if j["normalized_name"] in summaries)
-    journal_list = _format_journal_list(journals, summaries)
+    # Flag pending-submission journals inline in the ranked list, where the
+    # model reads candidates — the separate pending block alone gets overlooked.
+    try:
+        pending_by_norm = {
+            normalize_name(p["journal"]): p["story_title"]
+            for p in storage.list_all_pending()
+        }
+    except Exception:
+        pending_by_norm = {}
+    journal_list = _format_journal_list(journals, summaries, pending_by_norm)
     note = f" ({summarized} with cached summaries)" if summarized else ""
 
     genre_note = f" [Genre mode: {genre_mode}]"
@@ -327,7 +350,10 @@ def stream_response(
             elif block.type == "tool_use":
                 tool_uses.append(block)
 
-        full_messages = full_messages + [{"role": "assistant", "content": response.content}]
+        # Plain dicts, not SDK block objects: the history is JSON-serialized
+        # into the SSE done event and round-tripped through the client.
+        content_dicts = [block.model_dump(mode="json", exclude_none=True) for block in response.content]
+        full_messages = full_messages + [{"role": "assistant", "content": content_dicts}]
 
         if not tool_uses:
             break
