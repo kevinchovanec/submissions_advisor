@@ -192,20 +192,50 @@ class StorageLocal(StorageBackend):
     # Tracker sync
     # ------------------------------------------------------------------
 
-    def sync_from_tracker(self) -> int:
-        """Merge submission history from the Excel tracker into the story files.
+    def sync_from_tracker(self) -> dict:
+        """Merge the Excel tracker into the story files.
 
-        Matches stories by title and submissions by journal name (both
-        case-insensitive), so re-running only adds what's missing. Returns the
-        count of newly added submissions.
+        First creates cards for tracker stories that have none (word count and
+        genre come from the Stories sheet when present), then merges submission
+        history into every card. Matches stories by title and submissions by
+        journal name (both case-insensitive), so re-running only adds what's
+        missing. Returns {"created": n, "added": m}.
         """
         wb_path = self._workbook_path()
         if wb_path is None:
             raise FileNotFoundError("No workbook found — add a submissions Excel file to data/ first.")
         from workbook import load as wb_load, story_view
 
-        view = story_view(wb_load(wb_path)["journals"])
+        data = wb_load(wb_path)
+        view = story_view(data["journals"])
         STORIES_DIR.mkdir(parents=True, exist_ok=True)
+
+        # Create cards for tracker stories that don't have one yet.
+        existing_titles = {
+            str(frontmatter.load(str(p)).get("title", p.stem)).strip().lower()
+            for p in STORIES_DIR.glob("*.md")
+        }
+        sheet_rows = {s["title"].strip().lower(): s for s in data["stories"]}
+        tracker_titles: dict[str, str] = {}  # normalized → display title
+        for s in data["stories"]:
+            tracker_titles.setdefault(s["title"].strip().lower(), s["title"])
+        for title in view:
+            tracker_titles.setdefault(title.strip().lower(), title)
+        created_total = 0
+        for norm, title in tracker_titles.items():
+            slug = _slug(title)
+            if norm in existing_titles or not slug or _story_path(slug).exists():
+                continue
+            row = sheet_rows.get(norm, {})
+            word_count = row.get("word_count")
+            try:
+                word_count = int(word_count) if word_count is not None else None
+            except (TypeError, ValueError):
+                word_count = None
+            self.create_story(title, word_count, row.get("genre") or "", "")
+            existing_titles.add(norm)
+            created_total += 1
+
         added_total = 0
         for path in STORIES_DIR.glob("*.md"):
             post = frontmatter.load(str(path))
@@ -234,7 +264,7 @@ class StorageLocal(StorageBackend):
                 post["submitted_to"] = existing
                 _save_post(path, post)
                 added_total += added
-        return added_total
+        return {"created": created_total, "added": added_total}
 
     # ------------------------------------------------------------------
     # Templates

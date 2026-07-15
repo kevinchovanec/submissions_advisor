@@ -24,7 +24,7 @@ export interface ApiClient {
   createStory(data: { title: string; word_count?: number | null; style?: string; description?: string }): Promise<{ slug: string }>
   updateStory(slug: string, data: { word_count?: number | null; style?: string; description?: string }): Promise<void>
   generateCard(storyText: string): Promise<GeneratedCard>
-  syncTracker(): Promise<{ added: number }>
+  syncTracker(): Promise<{ created: number; added: number }>
   // Submissions
   logSubmission(slug: string, data: { journal: string; outcome?: string; notes?: string; sub_date?: string }): Promise<void>
   updateOutcome(slug: string, journal: string, data: { outcome: string; notes?: string; sub_date?: string }): Promise<void>

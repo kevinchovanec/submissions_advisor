@@ -242,14 +242,14 @@ def generate_card(
 
 @app.post("/api/stories/sync-tracker")
 def sync_tracker(storage=Depends(get_storage)):
-    """Merge submission history from the local Excel tracker into story files (local mode only)."""
+    """Create missing story cards and merge submission history from the local Excel tracker (local mode only)."""
     try:
-        added = storage.sync_from_tracker()
+        result = storage.sync_from_tracker()
     except NotImplementedError as e:
         raise HTTPException(status_code=400, detail=str(e))
     except FileNotFoundError as e:
         raise HTTPException(status_code=404, detail=str(e))
-    return {"added": added}
+    return result
 
 
 # ---------------------------------------------------------------------------

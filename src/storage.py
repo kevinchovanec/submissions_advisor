@@ -119,12 +119,14 @@ class StorageBackend(ABC):
     # Tracker sync (local mode only)
     # ------------------------------------------------------------------
 
-    def sync_from_tracker(self) -> int:
-        """Merge submission history from the local Excel tracker into story records.
+    def sync_from_tracker(self) -> dict:
+        """Merge the local Excel tracker into story records.
 
-        Matches stories by title and submissions by journal name (both
-        case-insensitive), so re-running only adds what's missing. Returns the
-        number of newly added submissions. Available in local mode only.
+        Creates story records for tracker stories that have none, then merges
+        submission history into all of them. Matches stories by title and
+        submissions by journal name (both case-insensitive), so re-running only
+        adds what's missing. Returns {"created": n, "added": m}. Available in
+        local mode only.
         """
         raise NotImplementedError("Tracker sync is only available in local mode.")
 

@@ -23,9 +23,12 @@ export default function StoriesPage() {
       qc.invalidateQueries({ queryKey: ['stories'] })
       qc.invalidateQueries({ queryKey: ['story'] })
       qc.invalidateQueries({ queryKey: ['submissions'] })
+      const parts = []
+      if (data.created > 0) parts.push(`created ${data.created} stor${data.created !== 1 ? 'ies' : 'y'}`)
+      if (data.added > 0) parts.push(`added ${data.added} submission${data.added !== 1 ? 's' : ''}`)
       setSyncMsg(
-        data.added > 0
-          ? `Synced ${data.added} submission${data.added !== 1 ? 's' : ''} from tracker.`
+        parts.length > 0
+          ? `Synced from tracker: ${parts.join(', ')}.`
           : 'Already up to date with the tracker.'
       )
     },
