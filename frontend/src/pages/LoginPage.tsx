@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 
 export default function LoginPage() {
-  const { cloudMode, login, setApiKey, apiKey, apiClient } = useAuth()
+  const { cloudMode, userId, login, setApiKey, apiKey, apiClient } = useAuth()
+  const loggedInNeedsKey = cloudMode && !!userId && !apiKey
   const [tab, setTab] = useState<'login' | 'signup'>('login')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -43,7 +44,7 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="w-full max-w-md space-y-6">
         {/* Cloud auth */}
-        {cloudMode && (
+        {cloudMode && !loggedInNeedsKey && (
           <div className="card">
             <h1 className="text-xl font-semibold mb-4">Submissions Advisor</h1>
             <div className="flex border-b border-gray-200 mb-4">
@@ -85,9 +86,23 @@ export default function LoginPage() {
 
         {/* API key */}
         <div className="card">
+          {loggedInNeedsKey && (
+            <p className="text-sm text-indigo-700 bg-indigo-50 border border-indigo-200 rounded p-2 mb-3">
+              You're logged in — this app needs your own Anthropic API key to talk to Claude. Enter it below to continue.
+            </p>
+          )}
           <h2 className="text-base font-semibold mb-1">Anthropic API Key</h2>
           <p className="text-xs text-gray-500 mb-3">
             Stored in session only — cleared when you close the tab. Never written to the database.
+            Don't have one? Get one at{' '}
+            <a
+              href="https://console.anthropic.com/settings/keys"
+              target="_blank"
+              rel="noreferrer"
+              className="text-indigo-600 hover:underline"
+            >
+              console.anthropic.com/settings/keys
+            </a>.
           </p>
           <form onSubmit={handleKeySubmit} className="flex gap-2">
             <input
