@@ -391,7 +391,10 @@ def _extract_json(raw: str) -> dict:
     start, end = cleaned.find("{"), cleaned.rfind("}")
     if start == -1 or end == -1:
         raise ValueError("no JSON object in model reply")
-    return json.loads(cleaned[start : end + 1])
+    # strict=False permits literal newlines and tabs inside string values. The model
+    # occasionally emits them when a journal's own text is multi-line, and the default
+    # strict parser rejects the whole object over one raw control character.
+    return json.loads(cleaned[start : end + 1], strict=False)
 
 
 def _is_fatal_api_error(exc: Exception) -> bool:
@@ -546,6 +549,19 @@ def format_details(normalized_name: str) -> str | None:
     return "\n".join(lines)
 
 
+def _url_changed(entry: dict | None, journal: dict) -> bool:
+    """Was this summary built from a different URL than the rankings now hold?
+
+    A corrected journal_url makes the cached summary stale no matter how recently it
+    was checked — it describes a page we are no longer pointing at. Without this,
+    fixing a URL would leave the old summary in place for the rest of the 90-day
+    recheck window.
+    """
+    if not entry:
+        return False
+    return (entry.get("url") or "") != _journal_url(journal)
+
+
 def _due_for_recheck(norm: str, meta: dict) -> bool:
     """Gate 0: has enough time passed to bother re-fetching?"""
     checked = (meta.get(norm) or {}).get("checked_at")
@@ -592,7 +608,9 @@ def generate_summaries(
         # started over from journal 1 when it actually resumed.
         already = sum(
             1 for j in candidates
-            if j["normalized_name"] in cache and not _due_for_recheck(j["normalized_name"], meta)
+            if j["normalized_name"] in cache
+            and not _due_for_recheck(j["normalized_name"], meta)
+            and not _url_changed(cache.get(j["normalized_name"]), j)
         )
         if already:
             yield (
@@ -611,7 +629,12 @@ def generate_summaries(
         prefix = f"[{i}/{len(candidates)}]"
 
         # Gate 0 — no network.
-        if entry and not force_refresh and not _due_for_recheck(norm, meta):
+        if (
+            entry
+            and not force_refresh
+            and not _due_for_recheck(norm, meta)
+            and not _url_changed(entry, journal)
+        ):
             unchanged += 1
             continue
 
@@ -630,6 +653,15 @@ def generate_summaries(
             if not dry_run:
                 meta.setdefault(norm, {})["checked_at"] = now()
                 _save_meta(meta)
+                if _url_changed(entry, journal):
+                    # A corrected URL that happens to serve the same page: record the
+                    # new one so it stops looking stale on every future run. No model
+                    # call — the prose is still accurate.
+                    entry["url"] = pages[0] if pages else _journal_url(journal)
+                    entry["pages"] = pages
+                    cache[norm] = entry
+                    _save_cache(cache)
+                    _write_page_text(norm, text)
             yield f"{prefix}   unchanged"
             continue
 

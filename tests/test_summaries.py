@@ -273,6 +273,54 @@ class TestGateCascade:
         assert entry["revision"] == 2
         assert "1 refreshed" in out
 
+    def test_a_corrected_url_invalidates_the_cached_entry(self, isolated_summaries, monkeypatch):
+        """Fixing a wrong journal_url must re-summarize, even inside the 90-day
+        recheck window — the cached text describes a page we no longer point at."""
+        sj = isolated_summaries
+        calls = self._stub(sj, monkeypatch, summary="FROM THE OLD URL.")
+        self._run(sj)
+        assert calls["model"] == 1
+
+        # A corrected URL points somewhere genuinely different.
+        moved = dict(self.JOURNAL, journal_url="https://mag.example/new-submissions")
+        calls = self._stub(
+            sj, monkeypatch,
+            page="Entirely different guidelines page. Send up to 3000 words, $5 fee.",
+            details=dict(self.DETAILS, word_limit="3000", fee="$5"),
+            summary="FROM THE CORRECTED URL.",
+        )
+        out = "\n".join(sj.generate_summaries([moved], api_key="unused"))
+        assert calls["model"] == 1, "a changed URL must not be skipped by Gate 0"
+        assert "refreshed" in out
+        entry = sj._load_cache()["mag"]
+        assert entry["summary"] == "FROM THE CORRECTED URL."
+        assert entry["url"] == "https://mag.example/new-submissions"
+
+    def test_corrected_url_serving_the_same_page_updates_without_a_model_call(
+        self, isolated_summaries, monkeypatch
+    ):
+        """Edge case: the URL was fixed but resolves to identical content. Record the
+        new URL so it stops looking stale every run, but don't pay to re-summarize."""
+        sj = isolated_summaries
+        calls = self._stub(sj, monkeypatch, summary="ORIGINAL.")
+        self._run(sj)
+        moved = dict(self.JOURNAL, journal_url="https://mag.example/moved")
+        calls["fetch"] = calls["model"] = 0
+        list(sj.generate_summaries([moved], api_key="unused"))
+        entry = sj._load_cache()["mag"]
+        assert calls["fetch"] == 1
+        assert calls["model"] == 0, "identical page needs no new summary"
+        assert entry["url"] == "https://mag.example/moved"
+        assert entry["summary"] == "ORIGINAL."
+
+    def test_unchanged_url_still_skips(self, isolated_summaries, monkeypatch):
+        sj = isolated_summaries
+        calls = self._stub(sj, monkeypatch)
+        self._run(sj)
+        calls["fetch"] = calls["model"] = 0
+        self._run(sj)
+        assert calls["fetch"] == 0 and calls["model"] == 0
+
     def test_force_refresh_bypasses_gates_0_and_1(self, isolated_summaries, monkeypatch):
         sj = isolated_summaries
         calls = self._stub(sj, monkeypatch)
@@ -578,3 +626,13 @@ class TestJsonExtraction:
         import pytest
         with pytest.raises(ValueError):
             isolated_summaries._extract_json("no object here")
+
+    def test_tolerates_a_literal_newline_inside_a_string(self, isolated_summaries):
+        """The model emits raw control characters when a journal's own text is
+        multi-line; strict parsing rejected the whole object over one of them."""
+        raw = '{"summary": "First line.\nSecond line.", "details": {}}'
+        assert isolated_summaries._extract_json(raw)["summary"].startswith("First line.")
+
+    def test_tolerates_a_literal_tab(self, isolated_summaries):
+        raw = '{"summary": "Fiction\tPoetry", "details": {}}'
+        assert "Poetry" in isolated_summaries._extract_json(raw)["summary"]
