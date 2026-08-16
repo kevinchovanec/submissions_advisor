@@ -214,7 +214,7 @@
     "normalized_name": "southern review",
     "score": 65.0,
     "tier": "Tier 2",
-    "journal_url": "https://thesouthernreview.org/",
+    "journal_url": "https://www.thesouthernreview.org/submissions",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: $75 for first pg, $25 for each subsequent pg, $300 max, plus 2 copies and 1-year subscription, Reading Period: Sep 1 - Jan 1, Response Time (months): 6, Maximum Word Count: usually 10K (but will consider higher), Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -339,18 +339,6 @@
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: 2 copies, Reading Period: not restricted, Response Time (months): 6, Maximum Word Count: 5K, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
-  },
-  {
-    "name": "Freeman's",
-    "normalized_name": "freemans",
-    "score": 35.0,
-    "tier": null,
-    "journal_url": "",
-    "about_url": "",
-    "submit_url": "",
-    "fetched_at": null,
-    "category": "literary",
-    "rank": 32
   },
   {
     "rank": 33,
@@ -518,18 +506,6 @@
     "category": "literary"
   },
   {
-    "name": "Gettysburg Review",
-    "normalized_name": "gettysburg review",
-    "score": 18.0,
-    "tier": null,
-    "journal_url": "",
-    "about_url": "",
-    "submit_url": "",
-    "fetched_at": null,
-    "category": "literary",
-    "rank": 48
-  },
-  {
     "rank": 49,
     "name": "Bennington Review",
     "normalized_name": "bennington review",
@@ -589,7 +565,7 @@
     "normalized_name": "orion",
     "score": 16.0,
     "tier": null,
-    "journal_url": "",
+    "journal_url": "https://orionmagazine.org/submission-guidelines/",
     "about_url": "",
     "submit_url": "",
     "fetched_at": null,
@@ -646,7 +622,7 @@
     "normalized_name": "indiana review",
     "score": 13.5,
     "tier": "Tier 3",
-    "journal_url": "https://indianareview.org/submit/",
+    "journal_url": "https://indianareview.iu.edu/submissions/index.html",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: $5/pg + 2 copies, Reading Period: Feb 1–Mar 31, Sep 1–Oct 31, Response Time (months): 4, Maximum Word Count: DK, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -657,7 +633,7 @@
     "normalized_name": "massachusetts review",
     "score": 13.0,
     "tier": "Tier 3",
-    "journal_url": "https://www.massreview.org/submission-guidelines",
+    "journal_url": "https://massreview.org/new-submissions",
     "notes": "Circulation: DK, Monthly Visits to Site: 7.9K, Payment: $100, Reading Period: Oct 1-Apr 30, Response Time (months): DK, Maximum Word Count: 7.5K/20 pages, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -668,7 +644,7 @@
     "normalized_name": "washington square review",
     "score": 12.0,
     "tier": "Tier 3",
-    "journal_url": "https://www.washingtonsquarereview.com/submit-2",
+    "journal_url": "https://www.washingtonsquarereview.com/submit",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: two copies, Reading Period: DK, Response Time (months): 2-4, Maximum Word Count: 5K, Other Restrictions: Make sure this is the magazine published by NYU ! There’s another one with an identical name that hasn’t won these awards.",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -678,7 +654,7 @@
     "normalized_name": "antioch review",
     "score": 12.0,
     "tier": null,
-    "journal_url": "",
+    "journal_url": "https://antiochcollege.edu/antioch-review/writers-guidelines/",
     "about_url": "",
     "submit_url": "",
     "fetched_at": null,
@@ -691,7 +667,7 @@
     "normalized_name": "witness",
     "score": 11.0,
     "tier": "Tier 3",
-    "journal_url": "https://witness.blackmountaininstitute.org/submit-2/",
+    "journal_url": "https://witness.blackmountaininstitute.org/submit/",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: $150, Reading Period: Sep for themed print issue, Jan for untamed online issue, dates may vary, Response Time (months): DK, Maximum Word Count: 7K, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -811,7 +787,7 @@
     "normalized_name": "oxford american",
     "score": 10.0,
     "tier": null,
-    "journal_url": "",
+    "journal_url": "https://oxfordamerican.org/submissions",
     "about_url": "",
     "submit_url": "",
     "fetched_at": null,
@@ -824,7 +800,7 @@
     "normalized_name": "pleiades",
     "score": 8.5,
     "tier": "Tier 4",
-    "journal_url": "https://pleiadesmag.com/submit/",
+    "journal_url": "https://pleiadesmag.com/submissions/",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: none, Reading Period: December, Response Time (months): DK, Maximum Word Count: prefers under 12K, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -846,7 +822,7 @@
     "normalized_name": "ninth letter",
     "score": 8.0,
     "tier": "Tier 4",
-    "journal_url": "http://www.ninthletter.com/journal/submit",
+    "journal_url": "https://ninthletter.com/submit/",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: $25/pg, Reading Period: Aug-Oct, Dec-Feb, Response Time (months): 2, Maximum Word Count: 8K, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -905,18 +881,6 @@
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: none, Reading Period: Oct 15 - Apr 15, Response Time (months): DK, Maximum Word Count: best under 5K, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
-  },
-  {
-    "name": "Raritan",
-    "normalized_name": "raritan",
-    "score": 7.0,
-    "tier": null,
-    "journal_url": "",
-    "about_url": "",
-    "submit_url": "",
-    "fetched_at": null,
-    "category": "literary",
-    "rank": 83
   },
   {
     "rank": 84,
@@ -1066,7 +1030,7 @@
     "normalized_name": "story magazine",
     "score": 5.0,
     "tier": null,
-    "journal_url": "",
+    "journal_url": "https://www.storymagazine.org/submit/",
     "about_url": "",
     "submit_url": "",
     "fetched_at": null,
@@ -1090,7 +1054,7 @@
     "normalized_name": "pinch",
     "score": 4.5,
     "tier": "Tier 4",
-    "journal_url": "http://www.pinchjournal.com/guidelines",
+    "journal_url": "https://www.pinchjournal.com/submit",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: 2 copies, Reading Period: not restricted, Response Time (months): 3-6, Maximum Word Count: 5K, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -1342,7 +1306,7 @@
     "normalized_name": "literary review",
     "score": 4.0,
     "tier": null,
-    "journal_url": "",
+    "journal_url": "https://theliteraryreview.org/submit/",
     "about_url": "",
     "submit_url": "",
     "fetched_at": null,
@@ -1355,22 +1319,10 @@
     "normalized_name": "zone 3",
     "score": 3.0,
     "tier": "Tier 4",
-    "journal_url": "https://zone3press.submittable.com/submit",
+    "journal_url": "https://zone3press.com/",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: Feb 1-Apr 1. May also have fall dates?, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
-  },
-  {
-    "name": "Slice",
-    "normalized_name": "slice",
-    "score": 3.0,
-    "tier": null,
-    "journal_url": "",
-    "about_url": "",
-    "submit_url": "",
-    "fetched_at": null,
-    "category": "literary",
-    "rank": 124
   },
   {
     "rank": 125,
@@ -1426,18 +1378,6 @@
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
-  },
-  {
-    "name": "Juked",
-    "normalized_name": "juked",
-    "score": 2.5,
-    "tier": null,
-    "journal_url": "",
-    "about_url": "",
-    "submit_url": "",
-    "fetched_at": null,
-    "category": "literary",
-    "rank": 130
   },
   {
     "rank": 131,
@@ -1522,7 +1462,7 @@
     "normalized_name": "notre dame review",
     "score": 2.0,
     "tier": "Tier 4",
-    "journal_url": "https://ndreview.nd.edu/submission-guidelines/",
+    "journal_url": "https://ndreview.nd.edu/submissions/",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: Sep-Oct, Jan-Mar, Response Time (months): DK, Maximum Word Count: not restricted, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -1576,7 +1516,7 @@
     "normalized_name": "okay donkey",
     "score": 2.0,
     "tier": null,
-    "journal_url": "",
+    "journal_url": "https://okaydonkeymag.com/submissions/",
     "about_url": "",
     "submit_url": "",
     "fetched_at": null,
@@ -1584,24 +1524,12 @@
     "rank": 143
   },
   {
-    "name": "Jellyfish Review",
-    "normalized_name": "jellyfish review",
-    "score": 2.0,
-    "tier": null,
-    "journal_url": "",
-    "about_url": "",
-    "submit_url": "",
-    "fetched_at": null,
-    "category": "literary",
-    "rank": 144
-  },
-  {
     "rank": 145,
     "name": "Chautauqua",
     "normalized_name": "chautauqua",
     "score": 1.5,
     "tier": "Tier 4",
-    "journal_url": "https://www.chq.org/things-to-do/education/literary-arts/chautauqua-journal/",
+    "journal_url": "https://www.chautauquajournal.com/about-1",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: Feb 15-Mar 31, may pause submissions, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -1622,36 +1550,12 @@
     "normalized_name": "four way review",
     "score": 1.5,
     "tier": null,
-    "journal_url": "",
+    "journal_url": "https://fourwayreview.com/submit/",
     "about_url": "",
     "submit_url": "",
     "fetched_at": null,
     "category": "literary",
     "rank": 147
-  },
-  {
-    "name": "Paper Darts",
-    "normalized_name": "paper darts",
-    "score": 1.5,
-    "tier": null,
-    "journal_url": "",
-    "about_url": "",
-    "submit_url": "",
-    "fetched_at": null,
-    "category": "literary",
-    "rank": 148
-  },
-  {
-    "name": "Green Mountain Review",
-    "normalized_name": "green mountain review",
-    "score": 1.5,
-    "tier": null,
-    "journal_url": "",
-    "about_url": "",
-    "submit_url": "",
-    "fetched_at": null,
-    "category": "literary",
-    "rank": 149
   },
   {
     "rank": 150,
@@ -1681,7 +1585,7 @@
     "normalized_name": "willow springs",
     "score": 1.0,
     "tier": "Tier 4",
-    "journal_url": "https://inside.ewu.edu/willowspringsmagazine/submit/",
+    "journal_url": "https://inside.ewu.edu/willowspringsmagazine/standard-submissions/",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: 100, Reading Period: Sep 1 - May 31, Response Time (months): DK, Maximum Word Count: not restricted, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -1966,7 +1870,7 @@
     "normalized_name": "midwest review",
     "score": 1.0,
     "tier": null,
-    "journal_url": "",
+    "journal_url": "https://midwestreview.org/submissions/",
     "about_url": "",
     "submit_url": "",
     "fetched_at": null,
@@ -1974,23 +1878,11 @@
     "rank": 178
   },
   {
-    "name": "December Magazine",
-    "normalized_name": "december magazine",
-    "score": 1.0,
-    "tier": null,
-    "journal_url": "",
-    "about_url": "",
-    "submit_url": "",
-    "fetched_at": null,
-    "category": "literary",
-    "rank": 179
-  },
-  {
     "name": "Conduit",
     "normalized_name": "conduit",
     "score": 1.0,
     "tier": null,
-    "journal_url": "",
+    "journal_url": "https://www.conduit.org/submit",
     "about_url": "",
     "submit_url": "",
     "fetched_at": null,
@@ -2245,7 +2137,7 @@
     "normalized_name": "rumpus",
     "score": 0.5,
     "tier": "Tier 4",
-    "journal_url": "https://therumpus.net/about-4/",
+    "journal_url": "https://therumpus.net/",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A\\",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -2257,17 +2149,6 @@
     "score": 0.5,
     "tier": "Tier 4",
     "journal_url": "https://www.outlooksprings.com/about/",
-    "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
-    "fetched_at": "2026-05-11T11:15:15.385962+00:00",
-    "category": "literary"
-  },
-  {
-    "rank": 205,
-    "name": "*New Delta Review",
-    "normalized_name": "new delta review",
-    "score": 0.5,
-    "tier": "Tier 4",
-    "journal_url": "http://ndrmag.org/submissions/",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -2290,17 +2171,6 @@
     "score": 0.5,
     "tier": "Tier 4",
     "journal_url": "https://www.fictioninc.com/submit",
-    "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
-    "fetched_at": "2026-05-11T11:15:15.385962+00:00",
-    "category": "literary"
-  },
-  {
-    "rank": 208,
-    "name": "Fjords",
-    "normalized_name": "fjords",
-    "score": 0.5,
-    "tier": "Tier 4",
-    "journal_url": "https://fjordsreview.submittable.com/submit",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -2344,7 +2214,7 @@
     "normalized_name": "spectacle",
     "score": 0.5,
     "tier": "Tier 4",
-    "journal_url": "https://www.patreon.com/posts/market-analysis-16118787",
+    "journal_url": "https://thespectacle.wustl.edu/?page_id=119",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -2431,7 +2301,7 @@
     "normalized_name": "flint hills review",
     "score": 0.5,
     "tier": null,
-    "journal_url": "",
+    "journal_url": "https://sites.google.com/g.emporia.edu/flinthillsreview/submissions",
     "about_url": "",
     "submit_url": "",
     "fetched_at": null,
@@ -2443,7 +2313,7 @@
     "normalized_name": "ruminate",
     "score": 0.5,
     "tier": null,
-    "journal_url": "",
+    "journal_url": "https://wildburrostudio.com/about",
     "about_url": "",
     "submit_url": "",
     "fetched_at": null,
@@ -2455,7 +2325,7 @@
     "normalized_name": "ascent",
     "score": 0.5,
     "tier": null,
-    "journal_url": "",
+    "journal_url": "https://readthebestwriting.com/about/",
     "about_url": "",
     "submit_url": "",
     "fetched_at": null,
@@ -2467,36 +2337,12 @@
     "normalized_name": "elj",
     "score": 0.5,
     "tier": null,
-    "journal_url": "",
+    "journal_url": "https://elj-editions.com/submit/",
     "about_url": "",
     "submit_url": "",
     "fetched_at": null,
     "category": "literary",
     "rank": 223
-  },
-  {
-    "name": "Isthmus",
-    "normalized_name": "isthmus",
-    "score": 0.5,
-    "tier": null,
-    "journal_url": "",
-    "about_url": "",
-    "submit_url": "",
-    "fetched_at": null,
-    "category": "literary",
-    "rank": 224
-  },
-  {
-    "name": "Metamorphosis",
-    "normalized_name": "metamorphosis",
-    "score": 0.5,
-    "tier": null,
-    "journal_url": "",
-    "about_url": "",
-    "submit_url": "",
-    "fetched_at": null,
-    "category": "literary",
-    "rank": 225
   },
   {
     "rank": 226,
@@ -2521,23 +2367,12 @@
     "category": "literary"
   },
   {
-    "rank": 228,
-    "name": "Big Fiction",
-    "normalized_name": "big fiction",
-    "score": 0.0,
-    "tier": "Tier 5",
-    "journal_url": "https://www.bigfictionmagazine.com/submit",
-    "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: $100, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
-    "fetched_at": "2026-05-11T11:15:15.385962+00:00",
-    "category": "literary"
-  },
-  {
     "rank": 229,
     "name": "*Nashville Review",
     "normalized_name": "nashville review",
     "score": 0.0,
     "tier": "Tier 5",
-    "journal_url": "https://as.vanderbilt.edu/nashvillereview/contact/submit",
+    "journal_url": "https://wp0.vanderbilt.edu/nashvillereview/submit",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: $100, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -2658,7 +2493,7 @@
     "normalized_name": "grain magazine",
     "score": 0.0,
     "tier": "Tier 5",
-    "journal_url": "https://grainmagazine.ca/submissionguidelines",
+    "journal_url": "https://grainmagazine.ca/submit",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: $50/pg CAD to 225, Reading Period: Sep 1 - May 31, Response Time (months): DK, Maximum Word Count: 3.5K, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -2812,7 +2647,7 @@
     "normalized_name": "vestal review",
     "score": 0.0,
     "tier": "Tier 5",
-    "journal_url": "https://www.vestalreview.org/guidelines/",
+    "journal_url": "https://www.vestalreview.net/guidelines",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: $25, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -2873,17 +2708,6 @@
     "category": "literary"
   },
   {
-    "rank": 260,
-    "name": "Asia Literary Review",
-    "normalized_name": "asia literary review",
-    "score": 0.0,
-    "tier": "Tier 5",
-    "journal_url": "https://hyphenmagazine.com/blog/2015/3/29/literary-journal-review-asian-american-literary-review",
-    "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: $0.05/word, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
-    "fetched_at": "2026-05-11T11:15:15.385962+00:00",
-    "category": "literary"
-  },
-  {
     "rank": 261,
     "name": "*Pedestal Magazine",
     "normalized_name": "pedestal magazine",
@@ -2933,7 +2757,7 @@
     "normalized_name": "five south",
     "score": 0.0,
     "tier": "Tier 5",
-    "journal_url": "https://www.fivesouth.net/submissions22",
+    "journal_url": "https://fivesouth.net/submission-guidelines/",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: nominal, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -3120,7 +2944,7 @@
     "normalized_name": "arkansas international",
     "score": 0.0,
     "tier": "Tier 5",
-    "journal_url": "https://www.arkint.org/submissions",
+    "journal_url": "https://www.arkint.org/general-submissions",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: Nov 15-Jan 15, Jun 15-Aug 15, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -3188,17 +3012,6 @@
     "tier": "Tier 5",
     "journal_url": "https://redivider.emerson.edu/",
     "notes": "Circulation: DK, Monthly Visits to Site: .5K, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
-    "fetched_at": "2026-05-11T11:15:15.385962+00:00",
-    "category": "literary"
-  },
-  {
-    "rank": 289,
-    "name": "Asian American Literary Review",
-    "normalized_name": "asian american literary review",
-    "score": 0.0,
-    "tier": "Tier 5",
-    "journal_url": "https://hyphenmagazine.com/blog/2015/3/29/literary-journal-review-asian-american-literary-review",
-    "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
   },
@@ -3375,17 +3188,6 @@
     "tier": "Tier 5",
     "journal_url": "https://www.foglifterjournal.com/submit",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: LBGTQIA+ authors only",
-    "fetched_at": "2026-05-11T11:15:15.385962+00:00",
-    "category": "literary"
-  },
-  {
-    "rank": 306,
-    "name": "*Cosmonauts Avenue",
-    "normalized_name": "cosmonauts avenue",
-    "score": 0.0,
-    "tier": "Tier 5",
-    "journal_url": "https://cosmonautsavenue.submittable.com/submit",
-    "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
   },
@@ -4160,17 +3962,6 @@
     "category": "literary"
   },
   {
-    "rank": 377,
-    "name": "Connecticut Review",
-    "normalized_name": "connecticut review",
-    "score": 0.0,
-    "tier": "Tier 5",
-    "journal_url": "https://www.tandfonline.com/journals/rrip20",
-    "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
-    "fetched_at": "2026-05-11T11:15:15.385962+00:00",
-    "category": "literary"
-  },
-  {
     "rank": 378,
     "name": "New York Stories",
     "normalized_name": "new york stories",
@@ -4199,17 +3990,6 @@
     "score": 0.0,
     "tier": "Tier 5",
     "journal_url": "https://edtankersley.com/literary-journals-submission-guidelines/",
-    "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
-    "fetched_at": "2026-05-11T11:15:15.385962+00:00",
-    "category": "literary"
-  },
-  {
-    "rank": 381,
-    "name": "Ballyhoo Stories",
-    "normalized_name": "ballyhoo stories",
-    "score": 0.0,
-    "tier": "Tier 5",
-    "journal_url": "http://www.writehabit.org/journals.html",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -4266,17 +4046,6 @@
     "tier": "Tier 5",
     "journal_url": "https://www.marginslitmag.com/submissions",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: Asian American themes",
-    "fetched_at": "2026-05-11T11:15:15.385962+00:00",
-    "category": "literary"
-  },
-  {
-    "rank": 387,
-    "name": "Nebraska Review",
-    "normalized_name": "nebraska review",
-    "score": 0.0,
-    "tier": "Tier 5",
-    "journal_url": "https://www.tandfonline.com/journals/rrip20",
-    "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
   },
@@ -4363,7 +4132,7 @@
     "normalized_name": "underground voices",
     "score": 0.0,
     "tier": "Tier 5",
-    "journal_url": "https://entropymag.org/underground-voices/",
+    "journal_url": "https://www.undergroundvoices.com/UVSubmissions.html",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -4429,7 +4198,7 @@
     "normalized_name": "blazevox",
     "score": 0.0,
     "tier": "Tier 5",
-    "journal_url": "https://writingcooperative.com/11-literary-fiction-publishers-accepting-unagented-manuscripts-3a21b0b54c71",
+    "journal_url": "https://www.blazevox.org/faqs-4",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -4473,7 +4242,7 @@
     "normalized_name": "burnside review",
     "score": 0.0,
     "tier": "Tier 5",
-    "journal_url": "https://entropymag.org/burnside-review-press/",
+    "journal_url": "https://burnsidereview.org/journal-guidelines.html",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: may still be on hiatus",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -4484,7 +4253,7 @@
     "normalized_name": "little fiction big truths",
     "score": 0.0,
     "tier": "Tier 5",
-    "journal_url": "https://medium.com/little-fiction-big-truths",
+    "journal_url": "http://www.littlefiction.com/beta/Submissions.html",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -4551,17 +4320,6 @@
     "score": 0.0,
     "tier": "Tier 5",
     "journal_url": "https://threadcountmag.com/submissions/",
-    "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
-    "fetched_at": "2026-05-11T11:15:15.385962+00:00",
-    "category": "literary"
-  },
-  {
-    "rank": 413,
-    "name": "Calliope",
-    "normalized_name": "calliope",
-    "score": 0.0,
-    "tier": "Tier 5",
-    "journal_url": "https://english.wvu.edu/students/current-undergraduate-students/creative-writing/calliope",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -4886,17 +4644,6 @@
     "category": "literary"
   },
   {
-    "rank": 443,
-    "name": "Orca: A Literary Journal",
-    "normalized_name": "orca a literary journal",
-    "score": 0.0,
-    "tier": "Tier 5",
-    "journal_url": "https://orcaaliteraryjournal.submittable.com/submit",
-    "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
-    "fetched_at": "2026-05-11T11:15:15.385962+00:00",
-    "category": "literary"
-  },
-  {
     "rank": 444,
     "name": "Painted Bride Quarterly",
     "normalized_name": "painted bride quarterly",
@@ -5161,17 +4908,6 @@
     "category": "literary"
   },
   {
-    "rank": 468,
-    "name": "Calla Press",
-    "normalized_name": "calla press",
-    "score": 0.0,
-    "tier": "Tier 5",
-    "journal_url": "https://www.callapresspublishing.com/literaryjournal/category/Articles",
-    "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): .75-1, Maximum Word Count: DK, Other Restrictions: Christian and Biblical focus. Fiction must be flash.",
-    "fetched_at": "2026-05-11T11:15:15.385962+00:00",
-    "category": "literary"
-  },
-  {
     "rank": 469,
     "name": "*Wildness",
     "normalized_name": "wildness",
@@ -5359,17 +5095,6 @@
     "category": "literary"
   },
   {
-    "rank": 486,
-    "name": "Turkoslavia",
-    "normalized_name": "turkoslavia",
-    "score": 0.0,
-    "tier": "Tier 5",
-    "journal_url": "https://www.turkoslavia.com/submissions",
-    "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: varies, Response Time (months): 1-3, Maximum Word Count: not restricted, Other Restrictions: “dedicated to publishing translations from Turkic and Slavic languages, loosely defined”",
-    "fetched_at": "2026-05-11T11:15:15.385962+00:00",
-    "category": "literary"
-  },
-  {
     "rank": 487,
     "name": "Litbreak",
     "normalized_name": "litbreak",
@@ -5419,7 +5144,7 @@
     "normalized_name": "torcom",
     "score": 182.5,
     "tier": null,
-    "journal_url": "",
+    "journal_url": "https://reactormag.com/",
     "about_url": "",
     "submit_url": "",
     "fetched_at": null,
@@ -5467,7 +5192,7 @@
     "normalized_name": "fantasy and science fiction",
     "score": 100.5,
     "tier": null,
-    "journal_url": "https://www.sfsite.com/fsf/glines.htm",
+    "journal_url": "https://www.fandsf.com/glines.htm",
     "about_url": "",
     "submit_url": "",
     "fetched_at": null,
@@ -5479,7 +5204,7 @@
     "normalized_name": "beneath ceaseless skies",
     "score": 57.5,
     "tier": null,
-    "journal_url": "",
+    "journal_url": "https://www.beneath-ceaseless-skies.com/submissions/",
     "about_url": "",
     "submit_url": "",
     "fetched_at": null,
@@ -5491,7 +5216,7 @@
     "normalized_name": "strange horizons",
     "score": 47.0,
     "tier": null,
-    "journal_url": "",
+    "journal_url": "https://strangehorizons.com/wordpress/submit/fiction-submission-guidelines/",
     "about_url": "",
     "submit_url": "",
     "fetched_at": null,
@@ -5511,18 +5236,6 @@
     "rank": 9
   },
   {
-    "name": "Nightmare Magazine",
-    "normalized_name": "nightmare magazine",
-    "score": 38.5,
-    "tier": null,
-    "journal_url": "",
-    "about_url": "",
-    "submit_url": "",
-    "fetched_at": null,
-    "category": "sf",
-    "rank": 10
-  },
-  {
     "name": "Apex Magazine",
     "normalized_name": "apex magazine",
     "score": 36.5,
@@ -5533,42 +5246,6 @@
     "fetched_at": null,
     "category": "sf",
     "rank": 11
-  },
-  {
-    "name": "FIYAH Literary Magazine",
-    "normalized_name": "fiyah",
-    "score": 24.5,
-    "tier": null,
-    "journal_url": "",
-    "about_url": "",
-    "submit_url": "",
-    "fetched_at": null,
-    "category": "sf",
-    "rank": 12
-  },
-  {
-    "name": "Fireside Magazine",
-    "normalized_name": "fireside magazine",
-    "score": 18.5,
-    "tier": null,
-    "journal_url": "",
-    "about_url": "",
-    "submit_url": "",
-    "fetched_at": null,
-    "category": "sf",
-    "rank": 13
-  },
-  {
-    "name": "Fantasy Magazine",
-    "normalized_name": "fantasy magazine",
-    "score": 17.5,
-    "tier": null,
-    "journal_url": "",
-    "about_url": "",
-    "submit_url": "",
-    "fetched_at": null,
-    "category": "sf",
-    "rank": 14
   },
   {
     "name": "Interzone",
@@ -5583,35 +5260,11 @@
     "rank": 15
   },
   {
-    "name": "The Dark",
-    "normalized_name": "dark",
-    "score": 16.0,
-    "tier": null,
-    "journal_url": "",
-    "about_url": "",
-    "submit_url": "",
-    "fetched_at": null,
-    "category": "sf",
-    "rank": 16
-  },
-  {
-    "name": "Sunday Morning Transport",
-    "normalized_name": "sunday morning transport",
-    "score": 12.5,
-    "tier": null,
-    "journal_url": "",
-    "about_url": "",
-    "submit_url": "",
-    "fetched_at": null,
-    "category": "sf",
-    "rank": 17
-  },
-  {
     "name": "PodCastle",
     "normalized_name": "podcastle",
     "score": 10.28,
     "tier": null,
-    "journal_url": "",
+    "journal_url": "https://podcastle.org/guidelines/",
     "about_url": "",
     "submit_url": "",
     "fetched_at": null,
@@ -5629,18 +5282,6 @@
     "fetched_at": null,
     "category": "sf",
     "rank": 19
-  },
-  {
-    "name": "Daily Science Fiction",
-    "normalized_name": "daily science fiction",
-    "score": 9.68,
-    "tier": null,
-    "journal_url": "https://dailysciencefiction.com/submit",
-    "about_url": "",
-    "submit_url": "",
-    "fetched_at": null,
-    "category": "sf",
-    "rank": 20
   },
   {
     "name": "Escape Pod",
@@ -5665,30 +5306,6 @@
     "fetched_at": null,
     "category": "sf",
     "rank": 23
-  },
-  {
-    "name": "Tor",
-    "normalized_name": "tor",
-    "score": 8.88,
-    "tier": null,
-    "journal_url": "",
-    "about_url": "",
-    "submit_url": "",
-    "fetched_at": null,
-    "category": "sf",
-    "rank": 24
-  },
-  {
-    "name": "Lackington's",
-    "normalized_name": "lackingtons",
-    "score": 8.46,
-    "tier": null,
-    "journal_url": "",
-    "about_url": "",
-    "submit_url": "",
-    "fetched_at": null,
-    "category": "sf",
-    "rank": 25
   },
   {
     "name": "Electric Spec",
@@ -5755,7 +5372,7 @@
     "normalized_name": "space and time magazine",
     "score": 7.02,
     "tier": null,
-    "journal_url": "https://spaceandtime.net/submissions/",
+    "journal_url": "https://duotrope.com/duosuma/submit/space-and-time-nDoUw",
     "about_url": "",
     "submit_url": "",
     "fetched_at": null,
@@ -5803,7 +5420,7 @@
     "normalized_name": "arcanist",
     "score": 6.8,
     "tier": null,
-    "journal_url": "https://thearcanist.io/tagged/submission-guidelines",
+    "journal_url": "https://thearcanist.io/a-call-for-submissions-244f646d25a4",
     "about_url": "",
     "submit_url": "",
     "fetched_at": null,
@@ -5871,30 +5488,6 @@
     "rank": 41
   },
   {
-    "name": "Silver Pen",
-    "normalized_name": "silver pen",
-    "score": 6.08,
-    "tier": null,
-    "journal_url": "https://www.silverblade.net/submissions-2/",
-    "about_url": "",
-    "submit_url": "",
-    "fetched_at": null,
-    "category": "sf",
-    "rank": 42
-  },
-  {
-    "name": "GUD",
-    "normalized_name": "gud",
-    "score": 6.0,
-    "tier": null,
-    "journal_url": "",
-    "about_url": "",
-    "submit_url": "",
-    "fetched_at": null,
-    "category": "sf",
-    "rank": 43
-  },
-  {
     "name": "Flash Point Science Fiction",
     "normalized_name": "flash point science fiction",
     "score": 5.94,
@@ -5923,24 +5516,12 @@
     "normalized_name": "365 tomorrows",
     "score": 5.76,
     "tier": null,
-    "journal_url": "",
+    "journal_url": "https://365tomorrows.com/submission/",
     "about_url": "",
     "submit_url": "",
     "fetched_at": null,
     "category": "sf",
     "rank": 46
-  },
-  {
-    "name": "Asymmetry",
-    "normalized_name": "asymmetry",
-    "score": 5.68,
-    "tier": null,
-    "journal_url": "https://www.asymmetryfiction.com/submission-guidelines/",
-    "about_url": "",
-    "submit_url": "",
-    "fetched_at": null,
-    "category": "sf",
-    "rank": 47
   },
   {
     "name": "Hexagon",
@@ -5995,7 +5576,7 @@
     "normalized_name": "orson scott cards intergalactic medicine show",
     "score": 5.04,
     "tier": null,
-    "journal_url": "",
+    "journal_url": "http://www.intergalacticmedicineshow.com/cgi-bin/mag.cgi?article=submissions&do=content",
     "about_url": "",
     "submit_url": "",
     "fetched_at": null,
@@ -6087,18 +5668,6 @@
     "rank": 59
   },
   {
-    "name": "Infinite Worlds",
-    "normalized_name": "infinite worlds",
-    "score": 3.68,
-    "tier": null,
-    "journal_url": "https://www.infiniteworldsmagazine.com/submissions-faqs",
-    "about_url": "",
-    "submit_url": "",
-    "fetched_at": null,
-    "category": "sf",
-    "rank": 60
-  },
-  {
     "name": "The dread machine",
     "normalized_name": "dread machine",
     "score": 3.6,
@@ -6139,7 +5708,7 @@
     "normalized_name": "neoopsis",
     "score": 3.3,
     "tier": null,
-    "journal_url": "https://www.neo-opsis.ca/guidelines.htm",
+    "journal_url": "http://www.neo-opsis.ca/guidelines.htm",
     "about_url": "",
     "submit_url": "",
     "fetched_at": null,

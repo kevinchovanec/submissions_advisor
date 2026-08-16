@@ -20,6 +20,27 @@
     "summary": "Beltway Poetry Quarterly is a directory/resource page listing literary journals with ties to the DC/Baltimore/Mid-Atlantic region, not a journal that accepts direct submissions itself. The page catalogs dozens of journals ranging from poetry and flash fiction outlets to regional and identity-focused publications. A writer should visit the individual journals listed rather than submitting here.",
     "url": "https://www.beltwaypoetry.com/resources/journals/"
   },
+  "365 tomorrows": {
+    "details": {
+      "aesthetic": "Science fiction in all its forms—hard sci-fi, cyberpunk, and beyond—told as tightly self-contained flash fiction under 600 words; no sequels, prequels, or stories dependent on previously published pieces.",
+      "fee": "none",
+      "multiple_submissions": "allowed, up to a maximum of 6 submissions pending at once; must wait for one to be published or rejected before submitting another",
+      "reading_period": "year-round",
+      "red_flags": "Strict word limit enforced by rejection (no editing for overage); stories with spelling/grammar errors will be rejected outright rather than edited; acquires first electronic rights plus non-exclusive subsequent (e.g. print anthology) rights.",
+      "response_time": "4-6 weeks",
+      "simultaneous_submissions": "not allowed (work must not have been published or sold elsewhere, in print or online)",
+      "word_limit": "under 600 words"
+    },
+    "fetched_at": "2026-08-16T19:02:16.405749+00:00",
+    "found_guidelines": true,
+    "name": "365 Tomorrows",
+    "pages": [
+      "https://365tomorrows.com/submission/"
+    ],
+    "revision": 1,
+    "summary": "365tomorrows is a daily flash fiction site publishing science fiction exclusively, in every subgenre from hard sci-fi to cyberpunk, in stories under 600 words. It was founded on the premise that flash fiction is the ideal form for internet-era reading, and it runs on a high-volume, quick-turnaround model publishing one story per day.",
+    "url": "https://365tomorrows.com/submission/"
+  },
   "3am magazine": {
     "details": {
       "aesthetic": "Not a journal — this is a journal-matching consultancy. The operator also runs a journal called Coastal Shelf and curates Notebooking Daily, but no editorial aesthetic for those outlets is described here.",
@@ -487,6 +508,27 @@
     "summary": "The Antigonish Review prioritizes quality writing with a mandate to encourage Atlantic Canadian and Canadian writers, though they welcome submissions from anywhere including new and young writers. No submission length is specified, but longer pieces face a higher quality bar; response time is 2–3 months. Submissions are currently closed, and previously published work in any format is strictly rejected.",
     "url": "https://theantigonishreview.submittable.com/submit"
   },
+  "antioch review": {
+    "details": {
+      "aesthetic": "Serious, intellectually engaged nonfiction essays bridging scholarly substance and broader readerly concern (social science and humanities topics); fiction chosen for distinction and compelling craft rather than genre or trend, publishing only 2-3 stories per issue; poetry judged on inseparable form/content with no light or inspirational verse; occasional short book evaluations, no unsolicited reviews.",
+      "fee": "none",
+      "multiple_submissions": "submit manuscripts one at a time except poetry (3-6 poems at once); do not mix genres in one envelope",
+      "reading_period": "currently closed/on hiatus, not accepting submissions",
+      "red_flags": "Currently on hiatus and not accepting any submissions; no electronic submissions accepted; requires SASE or submission is discarded unread; no free sample copies; mail-only postal submissions required.",
+      "response_time": "unknown",
+      "simultaneous_submissions": "discouraged; if accepted elsewhere, must notify immediately",
+      "word_limit": "up to 5,000 words typically, 8,000 words at outside limit"
+    },
+    "fetched_at": "2026-08-16T19:02:58.430582+00:00",
+    "found_guidelines": true,
+    "name": "Antioch Review",
+    "pages": [
+      "https://antiochcollege.edu/antioch-review/writers-guidelines/"
+    ],
+    "revision": 1,
+    "summary": "The Antioch Review is a venerable literary and intellectual quarterly publishing interpretive nonfiction essays for educated general readers, literary journalism, a small handful of distinguished short stories per issue, and competitive poetry, all held to high literary standards; it is currently on hiatus and not accepting submissions.",
+    "url": "https://antiochcollege.edu/antioch-review/writers-guidelines/"
+  },
   "apalachee review": {
     "details": {
       "aesthetic": "Unknown from this text; genres accepted are poetry, fiction, nonfiction, flash fiction, and visual art.",
@@ -616,6 +658,27 @@
     "summary": "Apple Valley Review seeks beautifully crafted poetry, short fiction (including flash and fabulism/magical realism), and creative nonfiction/essays with a literary aesthetic—no genre fiction, scholarly essays, or inspirational writing. Word limits vary by genre: up to 4,000 words for short fiction and essays, 1,000 words per flash piece, no hard limit for poetry (but short and non-rhyming preferred); submissions are free and read year-round via email only, with work pasted into the message body. Writers must not send attachments, must not submit previously published work (in English), and should note that simultaneous submission policy is not stated.",
     "url": "https://www.applevalleyreview.org/submit"
   },
+  "arkansas international": {
+    "details": {
+      "aesthetic": "Imaginative, genre-spanning writing emphasizing interconnection and formal or linguistic invention; strong focus on literary translation and international perspectives (from Egypt to Brazil to South Korea to Russia), plus U.S. writers from regions outside the mainstream literary marketplace; includes graphic storytelling/comics alongside fiction, poetry, and creative nonfiction.",
+      "fee": "unknown",
+      "multiple_submissions": "not allowed; only one submission per writer per year",
+      "reading_period": "opens twice a year (specific dates not given; check social media/Submittable)",
+      "red_flags": "Very restrictive frequency—writers may submit only once per year, and windows are limited to twice yearly; translated work requires a formal letter of rights from the source author or estate.",
+      "response_time": "unknown",
+      "simultaneous_submissions": "allowed, with notification required if accepted elsewhere",
+      "word_limit": "prose under 8,000 words; poetry up to 5 pages; comics up to 5 pages"
+    },
+    "fetched_at": "2026-08-16T19:06:32.392526+00:00",
+    "found_guidelines": true,
+    "name": "Arkansas International",
+    "pages": [
+      "https://www.arkint.org/general-submissions"
+    ],
+    "revision": 1,
+    "summary": "The Arkansas International publishes literary translation alongside fiction, poetry, creative nonfiction, and graphic storytelling, with an explicit commitment to international voices and work from over 70 countries plus U.S. regions outside the literary mainstream. The aesthetic favors imaginative, boundary-crossing writing that builds interconnection through invention, and translated pieces require the source text and a rights letter from the author or estate. Submission windows open only twice a year, and writers may send new work just once annually.",
+    "url": "https://www.arkint.org/general-submissions"
+  },
   "armchairshotgun": {
     "details": {
       "aesthetic": "Multiple journals covered: ranges from design-forward independent lit mags (Firewords) to long-established prestige journals (Boulevard, Louisville Review) to anonymous-submission equity-focused outlets (Armchair/Shotgun); common thread is openness to unpublished or early-career writers across fiction, poetry, and nonfiction.",
@@ -723,23 +786,23 @@
   },
   "asimovs science fiction": {
     "details": {
-      "aesthetic": "Character-oriented science fiction is the core; also publishes borderline fantasy, slipstream, and surreal fiction. Seeks serious, thoughtful, accessible fiction with room for humor. No sword & sorcery, no explicit sex or violence.",
+      "aesthetic": "Character-driven science fiction where people, not gadgetry, are the focus; serious and thoughtful but accessible, with occasional humor; open to borderline fantasy, slipstream, and surreal work; explicitly excludes sword & sorcery, explicit sex, and explicit violence; fiction should illuminate human existence against a cosmic-scale backdrop.",
       "fee": "none",
-      "multiple_submissions": "separate form required per poem; no explicit statement on multiple fiction submissions simultaneously — unknown",
-      "reading_period": "year-round",
-      "red_flags": "No reprints. No AI-assisted writing — violation risks a permanent submission ban. No email submissions; online system only (or paper mail with SASE). Yahoo.com users should watch spam folder for confirmation emails.",
-      "response_time": "~5 weeks; query after 45 days",
+      "multiple_submissions": "unknown (poetry requires a separate form per poem)",
+      "reading_period": "unknown",
+      "red_flags": "No reprints accepted; no simultaneous submissions; explicitly bans AI-assisted or AI-written submissions and may ban repeat offenders; does not accept email submissions (online form or paper mail only); rights grant includes non-exclusive archive, translation, anthology, and paper-goods/merchandise rights beyond first publication.",
+      "response_time": "about five weeks (query if no response after 45 days)",
       "simultaneous_submissions": "not allowed",
-      "word_limit": "1,000–20,000 words (seldom buys outside this range); poetry up to 40 lines"
+      "word_limit": "Fiction 1,000-20,000 words (seldom outside this range; pays full rate up to 7,500 words, reduced rate beyond); poetry up to 40 lines"
     },
-    "fetched_at": "2026-08-15T19:56:11.521360+00:00",
+    "fetched_at": "2026-08-16T19:07:21.870097+00:00",
     "found_guidelines": true,
     "name": "Asimov's Science Fiction",
     "pages": [
       "https://asimovs.com/contact-us/writers-guidelines/"
     ],
-    "revision": 1,
-    "summary": "Asimov's publishes character-driven SF, plus borderline fantasy, slipstream, and surreal fiction; no sword & sorcery, explicit sex/violence, or AI-assisted work. Stories run 1,000–20,000 words (pays 8–10 cents/word); poetry up to 40 lines ($1/line); simultaneous submissions are not allowed. No reprints accepted, and AI-assisted submissions risk a permanent ban from submitting.",
+    "revision": 2,
+    "summary": "Asimov's Science Fiction is a long-running, professional-paying SF magazine favoring character-oriented stories set against speculative backdrops, with room for borderline fantasy, slipstream, and surreal fiction but no sword & sorcery or explicit sex/violence. It pays 8-10 cents/word for fiction and $1/line for poetry, does not accept simultaneous submissions, reprints, or AI-assisted writing, and submits via an online system with roughly five-week response times.",
     "url": "https://asimovs.com/contact-us/writers-guidelines/"
   },
   "at length": {
@@ -1082,6 +1145,27 @@
     "summary": "Beloit Fiction Journal publishes literary short fiction only—traditional and experimental—ranging from flash to sixty pages, with longer pieces at a disadvantage. Reading period is August 1–December 1; one story at a time; simultaneous submissions allowed; response time 3–6 months. Writers should note the SASE requirement (suggesting postal submissions) and that a separate contest fee exists, distinct from the free standard submission.",
     "url": "https://www.everywritersresource.com/literarymagazines/beloit-fiction-journal/"
   },
+  "beneath ceaseless skies": {
+    "details": {
+      "aesthetic": "Literary adventure fantasy in secondary-world settings (different zoology, ecology, physical laws, or pre-1930s/alternate Earth history); character-driven stories centered on yearning, with close/limited POV and prose that is lush yet clear; open to steampunk, Weird West, and 'sixguns & sorcery' but not urban fantasy, contemporary settings, science fiction, or traditional fairy-tale/fable narrative voice; dry wit and wry satire welcome, slapstick not; extreme sex/violence capped at R-rated intensity and never involving children.",
+      "fee": "unknown",
+      "multiple_submissions": "unknown",
+      "reading_period": "unknown",
+      "red_flags": "Does not accept novel excerpts, serials, or reprints (including self-published/Patreon/Kickstarter-released work); no poetry; strict genre boundaries (no urban fantasy, no sci-fi, no modern settings past ~1930s).",
+      "response_time": "unknown",
+      "simultaneous_submissions": "unknown",
+      "word_limit": "strongly prefers under 15,000 words; longer considered if exceptional"
+    },
+    "fetched_at": "2026-08-16T19:01:35.644241+00:00",
+    "found_guidelines": true,
+    "name": "Beneath Ceaseless Skies",
+    "pages": [
+      "https://www.beneath-ceaseless-skies.com/submissions/"
+    ],
+    "revision": 1,
+    "summary": "Beneath Ceaseless Skies publishes 'literary adventure fantasy': character-focused stories set in richly imagined secondary worlds (pre-modern, alternate-history, steampunk, or otherwise non-modern), written in lush but clear close-POV prose. It explicitly avoids urban/contemporary fantasy, science fiction, poetry, traditional fairy-tale narration, novel excerpts, and reprints, and favors fresh takes over familiar tropes like elves or tavern openings. Stories also air as an audio fiction podcast alongside the biweekly online issues.",
+    "url": "https://www.beneath-ceaseless-skies.com/submissions/"
+  },
   "bennington review": {
     "details": {
       "aesthetic": "Innovative, intelligent, and moving fiction, creative nonfiction, poetry, film writing (submitted via nonfiction category), and cross-genre work; favors writing that is 'simultaneously graceful and reckless'; writers should have familiarity with contemporary literature in their genre.",
@@ -1252,6 +1336,28 @@
     "summary": "Blackbriar Review publishes genre fiction of any kind, welcoming all experience levels, with a focus on story over category. Accepts 1,000–6,000 words, no fee, via email only. The submission window closes without notice, and AI-assisted work is explicitly banned.",
     "url": "https://www.blackbriarreview.com/"
   },
+  "blazevox": {
+    "details": {
+      "aesthetic": "Innovative, experimental, avant-garde poetry and fiction plus literary criticism (companions, studies, histories); rooted in the small-press/Language-poetry lineage with contributors like Anne Waldman, Ron Silliman, Steve McCaffery, Clayton Eschleman, Bill Berkson, Kazim Ali, and Amy King; values formal risk and 'definition-defying' work over commercial appeal.",
+      "fee": "none noted",
+      "multiple_submissions": "unknown",
+      "reading_period": "year-round (always accepting)",
+      "red_flags": "No paper submissions accepted for poetry; no materials are returned so don't send irreplaceable originals; authors expected to actively market/tour/podcast their own work; no advances paid and royalties only 10% of net receipts, possibly split among contributors.",
+      "response_time": "unknown",
+      "simultaneous_submissions": "allowed, explicitly stated as acceptable",
+      "word_limit": "unknown"
+    },
+    "fetched_at": "2026-08-16T19:06:48.228229+00:00",
+    "found_guidelines": true,
+    "name": "*BlazeVOX",
+    "pages": [
+      "https://www.blazevox.org/faqs-4",
+      "https://www.blazevox.org/faqs-4"
+    ],
+    "revision": 1,
+    "summary": "BlazeVOX is a long-running (est. 2000) online journal and affiliated small press publishing innovative, experimental poetry, fiction, and literary criticism, with a roster of avant-garde and language-adjacent poets like Anne Waldman, Ron Silliman, and Steve McCaffery. Its ethos is unapologetically anti-commercial and formally adventurous—work must, in the editor's words, 'not suck'—and it is currently building out a series championing 'courageous, innovative, definition-defying' women writers. Submissions go straight to the editor by email; the press pays modest royalties on books but no advances, and expects authors to actively self-promote and tour/read their work.",
+    "url": "https://www.blazevox.org/faqs-4"
+  },
   "bloom": {
     "details": {
       "aesthetic": "Previously unpublished flash fiction, short fiction, creative nonfiction, and poetry; no specific thematic or stylistic focus stated beyond rejecting AI-generated content.",
@@ -1339,24 +1445,24 @@
   },
   "boa editions": {
     "details": {
-      "aesthetic": "Poetry collections (mid-career and debut), short fiction collections of exceptional craft and vision, and poetry collections specifically by women of color (Blessing the Boats series); also publishes translations and hybrid works generally but no open prize for those currently listed.",
-      "fee": "American Poets Continuum Series: none; Blessing the Boats: none; A. Poulin, Jr. Poetry Prize: $30; BOA Short Fiction Prize: $30",
+      "aesthetic": "Full-length literary books rather than single pieces: mid-career and debut poetry collections, poetry in translation, literary short fiction collections, and memoir/nonfiction; strong emphasis on distinguished and historically significant poets (Lucille Clifton, Li-Young Lee, W.D. Snodgrass, Naomi Shihab Nye) and on spotlighting women of color poets via the Blessing the Boats series; craft-focused, often lyrical and image-driven work.",
+      "fee": "varies: no fee for American Poets Continuum and Blessing the Boats; $30 for A. Poulin Jr. Poetry Prize and Boa Short Fiction Prize",
       "multiple_submissions": "unknown",
-      "reading_period": "American Poets Continuum & Short Fiction Prize: Apr 1 – May 31, 2027; A. Poulin, Jr. Poetry Prize: Aug 1 – Nov 30, 2026; Blessing the Boats: Apr 20 – Jun 30, 2026",
-      "red_flags": "This is a book-press prize operation, not a literary journal—writers cannot submit individual poems, stories, or essays. The American Poets Continuum Series requires paper submissions only (no electronic). Eligibility for that series also requires a previously published full-length book.",
-      "response_time": "unknown",
+      "reading_period": "varies by prize: American Poets Continuum Apr 1–May 31 2027; A. Poulin Jr. Poetry Prize Aug 1–Nov 30 2026; Blessing the Boats Apr 20–Jun 30 2026; Boa Short Fiction Prize Apr 1–May 31 2027",
+      "red_flags": "This is a book-manuscript press, not a magazine for individual poems/stories - submissions are only accepted via specific annual prize competitions with page-count and formatting requirements (12pt font, double-spaced, numbered pages); American Poets Continuum requires paper submissions only and prior publication of a full-length book; eligibility for A. Poulin Jr. Prize limited to debut poetry collections.",
+      "response_time": "unknown (general inquiries answered in 2-3 business days)",
       "simultaneous_submissions": "unknown",
-      "word_limit": "65–120 pages for poetry prizes; 100–200 pages for the fiction prize (all 12pt font, double-spaced)"
+      "word_limit": "manuscripts of 65-120 pages for poetry prizes; 100-200 pages for the Boa Short Fiction Prize"
     },
-    "fetched_at": "2026-08-15T20:14:24.066308+00:00",
+    "fetched_at": "2026-08-16T19:08:18.554048+00:00",
     "found_guidelines": true,
     "name": "BOA Editions",
     "pages": [
       "https://boaeditions.org/?srsltid=AfmBOoqrCc0vt6B3bUNzYjSuhgQUHM0wtUrO10QLEOKJ6jnjsciTzjOk",
       "https://boaeditions.org/submissions/"
     ],
-    "revision": 1,
-    "summary": "BOA Editions is a nonprofit literary press publishing full-length poetry collections and short fiction collections via annual prize competitions, not a journal accepting individual poems or stories. Submissions are manuscript-length (65–120 pages for poetry, 100–200 pages for fiction) with reading periods ranging from spring to fall 2026–2027; two of the four prizes carry a $30 fee. Writers seeking to place individual pieces elsewhere should note this is a book-press prize model only—no hybrid or essay prizes are currently open.",
+    "revision": 2,
+    "summary": "Boa Editions is a nonprofit independent literary press, founded in 1976, publishing full-length poetry collections, poetry in translation, short fiction collections, and literary nonfiction/memoir by established and emerging voices (Lucille Clifton, Li-Young Lee, Naomi Shihab Nye, Chen Chen). It does not accept unsolicited general submissions but selects book manuscripts through annual juried prizes (American Poets Continuum, A. Poulin Jr. Poetry Prize, Blessing the Boats Selections for women of color poets, and the Boa Short Fiction Prize), each with its own reading period, fee, and judge.",
     "url": "https://boaeditions.org/?srsltid=AfmBOoqrCc0vt6B3bUNzYjSuhgQUHM0wtUrO10QLEOKJ6jnjsciTzjOk"
   },
   "bodega": {
@@ -1660,6 +1766,29 @@
     "revision": 2,
     "summary": "The Brooklyn Quarterly publishes personal essays and creative nonfiction with a literary, narrative sensibility—work that is intimate, historically grounded, and willing to sit with intergenerational trauma, memory, and identity (as seen in pieces about Greek resistance fighters, family secrets, and psychogeography). The journal appears to publish infrequently and recent activity trails off after 2019, suggesting it may be dormant. No submission guidelines were found on this page.",
     "url": "http://brooklynquarterly.org/submissions/"
+  },
+  "burnside review": {
+    "details": {
+      "aesthetic": "Focused exclusively on poetry collections; judged and shaped by figures like Rick Barot (author of Moving the Bones, The Galleons), suggesting an interest in lyric, literary, National Book Award-adjacent poetic sensibilities; the press publishes full-length collections and chapbooks rather than mixed-genre journal work.",
+      "fee": "$25 entry fee for the book contest",
+      "multiple_submissions": "unknown",
+      "reading_period": "Journal submissions permanently closed; Book contest open until January 15, 2026 (deadline extended)",
+      "red_flags": "The journal itself is permanently closed to submissions; only the annual poetry book contest (judged, with entry fee) remains active; former students, colleagues, and friends of the judge are ineligible.",
+      "response_time": "Contest results announced by May",
+      "simultaneous_submissions": "allowed for book contest, but must notify immediately if accepted elsewhere",
+      "word_limit": "50-100 pages of poetry for the book contest"
+    },
+    "fetched_at": "2026-08-16T19:06:55.065486+00:00",
+    "found_guidelines": true,
+    "name": "Burnside Review",
+    "pages": [
+      "https://burnsidereview.org/journal-guidelines.html",
+      "https://burnsidereview.org/book-guidelines.html",
+      "https://burnsidereview.org/about.html"
+    ],
+    "revision": 1,
+    "summary": "Burnside Review, founded in 2004, has retired its literary journal and now operates solely as Burnside Review Press, publishing books and chapbooks of poetry rather than accepting journal submissions.",
+    "url": "https://burnsidereview.org/journal-guidelines.html"
   },
   "byliner": {
     "details": {
@@ -1986,6 +2115,27 @@
     "revision": 1,
     "summary": "Chariton Review published literary poetry, fiction, and essays valuing craft, contemporary innovation, and awareness of tradition, via Truman State University Press. Fiction and essays up to 7,000 words; poetry 3–6 pieces; published twice yearly in print. Critically, the journal is believed defunct as of June 2020, charges fees for all submissions, and offers no monetary payment for accepted work.",
     "url": "https://duotrope.com/magazine/chariton-review-4607"
+  },
+  "chautauqua": {
+    "details": {
+      "aesthetic": "Values reflective, humane storytelling that explores 'what it means to be alive, curious, and connected'; publishes fiction, essays, and poetry as well as interviews with writers about their craft and process; emphasizes hope, celebration of difference, and inclusive community ('the porch') as guiding metaphors; rooted in a philosophy blending arts, learning, spirituality, and leisure.",
+      "fee": "unknown",
+      "multiple_submissions": "unknown",
+      "reading_period": "unknown",
+      "red_flags": "none noted",
+      "response_time": "unknown",
+      "simultaneous_submissions": "unknown",
+      "word_limit": "unknown"
+    },
+    "fetched_at": "2026-08-16T19:04:32.296465+00:00",
+    "found_guidelines": false,
+    "name": "Chautauqua",
+    "pages": [
+      "https://www.chautauquajournal.com/about-1"
+    ],
+    "revision": 1,
+    "summary": "Chautauqua is a literary journal now based independently at UNCW (formerly tied to the Chautauqua Institution), publishing fiction, essays, and poetry alongside interviews with writers about their personal writing practices, all shaped by an editorial ethos of reflection, dialogue, and community drawn from the Chautauqua philosophy of Arts, Learning, Spirituality, and Leisure. Editorial decisions are made collaboratively by graduate and undergraduate students working with professional editors. The journal is transitioning to a fully online publication and seeks diverse voices, both emerging and established, with a hopeful, welcoming tone.",
+    "url": "https://www.chautauquajournal.com/about-1"
   },
   "chestnut review": {
     "details": {
@@ -2369,6 +2519,27 @@
     "summary": "Compelling Science Fiction wants hard SF that balances an interesting concept, narrative engagement, and clear scientific explanation, with a stated preference for optimistic/progress-oriented futures over dystopian or post-apocalyptic ones. Stories must be 1,000–10,000 words; reprints accepted at 1 cent/word vs. 8 cents/word for originals. Submissions are currently closed, so there is no point submitting now.",
     "url": "https://compellingsciencefiction.com/guidelines.html"
   },
+  "conduit": {
+    "details": {
+      "aesthetic": "Poetry-focused, valuing originality, intelligence, courage, irreverence, and humanity; playful, self-aware editorial voice (issue titles chosen 'for our own amusement'); selection based on merit and taste rather than theme; no interest in AI-assisted writing of any kind.",
+      "fee": "none noted for magazine submissions; unknown for book prizes",
+      "multiple_submissions": "send 3-5 poems per submission",
+      "reading_period": "unknown for general submissions; book prizes: Minds on Fire Open Book Prize Aug 1-Nov 3, 2026, Marystina Santiestevan First Book Poetry Prize Apr 1-Jul 7, 2026",
+      "red_flags": "Not currently accepting fiction; postal submissions require SASE or manuscripts are recycled; all correspondence may be published in whole or in part; strict no-AI policy.",
+      "response_time": "nine weeks to nine months",
+      "simultaneous_submissions": "unknown, but explicitly asks to be notified immediately to withdraw if accepted elsewhere",
+      "word_limit": "unknown (submit 3-5 poems)"
+    },
+    "fetched_at": "2026-08-16T19:05:03.625656+00:00",
+    "found_guidelines": true,
+    "name": "Conduit",
+    "pages": [
+      "https://www.conduit.org/submit"
+    ],
+    "revision": 1,
+    "summary": "Conduit seeks previously unpublished poetry with originality, intelligence, courage, irreverence, and humanity, favoring merit and idiosyncratic taste over any thematic fit; fiction submissions are currently closed. It pays only in contributor copies, and its sister press runs two $1,500 book prizes judged respectively by Bob Hicok and the Conduit editorial board.",
+    "url": "https://www.conduit.org/submit"
+  },
   "confingo": {
     "details": {
       "aesthetic": "Short fiction in any style or genre; poetry; visual art and photography — international work, print-focused, no stated thematic restrictions.",
@@ -2435,23 +2606,23 @@
   },
   "consequence": {
     "details": {
-      "aesthetic": "All genres (poetry, fiction, nonfiction, translations, reviews, visual art including graphic narratives) must address the consequences of war or geopolitical violence in some manner; no formal restrictions on poetry; fiction accepts shorts, flash, and excerpts; nonfiction covers interviews, critical and personal essays, and narrative nonfiction.",
-      "fee": "none",
-      "multiple_submissions": "unknown",
-      "reading_period": "Jan 15 – Apr 15 and Jul 15 – Oct 15; translations open year-round",
-      "red_flags": "Strict zero-tolerance AI policy: suspected AI-generated work triggers a review process and may result in a permanent submission ban. Reviews are primarily solicited; unsolicited reviews require a pitch to the Reviews Editor before submitting.",
+      "aesthetic": "Literary work centered on war, geopolitical violence, and their human consequences; includes personal and critical essays, narrative nonfiction, interviews, all forms of poetry, short fiction, flash fiction, excerpts, translations, reviews, and visual art/graphic narratives; contributor list includes veterans, war writers, and literary translators (Phil Klay, Brian Turner, Elliot Ackerman, Peter Balakian).",
+      "fee": "unknown",
+      "multiple_submissions": "Up to three poems per submission; other genres not specified beyond one submission per period implied",
+      "reading_period": "Spring (Jan 15 - Apr 15) and Fall (Jul 15 - Oct 15); translations open year-round",
+      "red_flags": "Zero-tolerance AI policy—suspected AI-generated work triggers review via AI-detection software and may result in permanent ban; reviews are primarily solicited, with only pitches open to outside writers.",
       "response_time": "unknown",
       "simultaneous_submissions": "unknown",
-      "word_limit": "Nonfiction: under 4000 words; Fiction shorts/excerpts: under 5000 words; Flash fiction: under 1000 words; Reviews: 1500–3000 words; Poetry: up to 3 poems per submission; Visual art and translations follow corresponding genre guidelines."
+      "word_limit": "Fiction shorts/excerpts under 5,000 words, flash under 1,000 words; nonfiction under 4,000 words; reviews 1,500-3,000 words; poetry up to three poems per submission"
     },
-    "fetched_at": "2026-08-15T20:19:31.281367+00:00",
+    "fetched_at": "2026-08-16T19:08:32.658953+00:00",
     "found_guidelines": true,
     "name": "Consequence",
     "pages": [
       "https://consequenceforum.org/submissions/"
     ],
-    "revision": 1,
-    "summary": "Consequence Forum publishes poetry, fiction, nonfiction, translations, reviews, and visual art that address the consequences of war or geopolitical violence—work must engage that theme to be considered. Reading periods are Jan 15–Apr 15 and Jul 15–Oct 15 (translations year-round); word limits vary by genre (nonfiction <4000 words, fiction <5000 words). Writers should note a strict zero-tolerance AI policy with a permanent-ban risk, and reviews are primarily solicited so pitches are needed rather than direct submissions.",
+    "revision": 2,
+    "summary": "Consequence Forum publishes poetry, fiction, nonfiction, translation, reviews, and visual art that address the consequences of war and geopolitical violence, appearing in its print journal, website, or Substack. It pays contributors across all genres, runs biannual reading periods, and has published writers like Phil Klay, Brian Turner, and Peter Balakian, reflecting a literary war-and-conflict-focused sensibility.",
     "url": "https://consequenceforum.org/submissions/"
   },
   "contrary": {
@@ -3178,6 +3349,27 @@
     "summary": "Elimae was a pioneering online literary journal (1996–2010) publishing short, sentence-oriented fiction in a minimal, text-focused design; it championed writers like Gordon Lish, Diane Williams, Brian Evenson, and Gary Lutz. It is now closed, having published its final issue in November 2010.",
     "url": "https://williamvandenbergwrites.com/tag/literary-magazines/"
   },
+  "elj": {
+    "details": {
+      "aesthetic": "Narrative prose and free verse poetry exploring human emotions, experiences, dreams, and revelations; leans surreal with strong imagery and language; edgy, experimental, humble and personal rather than credential-driven, favors authentic voice over resume-building cover letters.",
+      "fee": "unknown",
+      "multiple_submissions": "allowed, strongly encouraged",
+      "reading_period": "unknown",
+      "red_flags": "none noted",
+      "response_time": "expedited for non-fits; updates roughly every 14 days if under heavy consideration",
+      "simultaneous_submissions": "allowed, strongly encouraged",
+      "word_limit": "unknown"
+    },
+    "fetched_at": "2026-08-16T19:05:47.979042+00:00",
+    "found_guidelines": true,
+    "name": "ELJ",
+    "pages": [
+      "https://elj-editions.com/submit/"
+    ],
+    "revision": 1,
+    "summary": "ELJ Editions publishes narrative prose and free verse poetry drawn to the surreal, emotional extremity, dreams, and powerful imagery, favoring edgy and experimental work over conventional craft polish.",
+    "url": "https://elj-editions.com/submit/"
+  },
   "emerge magazine": {
     "details": {
       "aesthetic": "Free verse poetry and flash fiction only; most literary genres considered except horror and erotica; work must have literary undertones. Themed contest section per issue (2016 theme: Un/Civil Disobedience).",
@@ -3475,6 +3667,27 @@
     "summary": "failbetter publishes original fiction, poetry, and visual art with a strong emphasis on work that is distinctly personal and could only have come from that writer. Online submissions get a response in 8–12 weeks; postal submissions take 3–6 months, and they do not respond to status inquiries. They acquire exclusive first-time internet rights and archive all work online, and they do not pay contributors.",
     "url": "https://editorland.com/journal/failbetter"
   },
+  "fantasy and science fiction": {
+    "details": {
+      "aesthetic": "Character-driven fantasy, science fiction, horror, and humor with at least a slight speculative element; no formula, values surprise via character insight, ideas, plot, or prose style; explicitly encourages diverse voices and international writers; long publication history with recurring reviewers (Charles de Lint, Elizabeth Hand, Michelle West, James Sallis, Chris Moriarty) and columnists covering film, TV, and science.",
+      "fee": "none",
+      "multiple_submissions": "prefer not to see more than one submission from a writer at a time",
+      "reading_period": "unknown",
+      "red_flags": "No querying allowed for fiction (must submit full manuscript); does not accept freelance submissions for columns/nonfiction, only fiction via the online submission form.",
+      "response_time": "8 weeks",
+      "simultaneous_submissions": "not allowed",
+      "word_limit": "up to 25,000 words"
+    },
+    "fetched_at": "2026-08-16T19:01:25.873952+00:00",
+    "found_guidelines": true,
+    "name": "Fantasy & Science Fiction",
+    "pages": [
+      "https://www.fandsf.com/glines.htm"
+    ],
+    "revision": 1,
+    "summary": "The Magazine of Fantasy & Science Fiction is a long-running genre magazine publishing character-oriented fantasy, science fiction, horror, and humor with at least some speculative element, with no house formula beyond wanting to be surprised by voice, ideas, or prose. It pays professional rates (8-12 cents/word) on publication, is edited by Sheree Renée Thomas, and draws on a stable of veteran genre columnists and reviewers. Submissions must be complete manuscripts up to 25,000 words, sent one at a time, with no simultaneous submissions allowed.",
+    "url": "https://www.fandsf.com/glines.htm"
+  },
   "faultline": {
     "details": {
       "aesthetic": "Poetry, fiction, creative nonfiction, literary journalism, fiction in translation, and visual art; no explicit thematic mandate but directs writers to their archive to gauge taste.",
@@ -3752,6 +3965,29 @@
     "summary": "Five Points publishes fiction, poetry, flash fiction, literary nonfiction, and translations, favoring work best understood by reading sample issues. Prose is capped at 7500 words with one piece per submission; up to three poems (max 50 lines each) per submission; reading period is September 1–December 1. Response time can exceed four months and writers must wait five full months before querying—and submissions are Submittable-only, no postal mail.",
     "url": "https://fivepoints.gsu.edu/"
   },
+  "five south": {
+    "details": {
+      "aesthetic": "Character- and place-centered literary fiction, non-fiction, and poetry with an emphasis on 'the meat of it'—real people, mistakes, day drinkers, fighters, hope and despair rendered with grit and honesty rather than message-driven writing; stylistically varied from spare lyric flash to grounded narrative prose, inclusive of emerging and established writers globally.",
+      "fee": "unknown",
+      "multiple_submissions": "unknown",
+      "reading_period": "unknown (currently closed, reopening soon per page)",
+      "red_flags": "Submissions are currently closed, so guidelines/mechanics are not stated on this page; writer must check back later for specifics.",
+      "response_time": "unknown",
+      "simultaneous_submissions": "unknown",
+      "word_limit": "unknown"
+    },
+    "fetched_at": "2026-08-16T19:06:24.966396+00:00",
+    "found_guidelines": false,
+    "name": "*Five South",
+    "pages": [
+      "https://fivesouth.net/submission-guidelines/",
+      "https://fivesouth.net/submission-guidelines/",
+      "https://fivesouth.net/about/"
+    ],
+    "revision": 1,
+    "summary": "Five South is an online, biannual literary journal publishing fiction, non-fiction, and poetry (plus a weekly poetry/flash fiction feature) grounded in grounded, character-driven storytelling—grit, honesty, working-class and everyday lives, memory, and place, with room for despair and hope but no soapboxing. Its published work ranges from lyrical flash and prose poems to narrative fiction about laborers, hospital bills, and family relics, favoring nuance and voice over polemic. Submissions are currently closed as of the page's timestamp, with reopening promised 'soon.'",
+    "url": "https://fivesouth.net/submission-guidelines/"
+  },
   "flash fiction online": {
     "details": {
       "aesthetic": "Complete flash fiction, 500–1000 words, across speculative (sci-fi, fantasy, slipstream, horror) and literary fiction; crisp prose, well-developed characters, compelling plots, satisfying resolutions; no hatred/prejudice/violence toward any social group.",
@@ -3793,6 +4029,27 @@
     "revision": 1,
     "summary": "Flash Point Science Fiction publishes speculative flash fiction (SF, fantasy, slipstream) strictly between 100–1,000 words, with multiple short reading windows per year and a 30-day normal response time. No simultaneous or multiple submissions are allowed, and the format must follow Shunn manuscript style as a .doc/.docx or the story may be rejected unread. Watch out for the no-reprints rule (including anything publicly posted online), the no-AI policy, and the requirement to submit seasonal stories at least 3 months before the relevant occasion.",
     "url": "https://flashpointsf.com/submissions/"
+  },
+  "flint hills review": {
+    "details": {
+      "aesthetic": "A general-interest literary journal open across genres—poetry, flash and traditional-length fiction, short ten-minute plays, flash and traditional creative nonfiction, and visual art/photography—without a stated thematic niche; university-affiliated (Emporia State) and modest in production (greyscale interior printing).",
+      "fee": "unknown",
+      "multiple_submissions": "allowed to submit more than one genre/type at once, following per-genre limits; only one short story or one essay per submission",
+      "reading_period": "November 1 - February 1 annually (submissions outside this window are logged and read next cycle)",
+      "red_flags": "No longer accepts postal submissions; email submission only accepted in rare cases, otherwise Submittable required.",
+      "response_time": "unknown",
+      "simultaneous_submissions": "allowed, with a request to notify immediately if accepted elsewhere",
+      "word_limit": "Short stories: one story 7-25 pages or up to three flash pieces (1-3 pages) each; essays: 5-25 pages traditional or 1-3 pages flash; plays: 10 minutes or shorter; poems: up to six poems"
+    },
+    "fetched_at": "2026-08-16T19:05:25.966314+00:00",
+    "found_guidelines": true,
+    "name": "Flint Hills Review",
+    "pages": [
+      "https://sites.google.com/g.emporia.edu/flinthillsreview/submissions"
+    ],
+    "revision": 1,
+    "summary": "Flint Hills Review is an annual literary journal (published through Emporia State University) accepting poetry, short stories, flash fiction, short plays, creative nonfiction, and artwork/photography, printed with greyscale interior images and a color cover. It reads once a year and welcomes simultaneous and multi-genre submissions within stated per-genre limits.",
+    "url": "https://sites.google.com/g.emporia.edu/flinthillsreview/submissions"
   },
   "florida review": {
     "details": {
@@ -3856,6 +4113,27 @@
     "revision": 1,
     "summary": "FOLIO is a nationally recognized literary journal (est. 1984) publishing original creative work across forms by new and established authors, with a strong anti-discrimination editorial stance. No word limits or response times are stated; submissions are currently closed. Writers should note the hard bans on AI-generated work, previously published work, and submissions from current or former American University students and faculty.",
     "url": "https://foliolitjournal.submittable.com/submit"
+  },
+  "four way review": {
+    "details": {
+      "aesthetic": "Craft-conscious literary work across poetry, fiction, creative nonfiction, and translation; editors emphasize 'fine attention to craft' paired with 'powerful and compelling voice,' finished but surprising stories, nonfiction that 'pushes at the corners of the form,' and poetry open to all styles and forms; actively encourages diverse voices; publishes interviews and artwork alongside genre work.",
+      "fee": "$3 most months; free in January, April, August, and November",
+      "multiple_submissions": "limited: poetry 3-5 poems per submission, up to 3 times/year; fiction/nonfiction one piece at a time, up to 3 times/year (flash allows up to 3 pieces per submission); translation same caps as respective genre",
+      "reading_period": "year-round, but fee-free only in January, April, August, and November; may close specific genres early if submission caps are reached",
+      "red_flags": "Unsolicited email submissions are discarded unread (must use online submissions manager); no individual responses to withdrawal requests; will not respond to manuscript (book) submissions; work must be previously unpublished.",
+      "response_time": "about 90 days",
+      "simultaneous_submissions": "allowed, but must be noted in cover letter and journal must be informed immediately if accepted elsewhere",
+      "word_limit": "up to 6,000 words for fiction/nonfiction/translation prose; flash pieces under 1,000 words"
+    },
+    "fetched_at": "2026-08-16T19:04:41.699264+00:00",
+    "found_guidelines": true,
+    "name": "Four Way Review",
+    "pages": [
+      "https://fourwayreview.com/submit/"
+    ],
+    "revision": 1,
+    "summary": "Four Way Review, the online triannual affiliated with independent press Four Way Books, publishes poetry, fiction, creative nonfiction, and translation that combines careful craft with a strong, distinctive voice, drawing from both established and emerging writers. It runs frequent open reading periods with a small $3 fee most months (waived in January, April, August, and November) and caps how often writers may submit per year, so it favors patient, guideline-attentive submitters over frequent ones.",
+    "url": "https://fourwayreview.com/submit/"
   },
   "fourteen hills": {
     "details": {
@@ -4195,6 +4473,27 @@
     "revision": 1,
     "summary": "The Good Life Review publishes poetry, fiction, flash, micro, and CNF with a mission to lift underrepresented and heartland-adjacent voices; fees are $4 for standard submissions and $2.50 for flash/CNF, with a 4-month response time and a 100-submission cap per poetry portal. Multiple submissions are allowed but each incurs a fee, and the journal is always open with rolling seasonal reading periods. Writers should note the blind-review requirement (remove name from document), the 'previously uncurated' standard (not just unpublished), and that submission caps can close portals at any time.",
     "url": "https://thegoodlifereview.submittable.com/submit"
+  },
+  "grain magazine": {
+    "details": {
+      "aesthetic": "Eclectic, engaging, and challenging literary writing and art; genres include poetry, fiction, literary nonfiction, short plays, comics, translations, and experimental/hybrid work; actively seeks and prioritizes submissions from Black, Indigenous, POC, 2SLGBTQ+, and disabled writers during a dedicated window; visual art largely by invitation, Canada-based artists only.",
+      "fee": "none",
+      "multiple_submissions": "not allowed - one genre only, one submission per author per volume year; subsequent submissions will not be read or returned",
+      "reading_period": "Regular submissions Sept 15 - June 15 (closed until reopening Sept 15, 2026); additional window June 16 - Sept 14 for under-represented/marginalized writers",
+      "red_flags": "Manuscripts received outside the reading window are automatically rejected; no emailed submissions accepted; mailed submissions require SASE or reply-only email or they will not be read or returned; only one submission per author published per volume year; visual work mostly by invitation only.",
+      "response_time": "unknown",
+      "simultaneous_submissions": "allowed, but must notify immediately if accepted elsewhere",
+      "word_limit": "Fiction and nonfiction up to 3500 words; poetry up to 6 pages; other/hybrid work up to 3500 words or 5 pages; book reviews 450 words; interviews and craft essays 900 words"
+    },
+    "fetched_at": "2026-08-16T19:06:06.434818+00:00",
+    "found_guidelines": true,
+    "name": "Grain Magazine",
+    "pages": [
+      "https://grainmagazine.ca/submit"
+    ],
+    "revision": 1,
+    "summary": "Grain is a long-running, internationally acclaimed Canadian literary quarterly publishing eclectic, surprising poetry, fiction, literary nonfiction, and hybrid/experimental work from Canadian and international writers. It pays $50 per printed page (up to $250, or $500 for cover art) and enforces strict, narrow submission windows and one-submission-per-genre-per-year limits.",
+    "url": "https://grainmagazine.ca/submit"
   },
   "grand journal": {
     "details": {
@@ -4792,6 +5091,27 @@
     "summary": "Image Journal publishes poetry, fiction, essays, interviews, and translation with a required connection to Judaism, Christianity, or Islam—including doubt or ambivalence, but the faith link must be present. Submissions go through Submittable only; response time is up to six months. Previously published work (including web/self-published) is rejected outright, so writers must be careful about prior online posting.",
     "url": "https://imagejournal.org/journal/submit/"
   },
+  "indiana review": {
+    "details": {
+      "aesthetic": "Self-described as seeking work that is 'carefully strange' — implying literary fiction, nonfiction, and poetry that takes formal or thematic risks while remaining controlled and deliberate; publishes a mix of genres each issue plus occasional art inserts and folios, suggesting an eclectic, craft-focused sensibility rather than a narrow niche.",
+      "fee": "$3 for general submissions (fee waivers available for hardship; free for incarcerated writers; no fee waivers for prize categories)",
+      "multiple_submissions": "possible to submit multiple pieces in one submission (guidelines reference withdrawing a single piece from a multi-piece submission), otherwise unknown if separate submissions allowed",
+      "reading_period": "Feb 1 - Mar 31 and Sep 1 - Oct 31",
+      "red_flags": "Does not accept unsolicited email submissions, artwork, or book reviews; cannot consider work from anyone currently or recently affiliated with Indiana University (past 4 years); submission fees are non-refundable if withdrawn; acceptance rate under 0.5%.",
+      "response_time": "unknown",
+      "simultaneous_submissions": "allowed, withdraw via Submittable if accepted elsewhere",
+      "word_limit": "unknown"
+    },
+    "fetched_at": "2026-08-16T19:02:39.877285+00:00",
+    "found_guidelines": true,
+    "name": "Indiana Review",
+    "pages": [
+      "https://indianareview.iu.edu/submissions/index.html"
+    ],
+    "revision": 1,
+    "summary": "Indiana Review, a biannual literary journal out of Indiana University Bloomington, publishes fiction, nonfiction, and poetry with a taste for the 'carefully strange,' alongside occasional art inserts and special folios. It's highly competitive, accepting under half of one percent of submissions, and pays contributors $5/page (minimum $25) plus two copies.",
+    "url": "https://indianareview.iu.edu/submissions/index.html"
+  },
   "interzone": {
     "details": {
       "aesthetic": "Innovative and entertaining speculative/SF fiction; open to all voices globally; original unpublished work in English (translations from other languages accepted even if previously published).",
@@ -5177,24 +5497,25 @@
   },
   "l ron hubbards writers of the future": {
     "details": {
-      "aesthetic": "Science fiction, fantasy, and light horror short stories; no excessive violence or sex on the page; no AI-generated content; open only to non-professional writers.",
-      "fee": "none",
+      "aesthetic": "Genre science fiction and fantasy (with allowance for light horror), in the pulp-adventure tradition championed by L. Ron Hubbard; no excessive violence or sex on the page; aimed specifically at discovering new, previously unpublished writers rather than showcasing established literary styles.",
+      "fee": "none (free to enter)",
       "multiple_submissions": "1 story per quarter, up to 4 per year",
-      "reading_period": "Quarterly: Q1 closes Dec 31, Q2 closes Mar 31, Q3 closes Jun 30, Q4 closes Sep 30",
-      "red_flags": "Associated with L. Ron Hubbard and Scientology-linked organizations, which some writers consider a reputational risk; professionals are ineligible.",
+      "reading_period": "year-round, judged in quarterly cycles (deadlines Dec 31, Mar 31, Jun 30, Sep 30)",
+      "red_flags": "Entrants retain publication rights but the story becomes a contest entry rather than a straightforward paid submission; professionals are barred from entering; AI-assisted work is disallowed; this is a literary contest/anthology pipeline, not a traditional magazine or journal submission.",
       "response_time": "unknown",
       "simultaneous_submissions": "unknown",
-      "word_limit": "up to 17,000 words"
+      "word_limit": "up to but not exceeding 17,000 words"
     },
-    "fetched_at": "2026-08-15T20:03:12.341081+00:00",
+    "fetched_at": "2026-08-16T19:07:53.081532+00:00",
     "found_guidelines": true,
     "name": "L. Ron Hubbard's Writers of the Future",
     "pages": [
       "https://writersofthefuture.com/enter-writer-contest/",
-      "https://writersofthefuture.com/about-l-ron-hubbard/"
+      "https://writersofthefuture.com/about-l-ron-hubbard/",
+      "https://writersofthefuture.com/about-l-ron-hubbard-2/"
     ],
-    "revision": 1,
-    "summary": "L. Ron Hubbard's Writers of the Future is a quarterly SF/fantasy/light horror short story contest judged anonymously by professional writers, with cash prizes up to $5,500 and no fee. Stories must be under 17,000 words, one entry per quarter, no AI-generated work, and no excessive violence or sex. Writers should note the Scientology/Hubbard affiliation, which some may find a reputational concern.",
+    "revision": 2,
+    "summary": "Writers of the Future is a quarterly short-story contest for new/amateur science fiction and fantasy writers, judged anonymously by professional genre authors, with cash prizes and an annual grand prize; it is not a paying magazine market so much as a contest feeding into an anthology of winners. Stories must be unpublished original science fiction, fantasy, or light horror, free of excessive violence or sex and free of AI-generated content, and professionals are ineligible to enter.",
     "url": "https://writersofthefuture.com/enter-writer-contest/"
   },
   "lake effect": {
@@ -5431,6 +5752,27 @@
     "summary": "Literary Orphans provides no aesthetic details on this page, directing visitors to their About webpage instead. Submissions are currently closed (Summer 2020, reopening Fall 2020) and previously published work is not accepted except from personal blogs or workshopping sites. The journal does not pay contributors.",
     "url": "https://literaryorphans.submittable.com/submit"
   },
+  "literary review": {
+    "details": {
+      "aesthetic": "Favors courageous, boundary-pushing fiction, bold nonfiction/essays, poetry that 'compels and challenges,' work in translation, and hybrid/in-between-y forms; committed to short form (stories, poems, essays, flash) and only accepts excerpts if they stand alone as self-contained pieces.",
+      "fee": "none, but submitters are required to be subscribers ($25 print or $10 electronic) or submissions will not be considered",
+      "multiple_submissions": "unknown",
+      "reading_period": "capped/variable open periods rather than fixed dates; closed indefinitely as of the Covid-19 note in this text, though guidelines describe reopening periodically until submission volume exceeds capacity",
+      "red_flags": "Submissions without an accompanying subscription will not be considered; as of the page's Covid-19 note, the journal was closed with no timeline to reopen, so current status should be verified.",
+      "response_time": "3 to 6 months",
+      "simultaneous_submissions": "allowed, but notify them promptly if accepted elsewhere",
+      "word_limit": "unknown"
+    },
+    "fetched_at": "2026-08-16T19:04:03.191641+00:00",
+    "found_guidelines": true,
+    "name": "Literary Review",
+    "pages": [
+      "https://theliteraryreview.org/submit/"
+    ],
+    "revision": 1,
+    "summary": "The Literary Review (TLR) publishes courageous fiction, bold nonfiction, translated work, and challenging poetry, along with hybrid/in-between forms, favoring short, self-contained pieces over novel excerpts; it comes out twice a year and pays contributors an honorarium. Submissions require the writer to be a subscriber, and as of this text the journal's submissions status is uncertain (was closed indefinitely due to Covid-19 impacts, though separate guidelines describe an open, capped reading period).",
+    "url": "https://theliteraryreview.org/submit/"
+  },
   "litmag": {
     "details": {
       "aesthetic": "Literary fiction (short stories to novellas), creative nonfiction (essays on literature, art, culture, music; biography, memoir), and poetry with no restrictions on style or form. Seeks work that 'moves and amazes'—big minds, large hearts, sharp pens.",
@@ -5515,6 +5857,27 @@
     "revision": 2,
     "summary": "This is not a literary journal — it is an article on Writer's Digest offering advice on how to write cover letters for literary journal submissions. No actual journal is described or catalogued here.",
     "url": "https://www.writersdigest.com/whats-new/literary-journal-submissions-101"
+  },
+  "little fiction big truths": {
+    "details": {
+      "aesthetic": "Favors bold, voice-driven fiction and nonfiction ('fearless essays and killer short stories'); casual, contemporary sensibility based on the informal tone of their own guidelines; also runs a separate annual flash fiction issue.",
+      "fee": "unknown",
+      "multiple_submissions": "not allowed - only one submission at a time, except possibly one fiction and one nonfiction piece together",
+      "reading_period": "currently closed (submissions temporarily closed; flash issue also closed, opens once annually)",
+      "red_flags": "Submissions are currently closed with no stated reopening date; response time is vaguely described as requiring 'very patient' waiting.",
+      "response_time": "unknown, described only as requiring patience",
+      "simultaneous_submissions": "allowed, but notify them if accepted elsewhere",
+      "word_limit": "no strict limit, but typically 2,000-5,000 words for regular submissions"
+    },
+    "fetched_at": "2026-08-16T19:07:03.030344+00:00",
+    "found_guidelines": true,
+    "name": "*Little Fiction, Big Truths",
+    "pages": [
+      "http://www.littlefiction.com/beta/Submissions.html"
+    ],
+    "revision": 1,
+    "summary": "A journal publishing 'fearless essays and killer short stories,' generally in the 2,000-5,000 word range though they resist hard limits, plus one annual flash fiction issue; the tone of the guidelines is casual and writer-friendly. Submissions are currently closed, with updates posted via Twitter and Instagram.",
+    "url": "http://www.littlefiction.com/beta/Submissions.html"
   },
   "little star": {
     "details": {
@@ -5727,6 +6090,27 @@
     "summary": "Margins is a student literary magazine (ages 13-19) publishing poetry, fiction, creative nonfiction, and visual art across multiple mediums. Writing submissions must be 1,200 words or less; next deadline is April 30, 2026 for the Summer 2026 issue. Writers should note the strict age restriction (13-19 only) and that AI-generated work is explicitly rejected.",
     "url": "https://www.marginslitmag.com/submissions"
   },
+  "massachusetts review": {
+    "details": {
+      "aesthetic": "Broad, socially and politically engaged literary quarterly balancing established and emerging writers; fiction spans flash, experimental, historical, and realist modes but favors outward-facing over self-focused narratives; nonfiction includes essays on literature, art, science, philosophy, and public affairs; poetry and hybrid/cross-genre work welcomed; public affairs section seeks internationalist, freedom-oriented, culturally-political writing; one visual artist featured per issue (mostly solicited); no illustration of prose.",
+      "fee": "none for regular submissions; unsolicited blog submissions carry a $50 honorarium (payment to author, not a fee)",
+      "multiple_submissions": "No mixed submissions - essays, fiction, hybrid, poetry, and translation manuscripts must be submitted separately; one piece (or one poetry set of up to 6 poems) per submission per genre",
+      "reading_period": "Oct 1 - Apr 30 (closed May 1 - Sept 30); BIPOC authors and translations accepted year-round via mail/email outside this window",
+      "red_flags": "Online submission manager shuts down outside reading period (Oct-Apr); art submissions mostly solicited so unsolicited chances are limited; book reviews published online only, not in print.",
+      "response_time": "unknown",
+      "simultaneous_submissions": "unknown",
+      "word_limit": "Fiction/nonfiction/hybrid/translation: 7500 words or 20-30 pages depending on genre; poetry: generally under 100 lines; blog pieces: 1000 words max; Working Titles e-book series: 7,000–25,000 words"
+    },
+    "fetched_at": "2026-08-16T19:28:17.579240+00:00",
+    "found_guidelines": true,
+    "name": "Massachusetts Review",
+    "pages": [
+      "https://massreview.org/new-submissions/"
+    ],
+    "revision": 1,
+    "summary": "The Massachusetts Review is a long-running (since 1959), politically and socially engaged literary quarterly publishing fiction, nonfiction, poetry, hybrid work, translation, performance, and visual art, favoring work that looks outward at 'the world' over the purely personal, with a stated commitment to under-represented and internationalist voices. It also runs a public affairs section and blog, plus a digital e-book series (Working Titles) for longer prose. Reading period is closed May 1–Sept 30, with a BIPOC and translations exception allowing year-round submission via email/mail.",
+    "url": "https://massreview.org/new-submissions/"
+  },
   "masters review new voices": {
     "details": {
       "aesthetic": "Fiction or narrative nonfiction with an unmistakable individual voice; judge Weike Wang prizes clean sentences, surprising storytelling, humor, and substance—'write to your smartest friend.'",
@@ -5835,23 +6219,23 @@
   },
   "meridian": {
     "details": {
-      "aesthetic": "Micro fiction, hybrid pieces, lyric essaylets, prose poems, short-short stories — 'vibrant, electric writing' in any form under the flash/short prose umbrella.",
-      "fee": "$6 per submission",
-      "multiple_submissions": "allowed — multiple entries permitted, but only one unpublished work per submission",
+      "aesthetic": "A literary journal blending established, award-winning authors (Pulitzer, National Book Award winners) with debut and early-career writers; publishes fiction, poetry, nonfiction, author interviews, and book reviews; edited by MFA students, giving it a contemporary, craft-focused, workshop-adjacent sensibility.",
+      "fee": "unknown",
+      "multiple_submissions": "unknown",
       "reading_period": "unknown",
-      "red_flags": "Broad ineligibility net: UVA MFA students, alumni, and former Meridian staff are out; so are current UVA students/staff/faculty and friends, relatives, and former teachers or students of current staff. Past winners of either Meridian prize also ineligible.",
+      "red_flags": "No open submission calls at the time of this text, so timing must be checked before submitting.",
       "response_time": "unknown",
       "simultaneous_submissions": "unknown",
-      "word_limit": "up to 1,000 words"
+      "word_limit": "unknown"
     },
-    "fetched_at": "2026-08-15T20:27:14.357283+00:00",
-    "found_guidelines": true,
+    "fetched_at": "2026-08-16T19:09:01.151629+00:00",
+    "found_guidelines": false,
     "name": "Meridian",
     "pages": [
       "https://meridian.submittable.com/submit"
     ],
-    "revision": 1,
-    "summary": "Meridian's Short Prose Prize welcomes micro fiction, hybrid work, lyric essays, prose poems, and flash fiction up to 1,000 words—vibrant and electric writing prioritized. Entry fee is $6 per submission; multiple submissions allowed but one piece per entry. Writers connected to UVA MFA program (students, alumni, staff, their friends/relatives/former teachers) are ineligible, as are past winners of Meridian's Short Prose or Editors' Prize.",
+    "revision": 2,
+    "summary": "Meridian is an annual literary magazine run by MFA students at the University of Virginia, publishing fiction, poetry, nonfiction, interviews, and book reviews alongside notable established writers like Seamus Heaney and Rita Dove, while prioritizing early-career and debut authors. Work from the magazine has appeared in Best American anthologies, the Pushcart Prize anthology, and New Stories from the South, and its stories have been O. Henry Prize short-listed. Submissions are currently closed with no open calls listed.",
     "url": "https://meridian.submittable.com/submit"
   },
   "midamerican review": {
@@ -5875,6 +6259,27 @@
     "revision": 1,
     "summary": "Mid-American Review publishes fiction, poetry, translations, and nonfiction (personal essays, essays on writing, short reviews) with no stated stylistic restrictions beyond a strict ban on AI-generated content and previously published work. Submissions are free year-round via online manager or postal mail (SASE required); contests carry an entry fee. The journal is currently closed to submissions, and any AI-assisted work—even partially—will be rejected.",
     "url": "https://casit.bgsu.edu/midamericanreview/ways-to-submit/"
+  },
+  "midwest review": {
+    "details": {
+      "aesthetic": "Regionally rooted literary journal centered on Midwest identity and place, open to poetry, fiction, creative nonfiction, and visual art/photography; actively seeks new and underrepresented voices rather than an established house style.",
+      "fee": "fee-based via Submittable, but waived on request for financial need; free for incarcerated writers submitting by mail",
+      "multiple_submissions": "unknown (poetry allows 1-5 poems per submission; not stated for prose)",
+      "reading_period": "January 15 - May 15",
+      "red_flags": "Only pays in one free contributor copy; online publication delayed six months after print release; must wait a year to resubmit if previously published in the journal.",
+      "response_time": "unknown",
+      "simultaneous_submissions": "allowed, with request to notify if work is accepted elsewhere",
+      "word_limit": "up to 6,000 words for prose; poetry 1-5 poems or 10 pages"
+    },
+    "fetched_at": "2026-08-16T19:25:17.035404+00:00",
+    "found_guidelines": true,
+    "name": "Midwest Review",
+    "pages": [
+      "https://midwestreview.org/submissions/"
+    ],
+    "revision": 1,
+    "summary": "Midwest Review is an annual print-and-online journal, edited by University of Wisconsin-Stevens Point English faculty and a regional editorial team, publishing poetry, fiction, creative nonfiction, and visual art by writers and artists with ties to the Midwest (broadly defined, with room for crossing borders). It emphasizes new voices and underrepresented perspectives, nominates contributors for major prizes (Pushcart, Best of Small Fictions, PEN/Dau), and pays only in a contributor copy.",
+    "url": "https://midwestreview.org/submissions/"
   },
   "minnesota review": {
     "details": {
@@ -6112,6 +6517,27 @@
     "summary": "Narrative publishes fiction, poetry, and nonfiction of all lengths with a focus on quality storytelling and imaginative prose, including everything from flash to book-length serializations. They run named contests alongside general submissions and Story/Poem of the Week slots. Writers must note that machine-generated text is explicitly rejected.",
     "url": "https://www.narrativemagazine.com/"
   },
+  "nashville review": {
+    "details": {
+      "aesthetic": "Favors work that pushes against boundaries of genre, body, and expectation: fiction with tension and truth across lengths (micro to longer short stories), nonfiction essays unpacking the historical, political, and personal, poetry that surprises, plus translations, hybrid work, comics/graphic narrative excerpts, and striking visual art.",
+      "fee": "none",
+      "multiple_submissions": "only one submission per genre per reading period",
+      "reading_period": "Fiction, Poetry, Nonfiction, Translation read September/October and January/February; Art and Comics read year-round",
+      "red_flags": "Caps submissions at 500 per section (sometimes fewer) and closes early if cap is reached before month ends; not currently accepting unsolicited reviews or interviews; no single-frame cartoons for comics; current/former Vanderbilt students and employees (within 5 years) are ineligible; email submissions not read (must use Submittable).",
+      "response_time": "4-5 months typically",
+      "simultaneous_submissions": "allowed, with request to notify via Submittable if accepted elsewhere",
+      "word_limit": "Fiction up to 7,000 words (flash up to 1,000, micro under 500); nonfiction up to 8,000 words; translation prose up to 8,000 words or up to 2 poems; poetry 1-3 poems/10 pages total"
+    },
+    "fetched_at": "2026-08-16T19:05:57.175377+00:00",
+    "found_guidelines": true,
+    "name": "*Nashville Review",
+    "pages": [
+      "https://wp0.vanderbilt.edu/nashvillereview/submit"
+    ],
+    "revision": 1,
+    "summary": "Nashville Review is Vanderbilt University's online literary journal, publishing boundary-pushing fiction, nonfiction, poetry, translation, comics, and visual art with an eye for tension, formal play, and genre-crossing hybrid work. It reads twice yearly for most genres (art/comics year-round), pays contributors, and caps submissions per section to keep response times reasonable.",
+    "url": "https://wp0.vanderbilt.edu/nashvillereview/submit"
+  },
   "necessary fiction": {
     "details": {
       "aesthetic": "Unpublished fiction up to ~3,000 words with personal, idiosyncratic voice; 'more poetry than cinema, more idiosyncrasy than generalization, more examination than explanation — writing that could only be made by a person.' New translations of fiction also welcome.",
@@ -6132,6 +6558,27 @@
     "revision": 2,
     "summary": "Necessary Fiction seeks unpublished short fiction (and new translations) up to ~3,000 words with a distinctly personal, idiosyncratic voice — 'more poetry than cinema, more examination than explanation.' Simultaneous submissions are allowed but multiple submissions are not, and writers should wait a couple of months after a response before resubmitting. No reading period, fee, or response time is stated on the page.",
     "url": "https://necessaryfiction.submittable.com/Submit"
+  },
+  "neoopsis": {
+    "details": {
+      "aesthetic": "Science fiction and fantasy magazine, open to both professional and amateur writers, favoring genre stories and SF/fantasy-themed poems; explicitly avoids horror and prefers not to impose rigid rules on form or content; also publishes original interior and cover art, mostly realistic in style.",
+      "fee": "none",
+      "multiple_submissions": "each submission (including poems) must be sent separately, but multiple separate submissions appear allowed",
+      "reading_period": "currently closed; next submission period not yet set",
+      "red_flags": "Currently closed to submissions with no set reopening date; mailed submissions without a self-addressed stamped envelope or email address will be disposed of without reply; pays modestly (2.5 cents CAD/word, max $125) upon publication.",
+      "response_time": "first stage up to 8 weeks; second stage may take longer; auto-reply within about a week of submission",
+      "simultaneous_submissions": "not allowed",
+      "word_limit": "stories more likely to be accepted under 6000 words; no strict cap stated"
+    },
+    "fetched_at": "2026-08-16T19:03:15.330935+00:00",
+    "found_guidelines": true,
+    "name": "Neo-Opsis",
+    "pages": [
+      "http://www.neo-opsis.ca/guidelines.htm"
+    ],
+    "revision": 1,
+    "summary": "Neo-opsis is a Canadian print science fiction and fantasy magazine that favors genre stories under 6000 words and SF/fantasy-themed poetry, with a preference for accessible, unfussy storytelling over horror or rule-bound experimentation; it pays on publication and is currently closed to submissions with no reopening date set.",
+    "url": "http://www.neo-opsis.ca/guidelines.htm"
   },
   "new england review": {
     "details": {
@@ -6430,6 +6877,27 @@
     "summary": "This text is from the University of Tulsa's general university website, not from a literary journal's submission or about page. No journal is described here.",
     "url": "https://utulsa.edu/wp-signup.php?new=artsandsciences"
   },
+  "ninth letter": {
+    "details": {
+      "aesthetic": "Publishes both experimental and traditional literary poetry, fiction, creative nonfiction, and flash, with interest in nontraditional form, narrative, and subject matter; web edition issues are often organized around a special theme requiring writers to connect their work to it.",
+      "fee": "$3 reading fee for print submissions (waived Dec. 1-31 or until cap of 300/genre is hit; hardship waivers available by email); no fee for web or mailed submissions",
+      "multiple_submissions": "One submission per genre at a time; may submit concurrently to print and web editions but with separate pieces for each",
+      "reading_period": "Print: Sept. 1 - Feb. 28; Web: Sept. 1 - Nov. 1 and Feb. 1 - Apr. 1 (or until genre caps of 300-350 submissions are reached)",
+      "red_flags": "Does not accept previously published work (including on personal blogs/social media); no email submissions accepted; no revisions once submitted; current UIUC students ineligible, alumni must wait 3 years; web submissions require fully left-aligned (non-justified) text formatting or will be rejected; mailed submissions require SASE.",
+      "response_time": "About 6 months for print submissions, about 4 months for web submissions",
+      "simultaneous_submissions": "Allowed for print and web; withdraw immediately upon acceptance elsewhere",
+      "word_limit": "Fiction/CNF: up to 8,000 words (print), up to 3,500 words (web); flash: up to 3 pieces totaling 4,000 words; poetry: 3-5 poems, max 8 pages (print) or up to 3 poems (web)"
+    },
+    "fetched_at": "2026-08-16T19:03:41.963053+00:00",
+    "found_guidelines": true,
+    "name": "Ninth Letter",
+    "pages": [
+      "https://ninthletter.com/submit/"
+    ],
+    "revision": 1,
+    "summary": "Ninth Letter, published semi-annually in print at the University of Illinois, seeks prose and poetry that experiment with form and narrative alongside more traditional literary work, and also runs themed web-only issues. It pays on publication ($25/poem, $100 for prose in print; less for web), charges a modest $3 reading fee for print submissions with waiver periods, and reads during set fall/winter windows rather than year-round.",
+    "url": "https://ninthletter.com/submit/"
+  },
   "noon annual": {
     "details": {
       "aesthetic": "unknown",
@@ -6536,6 +7004,27 @@
     "summary": "Northwest Review publishes fiction, poetry, creative nonfiction, flash, translations, and art with a strong interest in formal innovation, literary quality, and new voices from marginalized backgrounds, while remaining open beyond its Pacific Northwest roots. General submissions accept 1–9,000 words (flash up to 1,000), poetry 1–4 poems/max 10 pages, with a small unspecified Submittable fee and six-month response time. Watch out for the ban on previously published work, the prohibition on resubmitting revised work without invitation, and the exclusion of current University of Oregon students.",
     "url": "https://northwestreview.submittable.com/submit"
   },
+  "notre dame review": {
+    "details": {
+      "aesthetic": "Literary fiction and poetry, with editors expressing particular interest in work that takes on 'big issues'; selection is based purely on excellence rather than a narrow house style, and prospective writers are directed to back issues to get a feel for the range published.",
+      "fee": "unknown",
+      "multiple_submissions": "unknown",
+      "reading_period": "September through October and January through March",
+      "red_flags": "Hardcopy submissions are discarded unread; submissions sent during summer months are not reviewed; writers rejected twice or more in a calendar year must wait 6-12 months before resubmitting.",
+      "response_time": "unknown",
+      "simultaneous_submissions": "unknown",
+      "word_limit": "unknown"
+    },
+    "fetched_at": "2026-08-16T19:04:17.606264+00:00",
+    "found_guidelines": true,
+    "name": "Notre Dame Review",
+    "pages": [
+      "https://ndreview.nd.edu/submissions/"
+    ],
+    "revision": 1,
+    "summary": "Notre Dame Review is a university-affiliated literary journal that seeks excellence above all, with a stated preference for fiction and poetry engaging big issues. It reads only in two windows during the academic year, pays a small gratuity on publication, and enforces a cooling-off period for repeat rejections.",
+    "url": "https://ndreview.nd.edu/submissions/"
+  },
   "nowhere": {
     "details": {
       "aesthetic": "unknown",
@@ -6599,6 +7088,27 @@
     "summary": "The Offing publishes humor, translated prose, fiction excerpts, and other genre work valuing strong voice, absurdity, vulnerability, and surprise; no submission fees for 2026, one submission per department at a time, with a six-month response target. AI-generated work is only considered if it explicitly engages with or critiques AI use and is clearly labeled. Fiction excerpts are handled via email (not the portal) and are unpaid, which is a notable exception to the general paid-contributor model.",
     "url": "https://theoffingmag.submittable.com/submit"
   },
+  "okay donkey": {
+    "details": {
+      "aesthetic": "Favors the weird, genre-bending, and slipstream; work that is funny and sad simultaneously; experimental, surreal, and magical realist sensibilities across flash fiction, micro batches, and poetry; explicitly avoids gratuitous sex, gore, violence, and bigotry, and seeks to amplify marginalized voices.",
+      "fee": "none for regular submissions; optional paid Tip Jar and Expedited Response options available",
+      "multiple_submissions": "not allowed - only one flash fiction/batch of micros or one poem per author per submission period; must wait for a response before submitting again",
+      "reading_period": "Opens 1st of every month except December, closes early if submission cap is reached; reopens 1st of next month",
+      "red_flags": "Strict caps mean regular submissions can close quickly each month; no flash nonfiction accepted; no anonymous work; no AI-generated writing; if rejected must wait 2 months to resubmit, if accepted must wait 1 year.",
+      "response_time": "usually 2-3 months for regular submissions; 2 weeks for paid Expedited Response submissions",
+      "simultaneous_submissions": "allowed",
+      "word_limit": "up to 1,200 words for flash fiction (single piece or batch of micros); poetry has no strict limit but they favor poems that fit on one page"
+    },
+    "fetched_at": "2026-08-16T19:04:26.007978+00:00",
+    "found_guidelines": true,
+    "name": "Okay Donkey",
+    "pages": [
+      "https://okaydonkeymag.com/submissions/"
+    ],
+    "revision": 1,
+    "summary": "Okay Donkey is an online literary magazine publishing flash fiction and poetry with a taste for the odd, off-kilter, funny-sad, experimental, surreal, magical realist, and slipstream; it posts one new piece every Friday, alternating genres. It pays a $25 honorarium per piece, caps monthly submissions, and offers optional paid expedited response.",
+    "url": "https://okaydonkeymag.com/submissions/"
+  },
   "one story": {
     "details": {
       "aesthetic": "Literary fiction of any style or subject, 3,000–8,000 words; must stand alone and leave readers feeling satisfied. Translations accepted. No previously published work (North American or online); print publication outside North America is okay.",
@@ -6641,6 +7151,27 @@
     "summary": "One Story publishes one literary short story per issue, seeking any style or subject as long as it stands alone and satisfies—strictly 3,000–8,000 words. Submissions are capped per period (next opens June 8, 2026), one story per writer per period, via Submittable as PDF only. Watch out for the strict no-AI policy, no revisions of rejected work, and the rule that stories previously published online in any form are ineligible.",
     "url": "https://one-story.com/write/submit-a-story/"
   },
+  "orion": {
+    "details": {
+      "aesthetic": "Literary environmental/cultural nonfiction blending essay, memoir, reporting, science writing, criticism, and comics; digital pieces also include food writing, enumerations, conversations, graphic stories, and art portfolios. Values work that challenges or expands understanding of nature, culture, and place through thoughtful, lived experience rather than polemic or overly conceptual 'nature as metaphor' pieces. Visual art should have intuitive, literal connections to the physical world; not an 'art' magazine in the abstract sense.",
+      "fee": "unknown",
+      "multiple_submissions": "not allowed - prefer one story idea/pitch at a time",
+      "reading_period": "Print: closed, check back for 2027 themes; Digital: opens twice yearly, Sept 1 and Feb 1, for two-week windows; no submissions accepted outside open windows",
+      "red_flags": "Currently not accepting fiction, poetry, book reviews, op-eds, press releases, or AI-assisted work; feature submissions closed entirely (pitches only, periodically); very narrow, short windows (two weeks, twice a year) for digital pitches; requires close familiarity with past issues before submitting; strict formatting rules for visual art submissions (no email attachments).",
+      "response_time": "about 3 months",
+      "simultaneous_submissions": "unknown",
+      "word_limit": "Pitches: up to 500 words (print), up to 400 words (digital); digital full drafts only if under 1000 words and unlikely to exceed 2,000; features typically 1,000-5,000 words (though feature submissions currently closed)"
+    },
+    "fetched_at": "2026-08-16T19:02:32.640868+00:00",
+    "found_guidelines": true,
+    "name": "Orion",
+    "pages": [
+      "https://orionmagazine.org/submission-guidelines/"
+    ],
+    "revision": 1,
+    "summary": "Orion is a nonfiction-focused environmental and cultural magazine exploring nature, culture, and place through essay, memoir, reporting, science writing, criticism, and visual art (no poetry, fiction, book reviews, or AI-assisted work accepted). It works entirely by pitch rather than unsolicited manuscripts, opening briefly for themed print calls and twice yearly for digital pitches (Sept 1 and Feb 1), with a strong preference for concrete, specific stories over abstract concept art or straight environmental-catastrophe exposés.",
+    "url": "https://orionmagazine.org/submission-guidelines/"
+  },
   "orions belt": {
     "details": {
       "aesthetic": "Speculative fiction (sci-fi, fantasy, slipstream, horror, magic realism, surrealism, etc.) with significant genre elements—not token gestures. Poetry should be experimental and boundary-pushing, focused on emotion and experience rather than worldbuilding exposition. Reviews must offer analytical perspective, not plot overview.",
@@ -6661,6 +7192,28 @@
     "revision": 1,
     "summary": "Orion's Belt publishes speculative micro fiction (≤400w), flash fiction (401–1000w), poetry (experimental, emotion-focused), translations, reviews, and art, all requiring significant speculative elements. Two annual windows: March 1–May 15 and September 1–October 31; story and poetry submissions are currently closed until September 1, 2026. Writers must submit in only one fiction/poetry genre per window, rejected stories cannot be resubmitted even revised, and any story over 1000 words is auto-rejected.",
     "url": "https://www.orions-belt.net/submissions"
+  },
+  "orson scott cards intergalactic medicine show": {
+    "details": {
+      "aesthetic": "Science fiction and fantasy short fiction, described by its editor as part of the 'polysymphonic wonder' of modern genre voices; historically associated with Orson Scott Card's sensibilities and one of the earlier professional online SFF magazines.",
+      "fee": "unknown",
+      "multiple_submissions": "unknown",
+      "reading_period": "unknown",
+      "red_flags": "The magazine ceased publication after its June/July 2019 issue, so it is defunct and no longer a viable submission target.",
+      "response_time": "unknown",
+      "simultaneous_submissions": "unknown",
+      "word_limit": "unknown"
+    },
+    "fetched_at": "2026-08-16T19:02:22.052613+00:00",
+    "found_guidelines": false,
+    "name": "Orson Scott Card's Intergalactic Medicine Show",
+    "pages": [
+      "http://www.intergalacticmedicineshow.com/cgi-bin/mag.cgi?article=submissions&do=content",
+      "http://www.intergalacticmedicineshow.com/cgi-bin/mag.cgi?do=content&article=contact"
+    ],
+    "revision": 1,
+    "summary": "Orson Scott Card's Intergalactic Medicine Show was an online science fiction and fantasy magazine that published genre short fiction since the early days of digital SFF publishing, but it officially closed after its June/July 2019 issue and is no longer accepting submissions.",
+    "url": "http://www.intergalacticmedicineshow.com/cgi-bin/mag.cgi?article=submissions&do=content"
   },
   "outlook springs": {
     "details": {
@@ -6683,6 +7236,27 @@
     "revision": 1,
     "summary": "Outlook Springs publishes fiction, poetry, and nonfiction with a strange/weird/uncanny tilt. Submissions for Issue 10 closed May 15, 2026, with a response expected by September 2026. No other practical submission details are provided on this page.",
     "url": "https://outlooksprings.com/about/"
+  },
+  "oxford american": {
+    "details": {
+      "aesthetic": "Reported, narrative-driven journalism centering human impact and counter-narratives to mainstream coverage of the South; personal narrative considered but only as full drafts; visual art series (photography, film) also curated with a Southern lens; emphasis on specificity of place and 'stories neglected by national news media.'",
+      "fee": "none for pitches or Eyes on the South submissions",
+      "multiple_submissions": "unknown",
+      "reading_period": "unknown",
+      "red_flags": "Work must engage with the American South or it will be rejected; no generative AI permitted at any stage (pitch, draft, editing); Dispatches submitted via pitch only, not full manuscripts.",
+      "response_time": "unknown",
+      "simultaneous_submissions": "unknown",
+      "word_limit": "Dispatches: 500-2,000 words; no stated limit for personal narrative drafts or Eyes on the South submissions"
+    },
+    "fetched_at": "2026-08-16T19:03:21.924906+00:00",
+    "found_guidelines": true,
+    "name": "Oxford American",
+    "pages": [
+      "https://oxfordamerican.org/submissions"
+    ],
+    "revision": 1,
+    "summary": "Oxford American is a well-established Southern-focused magazine whose digital imprint publishes reported, narrative-driven Dispatches (500-2,000 words, $300 flat fee) on under-covered stories in Southern communities, plus an Eyes on the South series showcasing film, photography, and visual art ($100 honorarium). All work must substantively engage with the American South and generative AI is strictly prohibited.",
+    "url": "https://oxfordamerican.org/submissions"
   },
   "oxford magazine": {
     "details": {
@@ -7086,6 +7660,27 @@
     "summary": "Pif Magazine publishes fiction, poetry, essays, reviews, and artwork for a writerly audience, strongly preferring original voices and individual creative vision over commercial sameness. The practical ceiling is under 2,000 words for prose, simultaneous submissions are allowed, and a response is promised within 90 days. Watch out for the strict aversion to fan fiction, hate/lewd content, and previously published work, and note the unusual requirement to submit each poem as a completely separate submission.",
     "url": "https://www.pifmagazine.com/submission-guidelines/"
   },
+  "pinch": {
+    "details": {
+      "aesthetic": "Cross-genre and nonconformist poetry, fiction, and essays that engage complexities and intersections of identity; work that challenges the status quo of form and content and explores experiences of underrepresented writers; welcoming to emerging writers and often a home for first publications.",
+      "fee": "unknown",
+      "multiple_submissions": "unknown",
+      "reading_period": "year-round",
+      "red_flags": "Response times can be significantly delayed during summer and winter holiday periods due to following an academic calendar.",
+      "response_time": "unknown, described as generally quick but delayed during summer and winter academic holidays",
+      "simultaneous_submissions": "unknown",
+      "word_limit": "unknown"
+    },
+    "fetched_at": "2026-08-16T19:03:54.743401+00:00",
+    "found_guidelines": true,
+    "name": "Pinch",
+    "pages": [
+      "https://www.pinchjournal.com/submit"
+    ],
+    "revision": 1,
+    "summary": "The Pinch publishes cross-genre, nonconformist poetry, fiction, and essays that engage with identity, challenge conventions of form and content, and often serve as a launching pad for emerging writers' first publications. The journal actively seeks work from underrepresented writers and encourages international submissions, valuing pieces that are thematically layered and formally adventurous—what its editors call 'pinchy.' Submissions are accepted year-round via Submittable, though response times slow during academic holiday breaks.",
+    "url": "https://www.pinchjournal.com/submit"
+  },
   "pithead chapel": {
     "details": {
       "aesthetic": "Literary fiction, personal/memoir/lyric/flash/hybrid/experimental nonfiction (no critical essays), and prose poetry only (no lineated or traditional forms like sonnets, sestinas, villanelles). No genre fiction. Online monthly publication.",
@@ -7128,6 +7723,27 @@
     "summary": "Planet Scumm publishes hard and soft sci-fi, speculative, weird fiction, and slipstream short stories with a pulpy, irreverent sensibility and a strong preference for diverse global voices. Submissions are capped at 5,000 words, sent via email as .doc/.docx, one story per reading period, with the next window opening October 13, 2026. AI-generated content is explicitly banned by contract, and the current reading period is closed.",
     "url": "https://www.planetscumm.space/submit"
   },
+  "pleiades": {
+    "details": {
+      "aesthetic": "Publishes poetry, fiction, nonfiction, and translations, plus reviews and author interviews; states a specific investment in reading and representing writers from historically marginalized communities; judges for its named prizes include literary figures like Kenan Orhan (fiction) and musician/poet Sadie Dupuis (poetry), suggesting an openness to writers with crossover reputations in music/pop culture as well as traditional literary credentials.",
+      "fee": "None for general submissions; $20 per entry for Kinder/Crump Prize and Prufer Poetry Prize (fee waivers available on request)",
+      "multiple_submissions": "Not more than one submission per genre per reading period for general submissions; for contests, multiple entries permitted but each requires a separate entry fee",
+      "reading_period": "General submissions: June and December only; Kinder/Crump Fiction Prize: May 1-31; Prufer Poetry Prize: October 1-31",
+      "red_flags": "Submissions outside the specific open windows are not considered and mailed/emailed general submissions are not accepted (except for incarcerated writers); contest entries require separate fee per submission and are only accepted via Duosuma.",
+      "response_time": "6-9 months for general submissions; do not inquire before 9 months",
+      "simultaneous_submissions": "allowed for general submissions, with request to withdraw via Duosuma if accepted elsewhere; unknown for contests",
+      "word_limit": "Kinder/Crump Prize: up to 6,000 words for short fiction; general submissions word limit unknown (see genre-specific guidelines on Duosuma)"
+    },
+    "fetched_at": "2026-08-16T19:03:31.994973+00:00",
+    "found_guidelines": true,
+    "name": "Pleiades",
+    "pages": [
+      "https://pleiadesmag.com/submissions/"
+    ],
+    "revision": 1,
+    "summary": "Pleiades: Literature in Context is a university-affiliated (University of Central Missouri) journal publishing poetry, fiction, nonfiction, translations, and reviews/interviews, with an explicit editorial interest in work from historically marginalized communities. It reads general submissions only during June and December, runs two annual contests (Kinder/Crump Prize for short fiction in May, Prufer Poetry Prize for poetry in October, each $1,000 and $20 entry fee), and has a fairly slow 6-9 month response time.",
+    "url": "https://pleiadesmag.com/submissions/"
+  },
   "ploughshares": {
     "details": {
       "aesthetic": "Literary fiction, nonfiction, and poetry across standard and longform formats; guest-edited issues with a strong tradition of serious literary work.",
@@ -7149,6 +7765,27 @@
     "revision": 1,
     "summary": "Ploughshares publishes fiction, poetry, and nonfiction with an established literary reputation; standard submissions are limited to once per reading period with word limits up to 6,500 words (or up to 15,000 for longform). Writers must remove all identifying information for anonymous review, and the fee structure is unclear from the page—the cost appears dynamic and subscription-dependent.",
     "url": "https://pshares.org/"
+  },
+  "podcastle": {
+    "details": {
+      "aesthetic": "Fantasy in all its subgenres (magical realism, urban fantasy, slipstream, high fantasy, and everything between), chosen specifically for audio performance—strong pacing, well-defined characters, engaging dialogue, clear action, and prose that remains beautiful when read aloud; humor encouraged; fantastical elements must be meaningful to the story; actively seeking settings outside America and characters from a range of backgrounds/ethnicities; selkie stories are a noted 'hard sell' due to overrepresentation.",
+      "fee": "none",
+      "multiple_submissions": "up to one original and one reprint under consideration at the same time (max two stories total)",
+      "reading_period": "currently closed; next window TBD",
+      "red_flags": "Currently closed to submissions with no set reopening date; stories over 6,000 words submitted without prior query will likely be rejected unread; AI-generated or AI-assisted stories are banned and grounds for permanent ban; selkie stories are a known hard sell.",
+      "response_time": "unknown",
+      "simultaneous_submissions": "allowed, with disclosure in cover letter; exception—do not simultaneously submit to sister EA podcasts (Escape Pod, PseudoPod, Cast of Wonders, CatsCast)",
+      "word_limit": "up to 6,000 words for originals (sweet spot 3,000-4,000); reprints may go up to 17,000 words with prior query for anything over 6,000"
+    },
+    "fetched_at": "2026-08-16T19:01:58.822568+00:00",
+    "found_guidelines": true,
+    "name": "PodCastle",
+    "pages": [
+      "https://podcastle.org/guidelines/"
+    ],
+    "revision": 1,
+    "summary": "PodCastle is an audio fantasy fiction podcast/magazine publishing all fantasy subgenres from high fantasy to magical realism to urban fantasy and slipstream, with a strong preference for stories that read well aloud: tight pacing, clear action, vivid characters, engaging dialogue, and humor welcome. It pays professional rates for original fiction and accepts reprints (including translations and previously-podcasted work), but is currently closed to general submissions with no announced reopening date.",
+    "url": "https://podcastle.org/guidelines/"
   },
   "point the": {
     "details": {
@@ -7833,6 +8470,48 @@
     "revision": 1,
     "summary": "Rosebud publishes good writing across fiction, essays, and poetry with a general literary focus; prose submissions allow 1–3 stories or essays with a $1 handling fee, while up to 3 poems may be submitted free via email. The magazine reads year-round and targets a ~45-day response via their Fast-track Initiative (RFI). Writers should note the mandatory $1 fee for prose, the requirement for a physical SASE, and that the page appears dated (© 2014), so guidelines may be outdated.",
     "url": "https://www.rsbd.net/index.php?option=com_content&view=article&id=79&Itemid=62"
+  },
+  "ruminate": {
+    "details": {
+      "aesthetic": "Founders' own work spans literary fiction, essays, and environmental/nature writing, suggesting the studio favors place-driven, nature-attuned literary prose with a serious, craft-focused sensibility; one founder is drawn to 'tourist towns and all things kitsch,' hinting at an interest in Americana and offbeat regional culture alongside more traditional literary work.",
+      "fee": "unknown",
+      "multiple_submissions": "unknown",
+      "reading_period": "unknown",
+      "red_flags": "none noted",
+      "response_time": "unknown",
+      "simultaneous_submissions": "unknown",
+      "word_limit": "unknown"
+    },
+    "fetched_at": "2026-08-16T19:05:32.658805+00:00",
+    "found_guidelines": false,
+    "name": "Ruminate",
+    "pages": [
+      "https://wildburrostudio.com/about"
+    ],
+    "revision": 1,
+    "summary": "Wild Burro Studio is a small literary venture co-founded by two MFA/PhD-holding writer-editors with strong ties to prestigious literary magazines (Southern Review, Gettysburg Review, Quarterly West, Michigan Quarterly Review) and environmental/nature writing traditions. The page provided is an About/masthead page focused on founder bios rather than submission mechanics, so practical details for submitters are not available here.",
+    "url": "https://wildburrostudio.com/about"
+  },
+  "rumpus": {
+    "details": {
+      "aesthetic": "Eclectic literary and cultural writing: personal essays on family, memory, and technology (e.g. a father buying the first TV, vanlife culture); fiction ranging from realist coming-of-age stories to speculative/robot narratives; poetry that is lyrical and allusive, referencing figures like Karl Barth and Mozart; robust criticism and book reviews covering literary fiction and film/TV (Severance, Lauren Groff); recurring columns on addiction, relationships, and aging. Overall sensibility is contemporary, socially engaged, and voice-driven, with attention to identity, women's interiority, and pop culture.",
+      "fee": "unknown",
+      "multiple_submissions": "unknown",
+      "reading_period": "unknown",
+      "red_flags": "none noted",
+      "response_time": "unknown",
+      "simultaneous_submissions": "unknown",
+      "word_limit": "unknown"
+    },
+    "fetched_at": "2026-08-16T19:05:11.720668+00:00",
+    "found_guidelines": false,
+    "name": "*Rumpus",
+    "pages": [
+      "https://therumpus.net/"
+    ],
+    "revision": 1,
+    "summary": "The Rumpus is a long-running online literary and culture magazine publishing daily fiction, essays, poetry, criticism, and columns, alongside book club picks and cultural commentary from prominent contributors like Roxane Gay. Its work spans intimate personal essay, contemporary literary fiction (including speculative/genre-adjacent work), and lyric poetry, with a strong current of memoir-driven and identity-focused nonfiction. It maintains a brisk publishing pace with new pieces nearly every day, suggesting an active, high-volume outlet rather than a quarterly.",
+    "url": "https://therumpus.net/"
   },
   "saint anns review": {
     "details": {
@@ -8557,6 +9236,27 @@
     "summary": "Sou'wester publishes poetry, fiction, and creative nonfiction with a stated commitment to diverse and marginalized voices, seeking fiction that is fresh, haunting, and awe-inspiring. Submissions are currently closed, with a note to check back in September for an update. No word limits, fees, or response times are specified on these pages.",
     "url": "https://souwester.org/?page_id=538"
   },
+  "space and time magazine": {
+    "details": {
+      "aesthetic": "Genre-blending speculative fiction and poetry with strong voice, atmosphere, and imaginative risk—strange, lyrical, mythic, futuristic, haunted, or experimental work that resists easy classification; issues are themed monthly (e.g. 'Prepare to Advance,' 'Shadows Mean Light,' 'Sharpen Your Tools'); historically published Jonathan Maberry, Aliette de Bodard, Jack Ketchum, Norman Spinrad, and others.",
+      "fee": "none to submit; pays $10 flat (0.01/word) for fiction and $5 per poem, via PayPal, plus a digital contributor copy",
+      "multiple_submissions": "One poem per submission; fiction submission limits not specified",
+      "reading_period": "Themed submission windows open the first of each month for one week only",
+      "red_flags": "Very narrow one-week monthly submission windows tied to specific themes; low pay rate; PayPal required for payment, with only limited alternatives for countries without PayPal access.",
+      "response_time": "unknown",
+      "simultaneous_submissions": "allowed, with prompt withdrawal via Duosuma if accepted elsewhere",
+      "word_limit": "Flash fiction up to 1,000 words; poetry up to 35 lines"
+    },
+    "fetched_at": "2026-08-16T19:02:08.834717+00:00",
+    "found_guidelines": true,
+    "name": "Space and Time Magazine",
+    "pages": [
+      "https://duotrope.com/duosuma/submit/space-and-time-nDoUw"
+    ],
+    "revision": 1,
+    "summary": "Space & Time is a legendary speculative fiction magazine founded in 1966, publishing themed monthly issues of speculative flash fiction and poetry that blend horror, science fiction, fantasy, and the unclassifiable. Themed calls open only for one week each month, work must be short (flash fiction to 1,000 words, poetry to 35 lines), and pays a small fee for first print/electronic rights that revert after publication. Also accepts translated submissions from Portuguese, Spanish, French, and Italian.",
+    "url": "https://duotrope.com/duosuma/submit/space-and-time-nDoUw"
+  },
   "space squid": {
     "details": {
       "aesthetic": "Humorous, thought-provoking, unconventional short fiction; also accepts comics and video. No alien rape stories; no AI-assisted work.",
@@ -8577,6 +9277,28 @@
     "revision": 1,
     "summary": "Space Squid publishes funny but thought-provoking, unconventional fiction (and accepts comics/video), capped at 5000 words with Shunn modern manuscript format required. No fee; reprints accepted only if disclosed upfront. Writers should note the automatic mailing-list subscription on submission, the ban on AI-assisted work and alien rape stories, and that sloppy formatting can trigger rejection without reading.",
     "url": "https://ink.spacesquid.com/"
+  },
+  "spectacle": {
+    "details": {
+      "aesthetic": "Work engages with the idea that perception is never neutral—'lenses matter, they focus, distort, clarify, conceal'—and the journal foregrounds pairings between text and original visual art; strong commitment to under-represented voices (BIPOC, women, LGBTQIA+, disabled writers).",
+      "fee": "unknown",
+      "multiple_submissions": "unknown",
+      "reading_period": "September-October for general submissions (main magazine); THE REVUE reads year-round",
+      "red_flags": "Full current guidelines are only on their Submittable page, not detailed here; do not email to withdraw or partially withdraw submissions—must be done via a note in Submittable.",
+      "response_time": "unknown",
+      "simultaneous_submissions": "unknown",
+      "word_limit": "unknown"
+    },
+    "fetched_at": "2026-08-16T19:05:18.488115+00:00",
+    "found_guidelines": true,
+    "name": "*Spectacle",
+    "pages": [
+      "https://thespectacle.wustl.edu/?page_id=119",
+      "https://thespectacle.wustl.edu/?page_id=20"
+    ],
+    "revision": 1,
+    "summary": "The Spectacle is a biannual literary magazine run by graduate students at Washington University in St. Louis, publishing poetry, fiction, and nonfiction paired with original visual art from contributing artists, plus a year-round companion, THE REVUE, for flash prose, short poems, and interviews. It emphasizes the interplay between literary and visual art and prioritizes under-represented voices, including BIPOC, women, LGBTQIA+, and disabled writers. General submissions open only in a narrow September-October window each year.",
+    "url": "https://thespectacle.wustl.edu/?page_id=119"
   },
   "split lip": {
     "details": {
@@ -8641,6 +9363,27 @@
     "summary": "Stone Canoe publishes fiction, nonfiction, poetry, drama, and visual art from current or former residents of Upstate New York (excluding NYC and Long Island), with a family-friendly YMCA content standard. Submissions open April 1 with genre-specific deadlines ranging from July 15 (fiction) to September 15 (visual art); responses aim for mid-November. Writers outside Upstate NY are categorically excluded, and pieces with excessive profanity, sexual content, or views contrary to an antiracist, equitable community will not be considered.",
     "url": "https://stonecanoe.submittable.com/submit"
   },
+  "story magazine": {
+    "details": {
+      "aesthetic": "Publishes short fiction across a range of lengths (flash, short story, long story), described by the editors as engaging and unforgettable; past contributors include award-winning writers Carolyn Ferrell and Crystal Wilkinson, suggesting a literary, prize-caliber standard.",
+      "fee": "unknown",
+      "multiple_submissions": "unknown, but do not mix genres (flash, short story, long story) within the same submission",
+      "reading_period": "year round",
+      "red_flags": "Payment is per printed page ($10), so pay depends on how the piece is typeset rather than a flat fee; previously unpublished material only.",
+      "response_time": "12-16 weeks",
+      "simultaneous_submissions": "allowed, with notification required if accepted elsewhere",
+      "word_limit": "unknown"
+    },
+    "fetched_at": "2026-08-16T19:03:47.982886+00:00",
+    "found_guidelines": true,
+    "name": "Story Magazine",
+    "pages": [
+      "https://www.storymagazine.org/submit/"
+    ],
+    "revision": 1,
+    "summary": "Story is a print literary magazine publishing short fiction across flash, short story, and long story lengths, paying $10 per printed page, with a legacy tied to prize-winning authors like Carolyn Ferrell and Crystal Wilkinson.",
+    "url": "https://www.storymagazine.org/submit/"
+  },
   "storyquarterly": {
     "details": {
       "aesthetic": "Previously unpublished literary fiction (short stories, short shorts, novel excerpts) and creative nonfiction; judged on style, craft, freshness, and vision.",
@@ -8661,6 +9404,28 @@
     "revision": 1,
     "summary": "StoryQuarterly publishes literary fiction (short stories, flash, novel excerpts) and creative nonfiction, selected for style, craft, freshness, and vision. Submissions are capped at 6,250 words with specific seasonal windows and a 4–6 month response time. Writers should check Submittable for open/closed status, as windows are narrow and backlogs can extend waits for promising work.",
     "url": "https://storyquarterly.camden.rutgers.edu/submissions/"
+  },
+  "strange horizons": {
+    "details": {
+      "aesthetic": "Literary speculative fiction and poetry with an emphasis on voice-driven, often elegiac or lyrical prose, body horror and grief (e.g. 'Scarcely Gone'), mythic/theological imagery ('The Deicide'), climate and ecological anxiety, queer and diasporic perspectives, and formally experimental poetry (fragmented lines, non-English scripts). Strong parallel identity as a criticism venue: reviews, podcasts (Critical Friends), and non-fiction essays on SFF craft and theory (e.g. lycanthropy metaphors, fungal anxieties, worldbuilding critique). Explicitly engages contemporary genre discourse, including AI-generated writing and awards culture.",
+      "fee": "unknown",
+      "multiple_submissions": "unknown",
+      "reading_period": "unknown",
+      "red_flags": "none noted",
+      "response_time": "unknown",
+      "simultaneous_submissions": "unknown",
+      "word_limit": "unknown"
+    },
+    "fetched_at": "2026-08-16T19:01:49.269973+00:00",
+    "found_guidelines": false,
+    "name": "Strange Horizons",
+    "pages": [
+      "https://strangehorizons.com/wordpress/submit/fiction-submission-guidelines/",
+      "https://strangehorizons.com/wordpress/submit/"
+    ],
+    "revision": 1,
+    "summary": "Strange Horizons is a long-running weekly online speculative fiction magazine publishing fiction, poetry, nonfiction/criticism, reviews, and podcasts with a strong literary, socially engaged, and often queer/politically aware sensibility. It publishes prolifically (near-weekly issues) and pairs original work with an active review and critical-essay wing, including a stated policy on AI-generated submissions. This page is a table of contents / submissions landing page rather than a full guidelines document, so specific mechanics like word limits and fees are not given here.",
+    "url": "https://strangehorizons.com/wordpress/submit/fiction-submission-guidelines/"
   },
   "subterrain": {
     "details": {
@@ -8877,23 +9642,23 @@
   },
   "terraform": {
     "details": {
-      "aesthetic": "Near-future speculative fiction engaging with tech, science, and future culture (e.g. sentient chatbots, climate dystopias); open to any form including classic SF shorts, experimental graphic narratives, fictive data dumps, social media posts from the future. No far-flung space operas.",
-      "fee": "none; pays $0.20/word",
-      "multiple_submissions": "one story per submission",
-      "reading_period": "unknown",
-      "red_flags": "No response to rejections—silence after 4 months is a pass. Previously published work not considered. Do not email the Motherboard editor inbox; use terraform.motherboard@gmail.com only.",
-      "response_time": "up to 4 months; no response after 4 months = rejection",
+      "aesthetic": "Near-future speculative fiction grounded in tech, science, and contemporary digital/internet culture; favors sharp, zeitgeist-driven premises (AI chatbots, climate dystopia) over far-future space opera; open to unconventional forms like social media posts from the future, fictive data dumps, and experimental graphic narratives.",
+      "fee": "none (pays $0.20/word)",
+      "multiple_submissions": "not allowed - limit one story per submission",
+      "reading_period": "year-round (submissions open to the public on a rolling basis)",
+      "red_flags": "Does not consider previously published work; no personal response if not accepted; do not email the Motherboard editor inbox with Terraform queries.",
+      "response_time": "up to 4 months; if no response by then, assume rejection",
       "simultaneous_submissions": "unknown",
-      "word_limit": "up to 2,000 words"
+      "word_limit": "2,000 words or fewer"
     },
-    "fetched_at": "2026-08-15T20:02:45.719198+00:00",
+    "fetched_at": "2026-08-16T19:07:42.755855+00:00",
     "found_guidelines": true,
     "name": "Terraform",
     "pages": [
       "https://www.vice.com/en/article/how-to-submit-stories-to-terraform/"
     ],
-    "revision": 1,
-    "summary": "Terraform (VICE/Motherboard) publishes near-future speculative fiction focused on tech, science, and future culture in any form—classic SF, fictive data dumps, social media posts from the future, etc. Stories must be 2,000 words or fewer, one submission at a time, sent by email. No response within four months means a rejection, and previously published work is not considered.",
+    "revision": 2,
+    "summary": "Terraform, VICE Motherboard's speculative fiction imprint, publishes very short (2,000 words or fewer) near-future science fiction focused on tech, science, and internet-age culture — think sentient chatbots and climate dystopias rather than space opera — in any form including experimental and graphic narratives, running one new story per week.",
     "url": "https://www.vice.com/en/article/how-to-submit-stories-to-terraform/"
   },
   "terrainorg": {
@@ -9431,6 +10196,27 @@
     "summary": "Uncharted publishes genre fiction—sci-fi/fantasy, thriller/mystery, dystopian, historical fiction, YA, and humor—with a clear commercial/entertainment bent and weekly story publication. The submissions page offers almost no practical details (no word limits, reading period, response time, or fee information stated). Writers should not submit without first finding a dedicated guidelines page, as the current submission entry point is essentially just a call-to-action button with no accompanying terms.",
     "url": "https://www.unchartedmag.com/"
   },
+  "underground voices": {
+    "details": {
+      "aesthetic": "Indie literary press with a taste for spare, direct prose ('What happened? This is what happened') — favors fiction and nonfiction grounded in plain, unadorned storytelling; also publishes experimental works and poetry chapbooks alongside novels and novellas.",
+      "fee": "unknown",
+      "multiple_submissions": "unknown",
+      "reading_period": "unknown",
+      "red_flags": "Currently closed to all submissions ('WE ARE NO LONGER ACCEPTING SUBMISSIONS').",
+      "response_time": "unknown",
+      "simultaneous_submissions": "unknown",
+      "word_limit": "e-shorts minimum roughly 7,000 words; chapbooks minimum roughly 50 pages of poetry; no stated upper limit"
+    },
+    "fetched_at": "2026-08-16T19:06:38.531091+00:00",
+    "found_guidelines": true,
+    "name": "Underground Voices",
+    "pages": [
+      "https://www.undergroundvoices.com/UVSubmissions.html"
+    ],
+    "revision": 1,
+    "summary": "Underground Voices is an indie press publishing novels, novellas, and e-shorts including experimental fiction and poetry chapbooks, with an ethos favoring stripped-down, direct narrative voice. The journal is currently closed to submissions, so writers should look elsewhere for now.",
+    "url": "https://www.undergroundvoices.com/UVSubmissions.html"
+  },
   "unsaid": {
     "details": {
       "aesthetic": "unknown",
@@ -9535,6 +10321,27 @@
     "revision": 1,
     "summary": "Vassar Review (Vassar College) seeks thematic work across poetry, prose, and multimedia forms tied to its annual theme—Issue 11 is 'Temper & Testimony,' exploring emotion, truth, and bearing witness. Submissions were open November 25, 2025–January 15, 2026, with no word limit or fee stated. The 2026 window is now closed, so there is nothing actionable for a writer right now.",
     "url": "https://vassar-review.vassarspaces.net/contact/"
+  },
+  "vestal review": {
+    "details": {
+      "aesthetic": "Flash fiction only, strictly under 500 words, valuing forward narrative movement over static vignettes; open to all genres and especially fond of humor; avoids pornography, racism, excessive gore, and preachiness; R-rated content acceptable, X-rated not; explicitly excludes AI-assisted writing and actively prioritizes submissions from underrepresented writers.",
+      "fee": "$3 reading fee for general submissions; no fee for book review/interview proposals",
+      "multiple_submissions": "only one story per submission; must wait for a response before submitting again; published contributors must wait two issues before resubmitting",
+      "reading_period": "Spring: Feb 1 - May 15; Fall: Aug 1 - Nov 15; submissions outside these windows are deleted",
+      "red_flags": "Reprints not accepted (even self-posting on your own website counts as 'published'); requires named (non-anonymous) submission with third-person bio; asks for no reposting for 30 days post-publication plus one year archiving and anthology rights.",
+      "response_time": "about one month",
+      "simultaneous_submissions": "allowed, but must notify immediately if accepted elsewhere",
+      "word_limit": "500 words (flash fiction); 500 words max for book reviews/interviews"
+    },
+    "fetched_at": "2026-08-16T19:06:14.479265+00:00",
+    "found_guidelines": true,
+    "name": "*Vestal Review",
+    "pages": [
+      "https://www.vestalreview.net/guidelines"
+    ],
+    "revision": 1,
+    "summary": "Vestal Review is a long-running flash fiction magazine publishing very short stories (500 words max) that move decisively from point A to point B, open to all genres including humor, with R-rated but not X-rated content allowed and no preachy or gratuitously gory work. It reads in two windows per year, charges a small reading fee, and pays contributors $75 per accepted story.",
+    "url": "https://www.vestalreview.net/guidelines"
   },
   "vine leaves literary journal": {
     "details": {
@@ -9643,6 +10450,27 @@
     "revision": 1,
     "summary": "WLA publishes work across creative genres exploring the nexus of war, culture, and conflict, with past contributors including Brian Turner, Sara Nović, and Dunya Mikhail. They have two reading windows per year: Feb 1–May 31 and Aug 15–Dec 1. Submissions sent outside these periods will not be processed.",
     "url": "https://www.wlajournal.com/about-6"
+  },
+  "washington square review": {
+    "details": {
+      "aesthetic": "A university-affiliated literary journal publishing fiction, creative nonfiction, poetry, and translations; runs a New Voices Award for poetry; emphasizes previously unpublished, polished literary work typical of MFA-program-adjacent journals rather than genre or experimental niches.",
+      "fee": "unknown",
+      "multiple_submissions": "not allowed - one story or nonfiction piece per submission period",
+      "reading_period": "Currently open for fiction, nonfiction, and translation for Spring 2027/Issue 57, until September 15, 2026; poetry reading via New Voices Award",
+      "red_flags": "No monetary payment for publication (contributors receive two copies, half-price additional copies, and a one-year subscription); current NYU students and recent NYU MFA graduates/affiliates (within 3 years) are ineligible to submit; submissions accepted only via Submittable during specified windows, not by mail or email.",
+      "response_time": "2-4 months",
+      "simultaneous_submissions": "allowed, with request to notify promptly if accepted elsewhere",
+      "word_limit": "Fiction and nonfiction up to 5,000 words; poetry up to 5 poems per submission"
+    },
+    "fetched_at": "2026-08-16T19:02:49.248526+00:00",
+    "found_guidelines": true,
+    "name": "Washington Square Review",
+    "pages": [
+      "https://www.washingtonsquarereview.com/submit"
+    ],
+    "revision": 1,
+    "summary": "Washington Square Review is NYU's award-winning literary journal publishing fiction, nonfiction, poetry, and translations, with a general-interest literary sensibility drawn from an MFA program context. It reads in defined windows tied to specific print issues rather than year-round, and pays contributors in copies and a subscription rather than money.",
+    "url": "https://www.washingtonsquarereview.com/submit"
   },
   "waterstone review": {
     "details": {
@@ -9857,6 +10685,27 @@
     "summary": "William & Mary Law Review publishes legal scholarship and public policy essays across a print journal (6 issues/year) and a rolling online supplement; submissions go through Scholastica only, with no word limit or response time stated. Current law students outside the journal's own membership are explicitly excluded, and emailed submissions are rejected outright.",
     "url": "https://wmlawreview.org/submissions"
   },
+  "willow springs": {
+    "details": {
+      "aesthetic": "General literary journal publishing fiction, poetry, and nonfiction; short prose pieces under 1,000 words are welcomed alongside longer works, and translations are accepted with author permission. No further stylistic specifics given, but the pay-per-piece structure and high submission volume (4,000/year) suggest a broad, competitive, mainstream literary scope.",
+      "fee": "$3 reading fee for all submissions",
+      "multiple_submissions": "wait for a response before submitting again; up to 3 short stories or 5 poems can be included per submission",
+      "reading_period": "Fiction and poetry: Sept 1 - May 31; Nonfiction: year-round",
+      "red_flags": "Reading fee required for all submissions; high volume (4,000+ submissions/year) suggests long odds and possible slow responses; no AI-generated or AI-assisted work accepted; work must be previously unpublished.",
+      "response_time": "usually within 6 months, follow up only after 12 months",
+      "simultaneous_submissions": "allowed",
+      "word_limit": "unknown for long-form; short prose must be under 1,000 words (up to three per submission)"
+    },
+    "fetched_at": "2026-08-16T19:04:49.615451+00:00",
+    "found_guidelines": true,
+    "name": "Willow Springs",
+    "pages": [
+      "https://inside.ewu.edu/willowspringsmagazine/standard-submissions/"
+    ],
+    "revision": 1,
+    "summary": "Willow Springs is a biannual literary magazine out of Eastern Washington University publishing fiction, poetry, nonfiction, and translations, paying contributors for accepted work and accepting up to several thousand submissions a year. It reads fiction and poetry September through May, nonfiction year-round, and charges a $3 reading fee per submission.",
+    "url": "https://inside.ewu.edu/willowspringsmagazine/standard-submissions/"
+  },
   "winter tangerine": {
     "details": {
       "aesthetic": "Poetry, prose, and visual art engaging authentically with identity, oppression, and liberation; values the poet's positionality; welcomes multilingual work and language-subverting pieces; excludes erotica, graphic violence, and bigoted work.",
@@ -9878,25 +10727,46 @@
     "summary": "Winter Tangerine publishes poetry, prose, and visual art with a strong focus on positionality, identity, and genuine engagement with oppression and liberation narratives—not married to a single aesthetic but attentive to who is speaking and why. Submissions go through Submittable with no identifying info on the document, an artist statement required, and a flat $50 payment; no word limit is stated. The journal is currently on extended hiatus and not open to submissions, and automatic rejection applies if identifying info appears on the uploaded document.",
     "url": "http://www.wintertangerine.com/submit"
   },
+  "witness": {
+    "details": {
+      "aesthetic": "Issue-oriented literary magazine interested in innovative, boundary-pushing work that engages oppression and transcendence, prejudice and compassion, fear and raw honesty; actively amplifies historically marginalized voices, trans writers, and international perspectives; mixes emerging and established authors; themed Spring print issue vs. unthemed Fall/Winter online issue.",
+      "fee": "Suggested $3 reading fee for general submissions",
+      "multiple_submissions": "Only one (1) submission per genre allowed; poetry may include up to 5 poems and flash fiction up to 3 pieces within that single submission",
+      "reading_period": "Opens September (Spring themed print issue and Witness Literary Awards) and February (Fall/Winter online, unthemed); dates may vary and windows can close early if submission volume is high",
+      "red_flags": "No previously published work accepted, including anything posted online or on personal blogs; previously published authors must wait two years before resubmitting; UNLV/BMI affiliates (students, faculty, staff, past readers) must wait two years post-graduation/employment before submitting.",
+      "response_time": "Poetry ~4 months; fiction/nonfiction ~6 months or longer; inquire after 10 months",
+      "simultaneous_submissions": "allowed, but withdraw promptly if accepted elsewhere; notify genre editor if one piece from a poetry/flash set is accepted elsewhere",
+      "word_limit": "Prose 7,000 words or less; flash fiction pieces 1,200 words or less each (up to 3); poetry up to 5 poems per submission"
+    },
+    "fetched_at": "2026-08-16T19:03:07.461954+00:00",
+    "found_guidelines": true,
+    "name": "Witness",
+    "pages": [
+      "https://witness.blackmountaininstitute.org/submit/"
+    ],
+    "revision": 1,
+    "summary": "Witness, published out of UNLV's Black Mountain Institute, blends literary and issue-oriented sensibilities, seeking innovative, unapologetic fiction, nonfiction, and poetry that bears witness to the present moment, with explicit commitment to marginalized and global voices, including trans writers. It publishes a themed Spring print issue and an unthemed Fall/Winter online issue, pays contributors, and charges a modest suggested reading fee.",
+    "url": "https://witness.blackmountaininstitute.org/submit/"
+  },
   "worcester review": {
     "details": {
-      "aesthetic": "Poetry and fiction (short stories and flash fiction) for a print literary journal; no stated thematic or stylistic restrictions beyond standard literary quality.",
-      "fee": "$3–$4 per submission (page shows $4 for Vol. 47 categories); waived for BIPOC writers; fee waiver also available on request for financial hardship",
-      "multiple_submissions": "One submission per genre per volume only; additional submissions declined unread",
-      "reading_period": "Currently open for Volume 46 (2025); Volume 47 also open with end dates not specified in text",
-      "red_flags": "Do not withdraw and resubmit; previously published work not considered, including anything appearing online or in print before Fall 2026; past contributors must wait one year after their issue publishes before resubmitting",
-      "response_time": "2 weeks to 6 months",
-      "simultaneous_submissions": "Allowed (encouraged); must promptly withdraw if accepted elsewhere, with partial-batch withdrawals noted via Submittable messages",
-      "word_limit": "Fiction: up to 3000 words (short story) or up to 3 flash pieces at 1200 words maximum; Poetry: 3–5 poems, 7 pages maximum"
+      "aesthetic": "Publishes poetry and fiction; no explicit thematic or stylistic mission stated beyond genre categories, though its institutional, annual-volume structure and regional name suggest a traditional literary-journal sensibility rather than experimental or niche focus.",
+      "fee": "$3 per submission via Submittable; fee waived for BIPOC writers, and waivable on request to editor for financial hardship",
+      "multiple_submissions": "only one submission per genre per volume; additional submissions declined unread",
+      "reading_period": "2025 reading period currently open for Volume 46",
+      "red_flags": "Previously published work not considered; work must not appear elsewhere before Fall 2026; past contributors must wait one year after publication before submitting again; do not withdraw and resubmit to fix errors, use Submittable messages instead.",
+      "response_time": "two weeks to six months",
+      "simultaneous_submissions": "allowed, and encouraged; withdraw promptly if piece is accepted elsewhere",
+      "word_limit": "unknown"
     },
-    "fetched_at": "2026-08-15T20:26:14.401536+00:00",
+    "fetched_at": "2026-08-16T19:08:51.860579+00:00",
     "found_guidelines": true,
     "name": "Worcester Review",
     "pages": [
       "https://theworcesterreview.submittable.com/submit"
     ],
-    "revision": 1,
-    "summary": "The Worcester Review publishes poetry (3–5 poems, 7 pages max) and fiction (short stories up to 3000 words or up to 3 flash pieces up to 1200 words total) for an annual print journal with a small honorarium. Fee is $3–$4 per submission (waived for BIPOC writers), one submission per genre per volume, and response time is two weeks to six months. Watch out for the previously-published rule: nothing may appear elsewhere before Fall 2026, and withdrawing then resubmitting is explicitly forbidden.",
+    "revision": 2,
+    "summary": "The Worcester Review is a print literary journal publishing poetry and fiction, organized around annual volumes with a defined publication timeline (Volume 46 due Fall 2026), suggesting an editorial process rooted in a specific literary community (Worcester, Massachusetts) rather than rapid-fire online publishing.",
     "url": "https://theworcesterreview.submittable.com/submit"
   },
   "words without borders": {
@@ -9992,25 +10862,45 @@
   },
   "zoetrope allstory": {
     "details": {
-      "aesthetic": "Short fiction, one-act plays, and essays on film; literary prestige tier with a crossover art/design identity; contributors include major international literary names.",
+      "aesthetic": "Literary short fiction, one-act plays, and film-related essays; polished, prize-caliber work by internationally acclaimed and literary-celebrity contributors; strong crossover with visual art and film culture, each issue designed by a guest artist/filmmaker.",
       "fee": "unknown",
       "multiple_submissions": "unknown",
-      "reading_period": "Closed at present; reopening date unknown",
-      "red_flags": "Submissions are currently closed with no reopening date; full guidelines will only be posted when they reopen, so current guidelines (word limits, fees, etc.) are unavailable.",
+      "reading_period": "unknown",
+      "red_flags": "Currently closed to general submissions with no stated reopening date; not accepting intern or volunteer reader applications either.",
       "response_time": "unknown",
       "simultaneous_submissions": "unknown",
       "word_limit": "unknown"
     },
-    "fetched_at": "2026-08-15T19:56:01.349456+00:00",
+    "fetched_at": "2026-08-16T19:07:12.894626+00:00",
     "found_guidelines": true,
     "name": "Zoetrope: All-Story",
     "pages": [
-      "https://www.all-story.com/about/",
       "https://www.all-story.com/about/"
     ],
-    "revision": 1,
-    "summary": "Zoetrope: All-Story is a prestigious quarterly publishing short fiction, one-act plays, and film essays with a strong literary and visual art identity. Submissions are currently closed with no reopening date given. Writers should not submit now and should monitor the website or newsletter for updated guidelines when the window reopens.",
+    "revision": 2,
+    "summary": "Zoetrope: All-Story is a prestigious quarterly print magazine of short fiction, one-act plays, and essays on film, founded by Francis Ford Coppola, with a roster of contributors including Murakami, Atwood, Ferrante, and Adichie, and each issue art-directed by a different guest artist or filmmaker (David Lynch, Bowie, Almodóvar, etc.). It is a top-tier, highly selective venue known for polished, award-winning literary fiction; however, it is currently closed to general submissions with no reopening date given.",
     "url": "https://www.all-story.com/about/"
+  },
+  "zone 3": {
+    "details": {
+      "aesthetic": "Contemporary literary poetry, fiction, and nonfiction with a strong lyric and confessional bent; recurring concerns include family and intergenerational relationships, interlingual/immigrant experience, illness and mortality, and place. Poems range from formal etudes to ghazals to free verse; nonfiction includes personal essay; fiction favors close, interior narration. Also features visual art (e.g., silkscreen painting) alongside each issue.",
+      "fee": "unknown",
+      "multiple_submissions": "unknown",
+      "reading_period": "unknown",
+      "red_flags": "none noted",
+      "response_time": "unknown",
+      "simultaneous_submissions": "unknown",
+      "word_limit": "unknown"
+    },
+    "fetched_at": "2026-08-16T19:04:10.925791+00:00",
+    "found_guidelines": false,
+    "name": "Zone 3",
+    "pages": [
+      "https://zone3press.com/"
+    ],
+    "revision": 1,
+    "summary": "Zone 3 is a university-affiliated literary journal (housed at Austin Peay State University) publishing poetry, fiction, and nonfiction that favors intimate, image-driven lyricism—family, migration, language, illness, memory—alongside a companion small press running book contests (currently on hiatus). Work leans toward emotionally direct free-verse poems and quietly observed personal essays and short fiction, often centered on domestic, immigrant, or bodily experience.",
+    "url": "https://zone3press.com/"
   },
   "zzyzzyva": {
     "details": {
