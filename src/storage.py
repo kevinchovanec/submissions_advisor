@@ -18,7 +18,7 @@ class StorageBackend(ABC):
     @abstractmethod
     def list_stories(self) -> list[dict]:
         """Return summary dicts sorted by title.
-        Each dict: {slug, title, word_count, style, submission_count}
+        Each dict: {slug, title, word_count, style, description, submission_count}
         """
 
     @abstractmethod
@@ -135,10 +135,10 @@ class StorageBackend(ABC):
 # Agent context formatting helpers (pure functions, not backend-specific)
 # ---------------------------------------------------------------------------
 
-def format_story_for_agent(story: dict) -> str:
+def format_story_for_agent(story: dict, heading: str = "Active story") -> str:
     """Format a story dict as the agent's opening context block."""
     lines = [
-        f"## Active story: {story['title']}",
+        f"## {heading}: {story['title']}",
         f"Story slug (use this when calling log_submission): {story['slug']}",
         f"Word count: {story.get('word_count') or 'unknown'}",
         f"Style: {story.get('style') or 'not specified'}",
@@ -166,4 +166,69 @@ def format_pending_for_context(pending: list[dict]) -> str:
     ]
     for p in pending:
         lines.append(f"  - {p['journal']} ({p['story_title']})")
+    return "\n".join(lines)
+
+
+def format_selected_stories(stories: list[dict], primary_slug: str | None = None) -> str:
+    """Format the in-context working set: one full card per selected story.
+
+    A single story renders exactly as `format_story_for_agent` did, so one-story
+    conversations are unchanged. Multiple stories get a header naming the primary,
+    which is the log_submission default and the conversation-save key.
+    """
+    if not stories:
+        return ""
+    if len(stories) == 1:
+        return format_story_for_agent(stories[0])
+
+    primary = primary_slug or stories[0]["slug"]
+    parts = [
+        f"## {len(stories)} stories are loaded for this conversation "
+        f"(primary: {primary}).\n"
+        "Each is described in full below. When you recommend journals, treat these as a "
+        "set: no journal may take two of them in the same round."
+    ]
+    parts.extend(format_story_for_agent(s, heading="Story") for s in stories)
+    return "\n\n".join(parts)
+
+
+def format_story_roster(
+    stories: list[dict],
+    pending: list[dict],
+    exclude_slugs: set[str] | None = None,
+) -> str:
+    """Format the one-line-per-story roster of everything *not* loaded in full.
+
+    Deliberately carries submission counts and pending journals only, never full
+    history — that keeps this block O(stories) rather than O(submissions), which
+    matters because submission history only ever grows.
+    """
+    exclude_slugs = exclude_slugs or set()
+    rows = [s for s in stories if s["slug"] not in exclude_slugs]
+    if not rows:
+        return ""
+
+    out_by_slug: dict[str, list[str]] = {}
+    for p in pending:
+        out_by_slug.setdefault(p["slug"], []).append(p["journal"])
+
+    lines = [
+        "## Other stories in the writer's portfolio (summary only)",
+        "These are NOT loaded in full. Use them to suggest a better-suited story than the "
+        "ones loaded — call get_story to read one properly before recommending journals for "
+        "it, and never log a submission against a story that isn't loaded.",
+        "",
+    ]
+    for s in rows:
+        wc = f"{s['word_count']:,}w" if s.get("word_count") else "length unknown"
+        style = s.get("style") or "style not specified"
+        desc = (s.get("description") or "").strip().replace("\n", " ") or "(no description)"
+        line = f"- {s['slug']} | \"{s['title']}\" ({wc}; {style}) — {desc}"
+        sent = s.get("submission_count") or 0
+        if sent:
+            line += f" [{sent} sent]"
+        out = out_by_slug.get(s["slug"])
+        if out:
+            line += f" [OUT NOW: {', '.join(out)}]"
+        lines.append(line)
     return "\n".join(lines)

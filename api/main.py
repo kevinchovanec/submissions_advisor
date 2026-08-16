@@ -54,10 +54,15 @@ from .models import (
     StoryCreate,
     StoryUpdate,
     SubmissionCreate,
+    SummariesGenerateRequest,
+    SummariesStatusRequest,
     TemplateUpsert,
 )
 from scrape_rankings import load_rankings
 from match import match as run_match, ranked_only
+from models_config import MODEL
+from storage import format_selected_stories, format_story_roster
+from summarize_journals import generate_summaries, status_for
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -78,6 +83,10 @@ app.add_middleware(
 )
 
 _executor = ThreadPoolExecutor(max_workers=10)
+
+# Ceiling on stories loaded into one chat turn. Each costs a load_story call and a
+# full card in the prompt, so this bounds both the work and the context per request.
+MAX_SELECTED_STORIES = 16
 
 
 # ---------------------------------------------------------------------------
@@ -222,7 +231,7 @@ def generate_card(
     )
     try:
         resp = client.messages.create(
-            model="claude-sonnet-4-6",
+            model=MODEL,
             max_tokens=400,
             messages=[{"role": "user", "content": prompt}],
         )
@@ -492,6 +501,76 @@ def get_rankings():
 
 
 # ---------------------------------------------------------------------------
+# Journal summaries  (local mode only)
+# ---------------------------------------------------------------------------
+
+def _require_local() -> None:
+    """Summary generation writes to data/, which is ephemeral on the hosted server
+    and shared across all cloud users. Generate locally and commit the JSON instead."""
+    if CLOUD_MODE:
+        raise HTTPException(
+            status_code=404,
+            detail="Summary generation is local-mode only. Run it locally and commit "
+                   "data/journal_summaries.json.",
+        )
+
+
+@app.post("/api/summaries/status")
+def summaries_status(req: SummariesStatusRequest):
+    """Counts for the generate button: how many journals are cached vs missing."""
+    return status_for(req.journals)
+
+
+@app.post("/api/summaries/generate")
+async def summaries_generate(
+    req: SummariesGenerateRequest,
+    x_anthropic_key: str | None = Header(default=None),
+):
+    _require_local()
+    effective_key = x_anthropic_key or os.environ.get("ANTHROPIC_API_KEY")
+    if not effective_key and not req.dry_run:
+        raise HTTPException(status_code=400, detail="No API key — provide X-Anthropic-Key header or set ANTHROPIC_API_KEY in .env")
+
+    journals = req.journals
+    if req.scope == "all":
+        # The whole ranked list, for producing the artifact cloud users receive.
+        journals = [j for j in load_rankings() if j.get("journal_url")]
+
+    async def generate():
+        loop = asyncio.get_running_loop()
+        queue: asyncio.Queue = asyncio.Queue()
+
+        def run_gen():
+            try:
+                for line in generate_summaries(
+                    journals,
+                    api_key=effective_key,
+                    force_refresh=req.force_refresh,
+                    dry_run=req.dry_run,
+                ):
+                    asyncio.run_coroutine_threadsafe(queue.put(("line", line)), loop)
+            except Exception as exc:
+                asyncio.run_coroutine_threadsafe(queue.put(("error", str(exc))), loop)
+                return
+            asyncio.run_coroutine_threadsafe(queue.put(("done", None)), loop)
+
+        future = loop.run_in_executor(_executor, run_gen)
+        while True:
+            kind, data = await queue.get()
+            if kind == "line":
+                yield f"data: {json.dumps({'line': data})}\n\n"
+            elif kind == "done":
+                yield f"data: {json.dumps({'done': True})}\n\n"
+                break
+            elif kind == "error":
+                yield f"data: {json.dumps({'error': data})}\n\n"
+                break
+        await future
+
+    return StreamingResponse(generate(), media_type="text/event-stream")
+
+
+# ---------------------------------------------------------------------------
 # Export  (xlsx download)
 # ---------------------------------------------------------------------------
 
@@ -613,6 +692,43 @@ async def chat(
     effective_key = x_anthropic_key or os.environ.get("ANTHROPIC_API_KEY")
     if not effective_key:
         raise HTTPException(status_code=400, detail="No API key — provide X-Anthropic-Key header or set ANTHROPIC_API_KEY in .env")
+
+    # Story/pending/feedback context is assembled here rather than in the browser, so
+    # there's one copy of the prompt text and it can't go stale after log_submission
+    # writes mid-conversation.
+    slugs = list(dict.fromkeys(req.story_slugs))
+    if len(slugs) > MAX_SELECTED_STORIES:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Too many stories selected ({len(slugs)}); the limit is {MAX_SELECTED_STORIES}.",
+        )
+    selected = []
+    for slug in slugs:
+        story = storage.load_story(slug)
+        if story is None:
+            raise HTTPException(status_code=404, detail=f"Story not found: {slug}")
+        selected.append(story)
+
+    primary = req.primary_slug or (slugs[0] if slugs else None)
+    if primary and primary not in slugs:
+        raise HTTPException(status_code=400, detail="primary_slug must be one of story_slugs")
+
+    story_context = format_selected_stories(selected, primary) if selected else None
+    # Optional context degrades to empty rather than failing the turn: a missing Excel
+    # workbook or a transient storage error shouldn't take the whole conversation down.
+    try:
+        pending = storage.list_all_pending()
+    except Exception:
+        pending = []
+    try:
+        roster_context = format_story_roster(storage.list_stories(), pending, set(slugs))
+    except Exception:
+        roster_context = ""
+    try:
+        editor_feedback = storage.list_feedback()
+    except Exception:
+        editor_feedback = []
+
     async def generate():
         loop = asyncio.get_running_loop()
         queue: asyncio.Queue = asyncio.Queue()
@@ -623,11 +739,13 @@ async def chat(
                 req.message,
                 req.journals,
                 storage,
-                story_context=req.story_context,
-                editor_feedback=req.editor_feedback,
-                pending_context=req.pending_context,
+                story_context=story_context,
+                roster_context=roster_context,
+                pending=pending,
+                editor_feedback=editor_feedback,
                 genre_mode=req.genre_mode,
                 api_key=effective_key,
+                allowed_slugs=set(slugs),
             )
             result: tuple[list, dict] = ([], {})
             try:
@@ -649,8 +767,17 @@ async def chat(
                 yield f"data: {json.dumps({'text': data})}\n\n"
             elif kind == "done":
                 history, usage = data
+                # A write tool ran, so the client's cached story/pending queries are
+                # stale — tell it which keys to refetch rather than waiting for a reload.
+                invalidate = (
+                    ["pending", "stories", "story", "submissions"]
+                    if usage.pop("wrote_data", False)
+                    else []
+                )
                 try:
-                    payload = json.dumps({"done": True, "history": history, "usage": usage})
+                    payload = json.dumps(
+                        {"done": True, "history": history, "usage": usage, "invalidate": invalidate}
+                    )
                 except TypeError as exc:
                     # Never kill the stream mid-flight: surface a proper error
                     # frame so the client shows a message instead of a dead socket.

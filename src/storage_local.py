@@ -87,6 +87,9 @@ class StorageLocal(StorageBackend):
                 "title": post.get("title", path.stem),
                 "word_count": post.get("word_count"),
                 "style": post.get("style", ""),
+                # Included so the agent's story roster can be built from this one
+                # call; the file is already parsed here, so it costs nothing.
+                "description": post.content,
                 "submission_count": len(post.get("submitted_to", [])),
             })
         return sorted(stories, key=lambda s: s["title"].lower())

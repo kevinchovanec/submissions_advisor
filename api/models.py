@@ -110,12 +110,32 @@ class MatchRequest(BaseModel):
     genre_mode: str = "Literary"
     custom_rankings: list[dict[str, Any]] | None = None
 
+class SummariesStatusRequest(BaseModel):
+    journals: list[dict[str, Any]] = []
+
+
+class SummariesGenerateRequest(BaseModel):
+    """`scope='paste'` summarizes only the matched journals sent here; `scope='all'`
+    ignores them and walks every ranked journal with a URL, for producing the
+    committed artifact."""
+
+    journals: list[dict[str, Any]] = []
+    scope: str = "paste"
+    force_refresh: bool = False
+    dry_run: bool = False
+
+
 class ChatRequest(BaseModel):
+    """Chat turn input.
+
+    Story/pending/feedback context is assembled server-side from storage — the
+    client sends slugs, not prose. `primary_slug` is the story saved conversations
+    key on and the default target for log_submission.
+    """
+
     message: str
     api_history: list[dict[str, Any]] = []
     journals: list[dict[str, Any]] = []
-    story_context: str | None = None
-    editor_feedback: list[dict[str, Any]] | None = None
-    pending_context: str = ""
     genre_mode: str = "Literary"
-    story_slug: str | None = None
+    story_slugs: list[str] = []
+    primary_slug: str | None = None

@@ -7,6 +7,7 @@ import type {
   PendingSub,
   Story,
   SubmissionRow,
+  SummaryStatus,
   Template,
   Conversation,
 } from '../types'
@@ -51,18 +52,26 @@ export interface ApiClient {
   // Match
   matchJournals(text: string, genreMode: string, customRankings?: object[] | null): Promise<MatchResult>
   uploadRankings(file: File): Promise<object[]>
+  // Journal summaries (generation is local-mode only)
+  summariesStatus(journals: Journal[]): Promise<SummaryStatus>
+  streamSummaries(req: {
+    journals: Journal[]
+    scope?: 'paste' | 'all'
+    force_refresh?: boolean
+    dry_run?: boolean
+  }): Promise<Response>
   // Export
   exportXlsx(): Promise<Response>
   exportData(): Promise<Response>
-  // Chat SSE
+  // Chat SSE — story/pending/feedback context is assembled server-side from these
+  // slugs, so no prompt text is built in the browser.
   streamChat(req: {
     message: string
     api_history: object[]
     journals: Journal[]
-    story_context?: string
-    editor_feedback?: object[]
-    pending_context?: string
     genre_mode?: string
+    story_slugs: string[]
+    primary_slug?: string | null
   }): Promise<Response>
   // Health
   health(): Promise<{ status: string; cloud_mode: boolean }>
@@ -161,6 +170,15 @@ export function createApiClient(accessToken: string | null, apiKey: string | nul
         body: JSON.stringify(chatReq),
       }),
 
+    summariesStatus: (journals) => req('POST', '/api/summaries/status', { journals }),
+
+    streamSummaries: (sumReq) =>
+      fetch('/api/summaries/generate', {
+        method: 'POST',
+        headers: hdrs(true),
+        body: JSON.stringify(sumReq),
+      }),
+
     health: () => req('GET', '/api/health'),
   }
 }
@@ -175,37 +193,7 @@ export function dedupeJournals<T extends { display_name: string }>(journals: T[]
   })
 }
 
-/** Format story dict as the agent's opening context block (mirrors storage.format_story_for_agent). */
-export function formatStoryForAgent(story: Story): string {
-  const lines = [
-    `## Active story: ${story.title}`,
-    `Story slug (use this when calling log_submission): ${story.slug}`,
-    `Word count: ${story.word_count ?? 'unknown'}`,
-    `Style: ${story.style || 'not specified'}`,
-    '',
-    'Description:',
-    story.description?.trim() || '(no description)',
-  ]
-  if (story.submitted_to?.length) {
-    lines.push('', 'Previous submissions (do not suggest these journals):')
-    for (const s of story.submitted_to) {
-      const note = s.notes ? ` — ${s.notes}` : ''
-      lines.push(`  - ${s.journal} (${s.date}, ${s.outcome})${note}`)
-    }
-  }
-  return lines.join('\n')
-}
-
-/** Format pending list as agent cross-story context block (mirrors storage.format_pending_for_context). */
-export function formatPendingContext(pending: PendingSub[]): string {
-  if (!pending.length) return ''
-  const lines = [
-    'IMPORTANT — journals with a submission currently under review. NEVER recommend any of these ' +
-      '(for any story) unless the writer explicitly asks about them. Re-check every recommendation ' +
-      'you make against this list:',
-  ]
-  for (const p of pending) {
-    lines.push(`  - ${p.journal} (${p.story_title})`)
-  }
-  return lines.join('\n')
-}
+// formatStoryForAgent / formatPendingContext used to live here as copies of the
+// Python formatters in src/storage.py. The server now builds that context from the
+// slugs streamChat sends, so there is one copy of the prompt text and it can't go
+// stale after the agent logs a submission mid-conversation.

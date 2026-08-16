@@ -4,8 +4,7 @@ import { useLocation } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { useMatch } from '../context/MatchContext'
 import { useDiscuss } from '../context/DiscussContext'
-import { formatStoryForAgent, formatPendingContext } from '../api/client'
-import type { ChatMessage, Conversation, Story } from '../types'
+import type { ChatMessage, Conversation } from '../types'
 
 export default function DiscussPage() {
   const { apiClient, cloudMode } = useAuth()
@@ -14,8 +13,9 @@ export default function DiscussPage() {
   const qc = useQueryClient()
 
   const {
-    selectedSlug, messages, apiHistory, tokenUsage,
-    setSelectedSlug, setMessages, setApiHistory, setTokenUsage, resetConversation,
+    selectedSlugs, primarySlug, messages, apiHistory, tokenUsage,
+    setSelection, toggleSlug, setPrimarySlug,
+    setMessages, setApiHistory, setTokenUsage, resetConversation,
   } = useDiscuss()
   const [input, setInput] = useState('')
   const [streaming, setStreaming] = useState(false)
@@ -29,8 +29,8 @@ export default function DiscussPage() {
   // keeps the one in progress.
   const navSlug = location.state?.slug
   useEffect(() => {
-    if (navSlug && navSlug !== selectedSlug) {
-      setSelectedSlug(navSlug)
+    if (navSlug && !selectedSlugs.includes(navSlug)) {
+      setSelection([navSlug], navSlug)
       resetConversation()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -41,41 +41,40 @@ export default function DiscussPage() {
     queryFn: () => apiClient.listStories(),
   })
 
-  const { data: story } = useQuery<Story>({
-    queryKey: ['story', selectedSlug],
-    queryFn: () => apiClient.getStory(selectedSlug),
-    enabled: !!selectedSlug,
-  })
-
   const { data: pending = [] } = useQuery({
     queryKey: ['pending'],
     queryFn: () => apiClient.listPending(),
   })
 
-  const { data: feedback = [] } = useQuery({
-    queryKey: ['feedback'],
-    queryFn: () => apiClient.listFeedback(),
-  })
-
   const { data: conversations = [] } = useQuery<Conversation[]>({
-    queryKey: ['conversations', selectedSlug],
-    queryFn: () => apiClient.listConversations(selectedSlug),
-    enabled: !!selectedSlug && cloudMode,
+    queryKey: ['conversations', primarySlug],
+    queryFn: () => apiClient.listConversations(primarySlug),
+    enabled: !!primarySlug && cloudMode,
   })
 
   const saveMutation = useMutation({
-    mutationFn: () => apiClient.saveConversation(selectedSlug, messages),
+    mutationFn: () => apiClient.saveConversation(primarySlug, messages),
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ['conversations', selectedSlug] })
+      qc.invalidateQueries({ queryKey: ['conversations', primarySlug] })
       resetConversation()
       setStreamError('')
     },
   })
 
   const deleteMutation = useMutation({
-    mutationFn: (id: string) => apiClient.deleteConversation(selectedSlug, id),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ['conversations', selectedSlug] }),
+    mutationFn: (id: string) => apiClient.deleteConversation(primarySlug, id),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['conversations', primarySlug] }),
   })
+
+  const selectedStories = stories.filter((s) => selectedSlugs.includes(s.slug))
+  const primaryStory = stories.find((s) => s.slug === primarySlug)
+
+  /** Confirm before discarding an in-progress conversation, then apply the change. */
+  function changeSelection(apply: () => void) {
+    if (messages.length > 0 && !confirm('Changing the story selection ends the current conversation. Continue?')) return
+    apply()
+    resetConversation()
+  }
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -94,9 +93,6 @@ export default function DiscussPage() {
     setStreaming(true)
     setStreamingText('')
 
-    const storyContext = story ? formatStoryForAgent(story) : undefined
-    const pendingContext = formatPendingContext(pending)
-
     abortRef.current = new AbortController()
 
     try {
@@ -104,10 +100,9 @@ export default function DiscussPage() {
         message: text,
         api_history: apiHistory,
         journals,
-        story_context: storyContext,
-        editor_feedback: feedback,
-        pending_context: pendingContext,
         genre_mode: genreMode,
+        story_slugs: selectedSlugs,
+        primary_slug: primarySlug || null,
       })
 
       if (!res.ok) {
@@ -144,6 +139,12 @@ export default function DiscussPage() {
               const inTokens = (u.input_tokens ?? 0) + (u.cache_read_input_tokens ?? 0) + (u.cache_creation_input_tokens ?? 0)
               setTokenUsage((prev) => ({ input: prev.input + inTokens, output: prev.output + (u.output_tokens ?? 0) }))
             }
+            // The agent wrote through a tool (e.g. logged a submission), so the
+            // cached story/pending data is stale. Refetch rather than making the
+            // user reload to see the new ⛔ exclusion.
+            for (const key of (data.invalidate ?? []) as string[]) {
+              qc.invalidateQueries({ queryKey: [key] })
+            }
             break
           }
           if (data.error) throw new Error(data.error)
@@ -157,7 +158,7 @@ export default function DiscussPage() {
     } finally {
       setStreaming(false)
     }
-  }, [streaming, story, pending, feedback, apiHistory, journals, genreMode, apiClient])
+  }, [streaming, apiHistory, journals, genreMode, apiClient, selectedSlugs, primarySlug, qc])
 
   function handleEndConversation() {
     if (messages.length === 0) return
@@ -173,21 +174,54 @@ export default function DiscussPage() {
       {/* Left sidebar */}
       <aside className="w-56 flex-shrink-0 border-r border-gray-200 bg-white flex flex-col overflow-hidden">
         <div className="p-4 border-b border-gray-100">
-          <label className="label">Story</label>
-          <select
-            className="input text-sm"
-            value={selectedSlug}
-            onChange={(e) => {
-              if (messages.length > 0 && !confirm('Starting a new story — end the current conversation?')) return
-              setSelectedSlug(e.target.value)
-              resetConversation()
-            }}
-          >
-            <option value="">— select —</option>
-            {stories.map((s) => (
-              <option key={s.slug} value={s.slug}>{s.title}</option>
-            ))}
-          </select>
+          <div className="flex items-baseline justify-between">
+            <label className="label mb-0">Stories</label>
+            {selectedSlugs.length > 0 && (
+              <button
+                className="text-xs text-gray-400 hover:text-gray-600"
+                onClick={() => changeSelection(() => setSelection([]))}
+              >
+                clear
+              </button>
+            )}
+          </div>
+          <p className="text-xs text-gray-400 mb-2">
+            Pick any number. The rest stay visible to the agent as one-line summaries.
+          </p>
+
+          <ul className="max-h-56 overflow-y-auto -mx-1 pr-1">
+            {stories.map((s) => {
+              const checked = selectedSlugs.includes(s.slug)
+              return (
+                <li key={s.slug} className="flex items-center gap-1.5 px-1 py-0.5 rounded hover:bg-gray-50">
+                  <input
+                    type="checkbox"
+                    id={`story-${s.slug}`}
+                    className="flex-shrink-0"
+                    checked={checked}
+                    onChange={() => changeSelection(() => toggleSlug(s.slug))}
+                  />
+                  <label
+                    htmlFor={`story-${s.slug}`}
+                    className="text-xs text-gray-700 truncate cursor-pointer flex-1"
+                    title={s.title}
+                  >
+                    {s.title}
+                  </label>
+                  {/* Primary keys saved conversations and is the default log target. */}
+                  {checked && selectedSlugs.length > 1 && (
+                    <button
+                      className={`text-xs flex-shrink-0 ${s.slug === primarySlug ? 'text-amber-500' : 'text-gray-300 hover:text-amber-400'}`}
+                      title={s.slug === primarySlug ? 'Primary story' : 'Make primary'}
+                      onClick={() => setPrimarySlug(s.slug)}
+                    >
+                      ★
+                    </button>
+                  )}
+                </li>
+              )
+            })}
+          </ul>
 
           {journals.length > 0 ? (
             <p className="text-xs text-green-600 mt-2">✓ {journals.length} journals loaded</p>
@@ -232,7 +266,16 @@ export default function DiscussPage() {
         {/* Header */}
         <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 bg-white flex-shrink-0">
           <h1 className="font-semibold text-sm text-gray-700">
-            {story ? story.title : 'Discuss'}
+            {selectedStories.length === 0 && 'Discuss'}
+            {selectedStories.length === 1 && selectedStories[0].title}
+            {selectedStories.length > 1 && (
+              <>
+                {primaryStory?.title ?? selectedStories[0].title}
+                <span className="font-normal text-gray-400 ml-1.5">
+                  + {selectedStories.length - 1} more
+                </span>
+              </>
+            )}
           </h1>
           <div className="flex items-center gap-3">
             {(tokenUsage.input > 0 || tokenUsage.output > 0) && (
@@ -259,9 +302,11 @@ export default function DiscussPage() {
         <div className="flex-1 overflow-y-auto p-4 space-y-4">
           {messages.length === 0 && !streaming && (
             <p className="text-sm text-gray-400 text-center mt-12">
-              {selectedSlug
-                ? 'Start the conversation — ask about journals, cover letters, or submission strategy.'
-                : 'Select a story to begin.'}
+              {selectedSlugs.length === 0
+                ? 'Select one or more stories to begin.'
+                : selectedSlugs.length === 1
+                  ? 'Start the conversation — ask about journals, cover letters, or submission strategy.'
+                  : `${selectedSlugs.length} stories loaded — ask where each should go, and I'll keep them off the same journals.`}
             </p>
           )}
 
@@ -290,9 +335,9 @@ export default function DiscussPage() {
           >
             <textarea
               className="input flex-1 resize-none min-h-[40px] max-h-[120px]"
-              placeholder={selectedSlug ? 'Ask about your story…' : 'Select a story first'}
+              placeholder={selectedSlugs.length ? 'Ask about your stories…' : 'Select a story first'}
               value={input}
-              disabled={!selectedSlug || streaming}
+              disabled={selectedSlugs.length === 0 || streaming}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(input) }
@@ -302,7 +347,7 @@ export default function DiscussPage() {
             <button
               type="submit"
               className="btn-primary self-end"
-              disabled={!selectedSlug || !input.trim() || streaming}
+              disabled={selectedSlugs.length === 0 || !input.trim() || streaming}
             >
               {streaming ? '…' : 'Send'}
             </button>

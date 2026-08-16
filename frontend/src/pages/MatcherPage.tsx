@@ -1,17 +1,72 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { useAuth } from '../context/AuthContext'
 import { useMatch } from '../context/MatchContext'
 import { dedupeJournals } from '../api/client'
-import type { Journal } from '../types'
+import type { Journal, SummaryStatus } from '../types'
 
 export default function MatcherPage() {
-  const { apiClient } = useAuth()
+  const { apiClient, cloudMode } = useAuth()
   const { journals, batches, genreMode, customRankings, setJournals, addBatch, clearBatches, setGenreMode, setCustomRankings } = useMatch()
   const [pasteText, setPasteText] = useState('')
   const [unranked, setUnranked] = useState<Journal[]>([])
   const [uploadError, setUploadError] = useState('')
   const fileInputRef = useRef<HTMLInputElement>(null)
+
+  // Journal summaries (local mode only — data/ is ephemeral on the hosted server)
+  const [sumStatus, setSumStatus] = useState<SummaryStatus | null>(null)
+  const [sumLog, setSumLog] = useState<string[]>([])
+  const [sumRunning, setSumRunning] = useState(false)
+  const sumLogRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    if (cloudMode || journals.length === 0) { setSumStatus(null); return }
+    let stale = false
+    apiClient.summariesStatus(journals)
+      .then((s) => { if (!stale) setSumStatus(s) })
+      .catch(() => { if (!stale) setSumStatus(null) })
+    return () => { stale = true }
+  }, [journals, cloudMode, apiClient])
+
+  useEffect(() => {
+    sumLogRef.current?.scrollTo({ top: sumLogRef.current.scrollHeight })
+  }, [sumLog])
+
+  async function runSummaries(opts: { scope?: 'paste' | 'all'; dry_run?: boolean }) {
+    if (sumRunning) return
+    setSumRunning(true)
+    setSumLog([])
+    try {
+      const res = await apiClient.streamSummaries({ journals, scope: opts.scope ?? 'paste', dry_run: opts.dry_run })
+      if (!res.ok) {
+        let detail = `${res.status}`
+        try { detail = (await res.json()).detail ?? detail } catch { /* ignore */ }
+        throw new Error(detail)
+      }
+      const reader = res.body!.getReader()
+      const decoder = new TextDecoder()
+      let buffer = ''
+      while (true) {
+        const { value, done } = await reader.read()
+        if (done) break
+        buffer += decoder.decode(value, { stream: true })
+        const lines = buffer.split('\n')
+        buffer = lines.pop() ?? ''
+        for (const line of lines) {
+          if (!line.startsWith('data: ')) continue
+          const data = JSON.parse(line.slice(6))
+          if (data.line) setSumLog((prev) => [...prev, data.line])
+          if (data.error) setSumLog((prev) => [...prev, `Error: ${data.error}`])
+        }
+      }
+      const fresh = await apiClient.summariesStatus(journals)
+      setSumStatus(fresh)
+    } catch (err) {
+      setSumLog((prev) => [...prev, `Error: ${err instanceof Error ? err.message : 'failed'}`])
+    } finally {
+      setSumRunning(false)
+    }
+  }
 
   const matchMutation = useMutation({
     mutationFn: async () => {
@@ -186,6 +241,56 @@ export default function MatcherPage() {
           <p className="text-sm text-gray-600">
             <strong>{journals.length}</strong> ranked matches · {unranked.length} unranked
           </p>
+
+          {/* Journal summaries — local mode only. data/ is ephemeral on the hosted
+              server and the cache is shared, so summaries are generated here and
+              committed to the repo to reach cloud users. */}
+          {!cloudMode && sumStatus && (
+            <div className="rounded-lg border border-gray-200 bg-gray-50 p-3 text-sm">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+                <span className="text-gray-700">
+                  Guideline summaries: <strong>{sumStatus.cached}</strong> cached
+                  {sumStatus.missing > 0 && <> · <strong>{sumStatus.missing}</strong> missing</>}
+                  {sumStatus.no_url > 0 && <span className="text-gray-400"> · {sumStatus.no_url} no URL</span>}
+                </span>
+                <span className="flex-1" />
+                <button
+                  className="btn-secondary text-xs"
+                  disabled={sumRunning || sumStatus.missing === 0}
+                  onClick={() => runSummaries({ dry_run: true })}
+                  title="Check what would change without spending any tokens"
+                >
+                  Dry run
+                </button>
+                <button
+                  className="btn-secondary text-xs"
+                  disabled={sumRunning || sumStatus.missing === 0}
+                  onClick={() => runSummaries({})}
+                >
+                  {sumRunning ? 'Working…' : `Summarize ${sumStatus.missing} missing`}
+                </button>
+                <button
+                  className="btn-secondary text-xs"
+                  disabled={sumRunning}
+                  onClick={() => {
+                    if (!confirm('Summarize every ranked journal with a URL (~519, roughly $6). This produces the artifact cloud users receive. Continue?')) return
+                    runSummaries({ scope: 'all' })
+                  }}
+                  title="Every ranked journal, not just this paste"
+                >
+                  All ranked
+                </button>
+              </div>
+
+              {sumLog.length > 0 && (
+                <div ref={sumLogRef} className="mt-2 max-h-48 overflow-y-auto rounded bg-white border border-gray-200 p-2">
+                  {sumLog.map((line, i) => (
+                    <p key={i} className="font-mono text-xs text-gray-600 whitespace-pre-wrap">{line}</p>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
 
           {lowConfidence.length > 0 && (
             <details open className="rounded-lg border border-amber-300 bg-amber-50 p-3 text-sm">

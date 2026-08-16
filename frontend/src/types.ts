@@ -83,3 +83,11 @@ export interface GeneratedCard {
 }
 
 export type GenreMode = 'Literary' | 'Genre';
+
+/** Summary coverage for a set of journals. The three buckets are disjoint. */
+export interface SummaryStatus {
+  total: number;
+  cached: number;
+  missing: number;
+  no_url: number;
+}

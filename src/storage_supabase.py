@@ -27,7 +27,9 @@ class StorageSupabase(StorageBackend):
     def list_stories(self) -> list[dict]:
         stories_res = (
             self._client.table("stories")
-            .select("slug, title, word_count, style")
+            # description is selected so the agent's story roster can be built from
+            # this one call rather than an N+1 load_story sweep.
+            .select("slug, title, word_count, style, description")
             .eq("user_id", self._user_id)
             .execute()
         )
@@ -47,6 +49,7 @@ class StorageSupabase(StorageBackend):
                 "title": s["title"],
                 "word_count": s.get("word_count"),
                 "style": s.get("style", ""),
+                "description": s.get("description") or "",
                 "submission_count": counts.get(s["slug"], 0),
             }
             for s in stories_res.data
