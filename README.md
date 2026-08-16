@@ -153,6 +153,43 @@ Duotrope and The Submission Grinder show 50 results per page. Click **Add batch*
 
 To use your own ranked list instead of the built-in one, upload an Excel or CSV file in the Matcher tab. Required columns: `rank`, `name`, `journal_url`. Optional: `score`, `tier`. Your custom list is used for the current session; click **Remove** to revert to the built-in rankings.
 
+#### Guideline summaries *(local install only)*
+
+Each journal in the ranked list can carry a cached summary of its submission guidelines — aesthetic, word limit, reading period, response time, simultaneous-submission policy, and fees. The agent uses these to shortlist without fetching pages.
+
+After matching, the Matcher shows how many of your journals are summarized. **Summarize N missing** generates the rest with your API key; **Dry run** reports what would change without spending anything; **All ranked** covers every ranked journal with a URL (~519, roughly $6) rather than just the current paste.
+
+Re-running is cheap by design. A journal is skipped without a network request if it was checked in the last 90 days, and without an API call if its page hasn't changed. If the page changed but nothing a writer would act on did, the existing summary is kept exactly as-is.
+
+**Filling the whole list.** Summarizing every ranked journal takes about an hour, which is a long time to leave a browser tab open, so there's a command-line version. Run it from a terminal where the environment is active (`conda activate submission_advisor`):
+
+```bash
+python src/summarize_journals.py --all --dry-run   # what would change, spends nothing
+python src/summarize_journals.py --all             # the real run (~$6.50, ~1 hour)
+python src/summarize_journals.py --only "hobart" --force   # redo one journal
+python src/summarize_journals.py --all --limit 20  # sample before committing to the lot
+```
+
+> If `python` isn't found — for example in a VS Code PowerShell terminal, where conda isn't on the PATH — call the environment's interpreter directly instead. The leading `&` is required in PowerShell:
+>
+> ```powershell
+> & "C:\Users\YOUR_USERNAME\anaconda3\envs\submission_advisor\python.exe" src\summarize_journals.py --all
+> ```
+
+Progress is saved after every journal, so Ctrl-C is safe and re-running picks up where it stopped — journals with no summary yet are always processed first.
+
+At the end it lists any journals where the stored URL turned out not to be a submissions page at all. That's usually a wrong `journal_url` in the rankings rather than a journal without guidelines, and it's worth fixing in `data/rankings_cache.json` when you see it.
+
+**Sharing summaries with the online app.** Generation is local-only, because the server's `data/` directory is wiped on each deploy and shared between users. Summaries reach the online app by being committed:
+
+```bash
+git add data/journal_summaries.json
+git commit -m "Update journal summaries"
+git push
+```
+
+A run that changed nothing leaves that file untouched, so `git status` tells you whether there's anything to push. Two files stay local and are gitignored: `data/journal_pages/` and `data/journal_cache_meta.json` hold change-detection bookkeeping. Because the summary file is rewritten whole, generating from two different machines will conflict — regenerate rather than hand-merging.
+
 ---
 
 ### Story management
@@ -175,15 +212,24 @@ From any story's detail view you can log a submission (journal, date, notes) and
 
 ### AI advisor
 
-The **Discuss** tab is a chat interface with an AI literary advisor. Open a story from the Stories tab, then go to Discuss.
+The **Discuss** tab is a chat interface with an AI literary advisor. Tick one or more stories in the sidebar to load them, or use **Open in Discuss →** from the Stories tab.
 
-The agent knows your story's metadata, which journals you've already submitted to, the full ranked list with submission guideline summaries, and any editor feedback you've logged.
+The agent knows each loaded story's metadata and submission history, the full ranked list with any cached guideline summaries, every journal you currently have work out with, and any editor feedback you've logged.
 
 What you can ask it to do:
-- **Recommend journals** — it reads submission guidelines on demand for journals it's seriously considering, then gives specific suggestions with honest assessments of fit and reach
+- **Recommend journals** — it checks cached guidelines first, then reads pages on demand for the journals it's seriously considering, following links on a journal's own site when the first page doesn't answer the question
+- **Place several stories at once** — load two or three and ask where each should go. It won't send two of them to the same journal in the same round, which most journals forbid.
 - **Draft a cover letter** — "Draft a cover letter using my standard template." It fills in story-specific and journal-specific details automatically.
-- **Log a submission** — "I'm going to submit to One Story." It records it so that journal won't be suggested again.
+- **Log a submission** — "I'm going to submit to One Story." It records it so that journal won't be suggested again, for any story.
 - **Discuss strategy** — comp titles, submission sequencing, style comparisons, anything else
+
+#### Loading more than one story
+
+Stories you don't tick are still visible to the agent as one-line summaries, so it can say "you didn't load *Online Booking*, but it fits this journal better — want to pull it in?" and then read that story properly on request.
+
+With several loaded, one is marked primary (★). The primary is where saved conversations are filed, and submissions can only be logged against stories you've actually loaded — ask it to log one for an unloaded story and it will decline rather than write to the wrong story file.
+
+Changing the selection starts a fresh conversation, so pick the set you want before you begin.
 
 ---
 
@@ -238,15 +284,24 @@ submissions_advisor/
 │   └── package.json
 ├── src/
 │   ├── agent.py                       # conversational AI agent
+│   ├── pagefetch.py                   # SSRF-guarded fetching + link extraction
+│   ├── summarize_journals.py          # guideline summaries + refresh gates
+│   ├── models_config.py               # the Claude model id, in one place
 │   ├── ingest.py                      # journal list parser
 │   ├── match.py                       # fuzzy name matching
 │   ├── scrape_rankings.py             # rankings loader
-│   ├── storage.py                     # storage interface (ABC)
+│   ├── storage.py                     # storage interface (ABC) + prompt formatters
 │   ├── storage_local.py               # local file backend
 │   ├── storage_supabase.py            # Supabase cloud backend
 │   └── workbook.py                    # Excel tracker (local)
+├── tests/                             # deterministic suite — no API key needed
+├── evals/
+│   └── run_eval.py                    # opt-in behavioural eval (costs tokens)
 ├── data/
 │   ├── rankings_cache.json            # built-in ranked journal list (~550 journals)
+│   ├── journal_summaries.json         # cached guideline summaries (committed)
+│   ├── journal_cache_meta.json        # change-detection bookkeeping (gitignored)
+│   ├── journal_pages/                 # normalized page text (gitignored)
 │   ├── manual_overrides.csv           # hand-corrected name matches
 │   ├── cover_letter_templates/        # your templates (gitignored)
 │   │   └── standard_example.md
