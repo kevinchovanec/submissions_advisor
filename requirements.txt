@@ -12,6 +12,9 @@ python-frontmatter==1.1.0
 PyYAML==6.0.3
 python-dotenv==1.2.2
 
+# Tests (deterministic suite needs no API key; see tests/README.md)
+pytest==8.4.2
+
 # Web API
 fastapi==0.136.3
 uvicorn[standard]==0.46.0
