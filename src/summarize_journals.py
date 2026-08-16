@@ -44,7 +44,7 @@ from typing import Generator
 
 import anthropic
 
-from models_config import MODEL
+from models_config import EXTRACTION_THINKING, MODEL
 from pagefetch import fetch_page
 
 DATA_DIR = Path(__file__).parent.parent / "data"
@@ -412,7 +412,11 @@ def _is_fatal_api_error(exc: Exception) -> bool:
 def _summarize(page_text: str, client: anthropic.Anthropic) -> dict:
     response = client.messages.create(
         model=MODEL,
-        max_tokens=900,
+        # Headroom for the aesthetic field, which the reframed prompt asks to be
+        # specific and evidence-backed; a truncated reply is a parse failure, not a
+        # short summary.
+        max_tokens=1500,
+        thinking=EXTRACTION_THINKING,
         messages=[{"role": "user", "content": SUMMARY_PROMPT.format(page_text=page_text)}],
     )
     text = "".join(b.text for b in response.content if b.type == "text")

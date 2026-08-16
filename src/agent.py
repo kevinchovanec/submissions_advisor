@@ -9,7 +9,7 @@ from typing import Generator
 import anthropic
 
 from ingest import normalize_name
-from models_config import MODEL
+from models_config import AGENT_THINKING, MODEL
 from pagefetch import fetch_page
 from storage import StorageBackend, format_pending_for_context, format_story_for_agent
 from summarize_journals import format_details, load_summaries_for, load_urls_for
@@ -398,7 +398,11 @@ def stream_response(
         # tool_use blocks, usage, and stop_reason.
         with client.messages.stream(
             model=MODEL,
-            max_tokens=8192,
+            # Thinking shares this budget with the reply, so it is set well above what
+            # the visible answer needs. Streaming means a large ceiling costs nothing
+            # in latency or timeout risk — only tokens actually generated are billed.
+            max_tokens=16000,
+            thinking=AGENT_THINKING,
             system=system,
             tools=tools,
             messages=full_messages,

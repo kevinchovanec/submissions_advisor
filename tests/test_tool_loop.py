@@ -280,6 +280,15 @@ class TestRequestShape:
         _, _, _, client = _drive(storage, journals, [_Message([_Block("text", text="hi")])])
         assert isinstance(client.messages.last_kwargs["system"], str)
 
+    def test_thinking_is_set_explicitly_with_room_to_think(self, storage, journals):
+        """max_tokens caps thinking AND reply together, and the meaning of an omitted
+        `thinking` field flipped between Sonnet 4.6 and 5. Both are pinned here so a
+        future model bump can't silently truncate replies."""
+        _, _, _, client = _drive(storage, journals, [_Message([_Block("text", text="hi")])])
+        kwargs = client.messages.last_kwargs
+        assert kwargs["thinking"] == {"type": "adaptive"}
+        assert kwargs["max_tokens"] >= 16000
+
     def test_all_tools_are_offered(self, storage, journals):
         _, _, _, client = _drive(storage, journals, [_Message([_Block("text", text="hi")])])
         names = {t["name"] for t in client.messages.last_kwargs["tools"]}

@@ -60,7 +60,7 @@ from .models import (
 )
 from scrape_rankings import load_rankings
 from match import match as run_match, ranked_only
-from models_config import MODEL
+from models_config import EXTRACTION_THINKING, MODEL
 from storage import format_selected_stories, format_story_roster
 from summarize_journals import generate_summaries, status_for
 
@@ -232,7 +232,8 @@ def generate_card(
     try:
         resp = client.messages.create(
             model=MODEL,
-            max_tokens=400,
+            max_tokens=800,
+            thinking=EXTRACTION_THINKING,
             messages=[{"role": "user", "content": prompt}],
         )
         raw = resp.content[0].text.strip()

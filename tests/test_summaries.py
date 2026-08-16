@@ -537,6 +537,31 @@ class TestCli:
         assert "0 journals" in capsys.readouterr().out
 
 
+class TestExtractionRequestShape:
+    """Structured extraction runs against a tight token budget, and on Sonnet 5 an
+    omitted `thinking` field means thinking runs and competes for that budget — which
+    truncates the JSON and fails the parse outright."""
+
+    def test_thinking_is_disabled_and_budget_has_headroom(self, isolated_summaries, monkeypatch):
+        sj = isolated_summaries
+        captured = {}
+
+        class _FakeMessages:
+            def create(self, **kwargs):
+                captured.update(kwargs)
+                block = type("B", (), {"type": "text", "text": '{"summary":"s","details":{}}'})()
+                return type("R", (), {"content": [block]})()
+
+        client = type("C", (), {"messages": _FakeMessages()})()
+        sj._summarize("some page text", client)
+        assert captured["thinking"] == {"type": "disabled"}
+        assert captured["max_tokens"] >= 1500
+
+    def test_extraction_and_agent_configs_differ(self, isolated_summaries):
+        import models_config
+        assert models_config.EXTRACTION_THINKING != models_config.AGENT_THINKING
+
+
 class TestJsonExtraction:
     def test_parses_fenced_json(self, isolated_summaries):
         raw = '```json\n{"summary": "s", "details": {}}\n```'
