@@ -14,6 +14,12 @@ outputs/
 # Regenerable cache
 data/about_pages_cache.json
 
+# Journal-summary bookkeeping. data/journal_summaries.json IS committed (it ships the
+# summaries to the deployed app); these two are local-only change detection, kept out
+# of the repo so a run that changes nothing leaves a zero-byte diff on that file.
+data/journal_pages/
+data/journal_cache_meta.json
+
 # API keys
 .env
 
