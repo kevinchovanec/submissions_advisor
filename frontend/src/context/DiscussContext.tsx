@@ -17,14 +17,14 @@ interface DiscussState {
   messages: ChatMessage[]
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   apiHistory: any[]
-  tokenUsage: { input: number; output: number }
+  tokenUsage: { input: number; cached: number; output: number }
   setSelection(slugs: string[], primary?: string): void
   toggleSlug(slug: string): void
   setPrimarySlug(slug: string): void
   setMessages: React.Dispatch<React.SetStateAction<ChatMessage[]>>
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setApiHistory(history: any[]): void
-  setTokenUsage: React.Dispatch<React.SetStateAction<{ input: number; output: number }>>
+  setTokenUsage: React.Dispatch<React.SetStateAction<{ input: number; cached: number; output: number }>>
   resetConversation(): void
 }
 
@@ -36,7 +36,7 @@ export function DiscussProvider({ children }: { children: React.ReactNode }) {
   const [messages, setMessages] = useState<ChatMessage[]>([])
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [apiHistory, setApiHistory] = useState<any[]>([])
-  const [tokenUsage, setTokenUsage] = useState({ input: 0, output: 0 })
+  const [tokenUsage, setTokenUsage] = useState({ input: 0, cached: 0, output: 0 })
 
   function setSelection(slugs: string[], primary?: string) {
     setSelectedSlugs(slugs)
@@ -62,7 +62,7 @@ export function DiscussProvider({ children }: { children: React.ReactNode }) {
   function resetConversation() {
     setMessages([])
     setApiHistory([])
-    setTokenUsage({ input: 0, output: 0 })
+    setTokenUsage({ input: 0, cached: 0, output: 0 })
   }
 
   return (

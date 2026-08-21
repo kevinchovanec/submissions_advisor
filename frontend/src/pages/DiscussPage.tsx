@@ -136,8 +136,14 @@ export default function DiscussPage() {
             setStreamingText('')
             if (data.usage) {
               const u = data.usage
-              const inTokens = (u.input_tokens ?? 0) + (u.cache_read_input_tokens ?? 0) + (u.cache_creation_input_tokens ?? 0)
-              setTokenUsage((prev) => ({ input: prev.input + inTokens, output: prev.output + (u.output_tokens ?? 0) }))
+              // Kept separate rather than summed: a cached token costs a tenth of a
+              // fresh one, so a single total makes a cheap turn look as expensive as
+              // the first one. Almost all of a long conversation is cache reads.
+              setTokenUsage((prev) => ({
+                input: prev.input + (u.input_tokens ?? 0) + (u.cache_creation_input_tokens ?? 0),
+                cached: prev.cached + (u.cache_read_input_tokens ?? 0),
+                output: prev.output + (u.output_tokens ?? 0),
+              }))
             }
             // The agent wrote through a tool (e.g. logged a submission), so the
             // cached story/pending data is stale. Refetch rather than making the
@@ -242,7 +248,7 @@ export default function DiscussPage() {
                     onClick={() => {
                       setMessages(c.messages)
                       setApiHistory([])
-                      setTokenUsage({ input: 0, output: 0 })
+                      setTokenUsage({ input: 0, cached: 0, output: 0 })
                     }}
                   >
                     {new Date(c.started_at).toLocaleDateString()}
@@ -281,9 +287,18 @@ export default function DiscussPage() {
             {(tokenUsage.input > 0 || tokenUsage.output > 0) && (
               <span
                 className="text-xs text-gray-400 whitespace-nowrap"
-                title="Anthropic API tokens used in this conversation (input includes cached tokens · output)"
+                title={
+                  'Anthropic API tokens this conversation.\n' +
+                  'New input is billed in full; cached input costs about a tenth as much, ' +
+                  'which is why later turns cost less than the first.\n' +
+                  'Output includes the model’s thinking, which is not shown.'
+                }
               >
-                {tokenUsage.input.toLocaleString()} in · {tokenUsage.output.toLocaleString()} out tokens
+                {tokenUsage.input.toLocaleString()} new
+                {tokenUsage.cached > 0 && (
+                  <span className="text-gray-300"> · {tokenUsage.cached.toLocaleString()} cached</span>
+                )}
+                {' · '}{tokenUsage.output.toLocaleString()} out
               </span>
             )}
             {messages.length > 0 && (

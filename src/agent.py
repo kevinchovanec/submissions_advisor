@@ -403,6 +403,13 @@ def stream_response(
             # in latency or timeout risk — only tokens actually generated are billed.
             max_tokens=16000,
             thinking=AGENT_THINKING,
+            # Second breakpoint, auto-placed on the last block of the conversation.
+            # The 1h marker on the journal list only caches the opening; without this
+            # everything after it — every prior reply, thinking block and tool result —
+            # is re-processed at full price on every turn, and that tail grows all
+            # conversation long. Matters most inside the tool loop, where the whole
+            # history is re-sent once per iteration seconds apart.
+            cache_control={"type": "ephemeral"},
             system=system,
             tools=tools,
             messages=full_messages,
