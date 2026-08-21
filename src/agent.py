@@ -407,8 +407,25 @@ def stream_response(
             tools=tools,
             messages=full_messages,
         ) as stream:
-            for chunk in stream.text_stream:
-                yield chunk
+            # Iterating raw events rather than stream.text_stream so thinking can be
+            # announced. Thinking blocks stream with empty text by default, so
+            # text_stream yields nothing at all while the model reasons — which reads
+            # as a frozen UI for several seconds on the first turn, when the whole
+            # journal list is also being written to cache.
+            announced_thinking = False
+            for event in stream:
+                if (
+                    event.type == "content_block_start"
+                    and getattr(event.content_block, "type", None) == "thinking"
+                    and not announced_thinking
+                ):
+                    announced_thinking = True
+                    yield "\n*Thinking...*\n"
+                elif (
+                    event.type == "content_block_delta"
+                    and getattr(event.delta, "type", None) == "text_delta"
+                ):
+                    yield event.delta.text
             response = stream.get_final_message()
 
         u = response.usage

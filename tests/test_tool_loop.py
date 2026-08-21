@@ -43,7 +43,24 @@ class _Message:
         self.usage = _Usage()
 
 
+class _Event:
+    """Minimal stand-in for an SDK stream event."""
+
+    def __init__(self, type_, content_block=None, delta=None):
+        self.type = type_
+        self.content_block = content_block
+        self.delta = delta
+
+
+class _Delta:
+    def __init__(self, type_, text=None):
+        self.type = type_
+        self.text = text
+
+
 class _FakeStream:
+    """Replays a message as the event sequence the SDK would produce."""
+
     def __init__(self, message):
         self._message = message
 
@@ -53,11 +70,12 @@ class _FakeStream:
     def __exit__(self, *exc):
         return False
 
-    @property
-    def text_stream(self):
+    def __iter__(self):
         for b in self._message.content:
+            yield _Event("content_block_start", content_block=b)
             if b.type == "text":
-                yield b.text
+                yield _Event("content_block_delta", delta=_Delta("text_delta", b.text))
+            yield _Event("content_block_stop")
 
     def get_final_message(self):
         return self._message
@@ -279,6 +297,26 @@ class TestRequestShape:
     def test_system_prompt_is_sent_without_its_own_breakpoint(self, storage, journals):
         _, _, _, client = _drive(storage, journals, [_Message([_Block("text", text="hi")])])
         assert isinstance(client.messages.last_kwargs["system"], str)
+
+    def test_thinking_is_announced_so_the_ui_is_never_silent(self, storage, journals):
+        """Thinking blocks stream with empty text, so without this the user watches a
+        motionless '...' for several seconds and assumes it has hung."""
+        script = [_Message([_Block("thinking", text=""), _Block("text", text="Here you go.")])]
+        text, _, _, _ = _drive(storage, journals, script)
+        assert "*Thinking...*" in text
+        assert text.index("*Thinking...*") < text.index("Here you go.")
+
+    def test_thinking_is_announced_only_once(self, storage, journals):
+        script = [_Message([
+            _Block("thinking", text=""), _Block("thinking", text=""), _Block("text", text="ok"),
+        ])]
+        text, _, _, _ = _drive(storage, journals, script)
+        assert text.count("*Thinking...*") == 1
+
+    def test_no_thinking_block_means_no_announcement(self, storage, journals):
+        text, _, _, _ = _drive(storage, journals, [_Message([_Block("text", text="quick answer")])])
+        assert "*Thinking...*" not in text
+        assert text == "quick answer"
 
     def test_thinking_is_set_explicitly_with_room_to_think(self, storage, journals):
         """max_tokens caps thinking AND reply together, and the meaning of an omitted
