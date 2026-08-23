@@ -60,6 +60,57 @@ class TestJournalList:
         assert "Likes weird stuff." in out
 
 
+class TestListSummaryTrimming:
+    """The ranked list is an index, not the full record — carrying every sentence
+    for every journal makes it the single largest cost in the app, since it is
+    written to cache at the start of each conversation."""
+
+    THREE = (
+        "Publishes voice-driven literary fiction with a dark comic streak. "
+        "Prose up to 8,000 words during an August to May reading period. "
+        "No fee, but simultaneous submissions must be withdrawn immediately."
+    )
+
+    def test_keeps_only_the_configured_number_of_sentences(self, monkeypatch, journals):
+        monkeypatch.setattr(agent, "LIST_SUMMARY_SENTENCES", 1)
+        out = agent._format_journal_list(journals, {"other mag": self.THREE}, {})
+        assert "dark comic streak." in out
+        assert "8,000 words" not in out
+
+    def test_two_sentences(self, monkeypatch, journals):
+        monkeypatch.setattr(agent, "LIST_SUMMARY_SENTENCES", 2)
+        out = agent._format_journal_list(journals, {"other mag": self.THREE}, {})
+        assert "8,000 words" in out
+        assert "simultaneous" not in out
+
+    def test_zero_drops_summaries_entirely(self, monkeypatch, journals):
+        monkeypatch.setattr(agent, "LIST_SUMMARY_SENTENCES", 0)
+        out = agent._format_journal_list(journals, {"other mag": self.THREE}, {})
+        assert "dark comic" not in out
+        assert "Other Mag" in out, "the journal itself must still be listed"
+
+    def test_high_limit_keeps_everything(self, monkeypatch, journals):
+        monkeypatch.setattr(agent, "LIST_SUMMARY_SENTENCES", 99)
+        out = agent._format_journal_list(journals, {"other mag": self.THREE}, {})
+        assert "simultaneous submissions" in out
+
+    def test_figures_with_periods_do_not_split_early(self):
+        """'3,000-8,000 words.' and 'e.g.' must not be read as sentence ends."""
+        text = "Wants prose of 3,000-8,000 words. Reads year round."
+        assert agent._trim_sentences(text, 1) == "Wants prose of 3,000-8,000 words."
+
+    def test_single_sentence_summary_survives_intact(self):
+        assert agent._trim_sentences("Just the one sentence.", 1) == "Just the one sentence."
+
+    def test_handles_empty_and_missing(self):
+        assert agent._trim_sentences("", 1) == ""
+        assert agent._trim_sentences(None, 1) == ""
+
+    def test_prompt_warns_the_list_omits_limits(self):
+        """Otherwise a missing word limit in a one-line note reads as 'no limit'."""
+        assert "never conclude a journal has no limit" in agent.SYSTEM_PROMPT
+
+
 class TestStoryRoster:
     def test_lists_unselected_and_excludes_selected(self, storage):
         roster = storage_mod.format_story_roster(

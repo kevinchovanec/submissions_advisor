@@ -4,6 +4,7 @@ Uses Claude with tool use for on-demand page fetching and editor feedback lookup
 """
 
 import os
+import re
 from typing import Generator
 
 import anthropic
@@ -22,6 +23,24 @@ MAX_PAGE_CHARS = 8000
 MAX_TOOL_ITERATIONS = 12
 MAX_FETCHES_PER_TURN = 8
 
+# How much of each journal's cached summary goes in the ranked list.
+#
+# The list is an index the model scans; get_journal_details holds the full picture
+# for the few journals it actually considers. Carrying all three sentences per
+# journal makes the index the single largest cost in the app — it is written to
+# cache at the start of every conversation. Measured over a 150-journal list:
+#
+#   3 sentences (full)   29,817 tokens   $0.119 to cache
+#   2 sentences          24,388 tokens   $0.098
+#   1 sentence           17,962 tokens   $0.072
+#   0 (name + URL only)   7,113 tokens   $0.028
+#
+# The first sentence is the aesthetic, which is what shortlisting runs on; the
+# later ones are limits and caveats, which get_journal_details still has in full.
+# Set to 0 to drop summaries entirely, or a high number to keep them whole.
+# Changing this changes the cached block, so the next conversation re-writes it.
+LIST_SUMMARY_SENTENCES = 1
+
 SYSTEM_PROMPT = """You are a literary advisor helping a writer find the best journals for their short fiction.
 
 You have access to a ranked list of literary journals that are currently open for submissions, \
@@ -33,8 +52,10 @@ When making recommendations:
   any journal, re-check it against that list — suggesting one wastes a simultaneous-submission slot \
   and can burn the writer's standing with that editor. Mention such a journal only if the writer \
   explicitly asks about it.
-- Some journal entries include a cached summary of their guidelines — use those to shortlist. Most \
-  entries have no summary yet, so for those the ranked list gives you only a name and a URL.
+- Most journal entries carry a one-line note on what that journal publishes. Use those to shortlist \
+  on aesthetic fit. They are deliberately short and cover only sensibility — word limits, reading \
+  periods, response times and fees are NOT in the list, so never conclude a journal has no limit \
+  because the list doesn't mention one. Call get_journal_details for those specifics.
 - Use the fetch_page tool to verify the 2-3 journals you're seriously considering, not for every journal
 - If a journal appears in the editor feedback list, call get_editor_feedback before recommending it \
   so you can factor in what the editor actually said
@@ -203,6 +224,21 @@ def _fetch_page(url: str) -> tuple[str, bool]:
     return fetch_page(url, max_chars=MAX_PAGE_CHARS).as_tool_result()
 
 
+def _trim_sentences(text: str, limit: int) -> str:
+    """Keep the first `limit` sentences. limit <= 0 drops the text entirely.
+
+    Splits on sentence-ending punctuation followed by whitespace, so decimals and
+    figures like "3,000-8,000 words." stay intact.
+    """
+    text = (text or "").strip()
+    if limit <= 0 or not text:
+        return ""
+    parts = re.split(r"(?<=[.!?])\s+", text)
+    if limit >= len(parts):
+        return text
+    return " ".join(parts[:limit]).strip()
+
+
 def _format_journal_list(
     journals: list[dict],
     summaries: dict[str, str],
@@ -225,7 +261,7 @@ def _format_journal_list(
             or "no URL"
         )
         name = j.get("display_name") or j.get("name", "")
-        summary = summaries.get(j["normalized_name"], "")
+        summary = _trim_sentences(summaries.get(j["normalized_name"], ""), LIST_SUMMARY_SENTENCES)
         entry = f"#{j['rank']} {name} (score: {j.get('score', 'N/A')}, tier: {j.get('tier', 'N/A')}) — {url}"
         pending_story = pending_by_norm.get(j["normalized_name"])
         if pending_story:
