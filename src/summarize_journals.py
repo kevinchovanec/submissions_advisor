@@ -91,6 +91,41 @@ DETAIL_FIELDS = (
     "red_flags",
 )
 
+# The ranked list carries one of these per journal, so every character is paid for
+# at the start of every conversation. Written to be scanned, not read.
+INDEX_LINE_MAX_CHARS = 180
+
+INDEX_LINE_PROMPT = """Write a single-line index entry for this literary journal.
+
+A writer is scanning a list of 150 of these to decide which few deserve a closer
+look. The line has to earn its place: it is loaded into the model's context for
+every conversation, so filler is expensive.
+
+Journal: {name}
+
+What is known about it:
+{summary}
+
+Details:
+{details}
+
+Rules:
+- At most {max_chars} characters. One line. No trailing period needed.
+- Lead with what they publish and the sensibility - the specific thing that would
+  make a writer think "that's my story" or "not for me". Be concrete: name forms,
+  subjects, registers, or comparable writers where the source supports it.
+- Cut anything a writer cannot act on: founding dates, print frequency, awards,
+  editor names, circulation, university affiliation, self-praise like "prestigious"
+  or "long-running", and any phrase that would be true of most journals.
+- Add a constraint ONLY if it is unusual enough to rule the journal in or out at a
+  glance - flash-only, novel excerpts welcome, currently closed, poetry only, a
+  hard genre restriction, a large fee. Ordinary limits belong in the detail record,
+  not here.
+- If the source says almost nothing concrete, say that plainly and briefly rather
+  than padding. "No stated aesthetic; general literary" is more useful than invention.
+
+Reply with ONLY the line itself - no quotes, no JSON, no preamble."""
+
 SUMMARY_PROMPT = """You are cataloguing a literary journal for a writer deciding where to send a story.
 
 Below is text from one or more pages of the journal's own site. It may be a submission
@@ -100,7 +135,8 @@ mix. Whatever it is, describe THE JOURNAL.
 Reply with ONLY a JSON object, no prose around it:
 
 {{
-  "summary": "At most 3 sentences describing the journal: what it publishes and what its work feels like, then any practical limits worth knowing. This appears in a long ranked list, so make every clause carry information specific to this journal.",
+  "index_line": "ONE line, at most 180 characters, for a writer scanning a list of 150 journals. Lead with what they publish and the sensibility - the specific thing that makes a writer think 'that's my story'. Cut founding dates, frequency, awards, editor names, and any praise that would be true of most journals. Add a constraint only if it would rule the journal in or out at a glance (flash-only, poetry only, currently closed, a large fee).",
+  "summary": "At most 3 sentences describing the journal: what it publishes and what its work feels like, then any practical limits worth knowing.",
   "found_guidelines": true,
   "details": {{
     "aesthetic": "What they publish - voice, themes, forms, sensibility. Be concrete and specific to this journal.",
@@ -430,6 +466,7 @@ def _summarize(page_text: str, client: anthropic.Anthropic) -> dict:
     details = parsed.get("details") or {}
     return {
         "summary": summary,
+        "index_line": (parsed.get("index_line") or "").strip().replace("\n", " "),
         "found_guidelines": bool(parsed.get("found_guidelines", True)),
         "details": {f: (details.get(f) or "unknown").strip() for f in DETAIL_FIELDS},
     }
@@ -476,13 +513,109 @@ def get_summary(normalized_name: str) -> str | None:
 
 
 def load_summaries_for(journals: list[dict]) -> dict[str, str]:
-    """Return {normalized_name: summary} for all journals that have one."""
+    """Return {normalized_name: full summary} for journals that have one."""
     cache = _load_cache()
     return {
         j["normalized_name"]: cache[j["normalized_name"]]["summary"]
         for j in journals
         if j["normalized_name"] in cache and cache[j["normalized_name"]].get("summary")
     }
+
+
+def load_index_lines_for(journals: list[dict]) -> dict[str, str]:
+    """Return {normalized_name: one-line ranked-list entry} where one exists.
+
+    Kept separate from load_summaries_for because the two are used differently: an
+    index line is already written to length and must be used whole, while a summary
+    is prose the agent trims. Merging them would let the sentence trimmer cut an
+    index line at its first period.
+    """
+    cache = _load_cache()
+    out = {}
+    for j in journals:
+        line = (cache.get(j["normalized_name"], {}).get("index_line") or "").strip()
+        if line:
+            out[j["normalized_name"]] = line
+    return out
+
+
+def needs_index_line(journals: list[dict]) -> list[dict]:
+    """Cached journals whose entry has no purpose-written index line yet."""
+    cache = _load_cache()
+    return [
+        j for j in journals
+        if j["normalized_name"] in cache
+        and not (cache[j["normalized_name"]].get("index_line") or "").strip()
+    ]
+
+
+def _write_index_line(entry: dict, client: anthropic.Anthropic) -> str:
+    """Condense a cached entry into one scannable line. No network, no page fetch."""
+    details = entry.get("details") or {}
+    detail_text = "\n".join(f"  {k}: {v}" for k, v in details.items() if v and v != "unknown")
+    response = client.messages.create(
+        model=MODEL,
+        max_tokens=300,
+        thinking=EXTRACTION_THINKING,
+        messages=[{"role": "user", "content": INDEX_LINE_PROMPT.format(
+            name=entry.get("name", ""),
+            summary=entry.get("summary", ""),
+            details=detail_text or "  (none recorded)",
+            max_chars=INDEX_LINE_MAX_CHARS,
+        )}],
+    )
+    line = "".join(b.text for b in response.content if b.type == "text").strip()
+    line = line.strip('"').strip().replace("\n", " ")
+    if not line:
+        raise ValueError("model returned an empty index line")
+    return line
+
+
+def condense_entries(
+    journals: list[dict],
+    api_key: str | None = None,
+    force: bool = False,
+    dry_run: bool = False,
+) -> Generator[str, None, None]:
+    """Add a one-line index entry to cached summaries.
+
+    Runs over text already in the cache rather than re-fetching pages, so it costs a
+    fraction of a full summarize pass and touches no journal's website.
+    """
+    cache = _load_cache()
+    targets = [j for j in journals if j["normalized_name"] in cache]
+    if not force:
+        targets = [j for j in targets
+                   if not (cache[j["normalized_name"]].get("index_line") or "").strip()]
+    if not targets:
+        yield "Every cached journal already has an index line."
+        return
+
+    client = None if dry_run else anthropic.Anthropic(api_key=api_key)
+    written = failed = 0
+    for i, j in enumerate(targets, 1):
+        norm = j["normalized_name"]
+        entry = cache[norm]
+        prefix = f"[{i}/{len(targets)}]"
+        if dry_run:
+            yield f"{prefix} WOULD condense {entry.get('name', norm)}"
+            continue
+        try:
+            line = _write_index_line(entry, client)
+        except Exception as e:
+            if _is_fatal_api_error(e):
+                yield f"STOPPED — the API rejected the request: {e}"
+                break
+            failed += 1
+            yield f"{prefix}   could not condense {entry.get('name', norm)}: {e}"
+            continue
+        entry["index_line"] = line[:INDEX_LINE_MAX_CHARS * 2]
+        cache[norm] = entry
+        _save_cache(cache)  # incremental, so an interrupted run keeps its work
+        written += 1
+        yield f"{prefix} {entry.get('name', norm)}: {line}"
+
+    yield f"Finished — {written} index lines written, {failed} failed."
 
 
 def load_urls_for(journals: list[dict]) -> dict[str, str]:
@@ -695,6 +828,10 @@ def generate_summaries(
 
         cache[norm] = {
             "name": name,
+            # .get, not []: a model reply can omit the field, and an entry without an
+            # index line still works — the agent falls back to trimming the summary,
+            # and --condense fills it in later.
+            "index_line": result.get("index_line", ""),
             "summary": result["summary"],
             "found_guidelines": result["found_guidelines"],
             "details": result["details"],
@@ -779,6 +916,9 @@ def _main(argv: list[str] | None = None) -> int:
     source.add_argument("--repair", action="store_true",
                         help="re-do only the journals whose cached entry found no "
                              "submission mechanics (implies --force)")
+    source.add_argument("--condense", action="store_true",
+                        help="write the one-line ranked-list entry for cached journals "
+                             "that lack one. Uses the cached text only — no page fetches")
     parser.add_argument("--dry-run", action="store_true",
                         help="report what would change without spending tokens")
     parser.add_argument("--force", action="store_true",
@@ -799,6 +939,26 @@ def _main(argv: list[str] | None = None) -> int:
         return 1
 
     rankings = [j for j in load_rankings() if j.get("journal_url")]
+
+    if args.condense:
+        targets = rankings if args.force else needs_index_line(rankings)
+        if args.limit is not None:
+            targets = targets[: args.limit]
+        if not args.dry_run:
+            # Input is one cached summary, not a fetched page, so this is roughly a
+            # tenth the cost of re-summarizing.
+            print(f"{len(targets)} journals to condense, roughly "
+                  f"${len(targets) * 0.0014:.2f}. Ctrl-C is safe.\n")
+        try:
+            for line in condense_entries(
+                targets, api_key=api_key, force=args.force, dry_run=args.dry_run
+            ):
+                print(line, flush=True)
+        except KeyboardInterrupt:
+            print("\nStopped. Lines written so far are saved; re-run to continue.")
+            return 130
+        return 0
+
     if args.repair:
         cache = _load_cache()
         journals = [

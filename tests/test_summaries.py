@@ -189,6 +189,7 @@ class TestGateCascade:
             calls["model"] += 1
             return {
                 "summary": summary,
+                "index_line": f"{summary[:60]} index line",
                 "found_guidelines": True,
                 "details": details if details is not None else dict(self.DETAILS),
             }
@@ -404,7 +405,7 @@ class TestGateCascade:
             calls["n"] += 1
             if calls["n"] == 1:
                 raise ValueError("no JSON object in model reply")
-            return {"summary": "ok", "found_guidelines": True, "details": dict(self.DETAILS)}
+            return {"summary": "ok", "index_line": "ok line", "found_guidelines": True, "details": dict(self.DETAILS)}
 
         monkeypatch.setattr(sj, "_gather_pages", lambda url: (self.PAGE, [url], None))
         monkeypatch.setattr(sj, "_summarize", flaky)
@@ -432,7 +433,7 @@ class TestGateCascade:
         sj._save_cache({"cached": {"summary": "s", "details": dict(self.DETAILS)}})
         order = []
         monkeypatch.setattr(sj, "_gather_pages", lambda url: (order.append(url), (self.PAGE, [url], None))[1])
-        monkeypatch.setattr(sj, "_summarize", lambda t, c: {"summary": "x", "found_guidelines": True, "details": dict(self.DETAILS)})
+        monkeypatch.setattr(sj, "_summarize", lambda t, c: {"summary": "x", "index_line": "x line", "found_guidelines": True, "details": dict(self.DETAILS)})
         monkeypatch.setattr(sj.anthropic, "Anthropic", lambda **k: object())
         monkeypatch.setattr(sj.time, "sleep", lambda s: None)
         journals = [
@@ -538,6 +539,112 @@ class TestAestheticDetection:
             "fiction and nonfiction from contributors across the country."
         )
         assert isolated_summaries._has_aesthetic(about)
+
+
+class TestIndexLines:
+    """The ranked list carries one line per journal. Truncating a 3-sentence summary
+    keeps whatever the first sentence happens to be — which is often a founding date
+    or, worse, a description of the web page. A purpose-written line is denser and
+    more decision-relevant, and costs a tenth of re-summarizing because it condenses
+    text already cached rather than re-fetching a site."""
+
+    def test_index_line_is_preferred_over_the_summary(self, isolated_summaries):
+        sj = isolated_summaries
+        sj._save_cache({"mag": {"summary": "Founded in 1998. Publishes flash.",
+                                "index_line": "Flash-only, hybrid-friendly; closed until autumn"}})
+        j = [{"normalized_name": "mag"}]
+        assert sj.load_index_lines_for(j) == {"mag": "Flash-only, hybrid-friendly; closed until autumn"}
+
+    def test_summary_still_available_separately(self, isolated_summaries):
+        """Kept apart so the agent's sentence trimmer can't cut an index line at its
+        first period."""
+        sj = isolated_summaries
+        sj._save_cache({"mag": {"summary": "Founded in 1998. Publishes flash.",
+                                "index_line": "Flash-only. Closed until autumn."}})
+        j = [{"normalized_name": "mag"}]
+        assert sj.load_summaries_for(j)["mag"].startswith("Founded")
+        assert sj.load_index_lines_for(j)["mag"] == "Flash-only. Closed until autumn."
+
+    def test_blank_index_line_falls_back(self, isolated_summaries):
+        sj = isolated_summaries
+        sj._save_cache({"mag": {"summary": "Publishes flash.", "index_line": "   "}})
+        assert sj.load_index_lines_for([{"normalized_name": "mag"}]) == {}
+
+    def test_needs_index_line_finds_only_entries_lacking_one(self, isolated_summaries):
+        sj = isolated_summaries
+        sj._save_cache({
+            "has": {"summary": "s", "index_line": "a line"},
+            "lacks": {"summary": "s"},
+            "blank": {"summary": "s", "index_line": ""},
+        })
+        journals = [{"normalized_name": n} for n in ("has", "lacks", "blank", "uncached")]
+        assert {j["normalized_name"] for j in sj.needs_index_line(journals)} == {"lacks", "blank"}
+
+    def _stub_condense(self, sj, monkeypatch, line="Dense one-liner"):
+        calls = {"n": 0}
+
+        class _M:
+            def create(self, **kw):
+                calls["n"] += 1
+                b = type("B", (), {"type": "text", "text": line})()
+                return type("R", (), {"content": [b]})()
+
+        monkeypatch.setattr(sj.anthropic, "Anthropic", lambda **k: type("C", (), {"messages": _M()})())
+        return calls
+
+    def test_condense_writes_lines_without_fetching_pages(self, isolated_summaries, monkeypatch):
+        sj = isolated_summaries
+        sj._save_cache({"mag": {"name": "Mag", "summary": "Long prose.", "details": {}}})
+        monkeypatch.setattr(sj, "_gather_pages", lambda url: (_ for _ in ()).throw(
+            AssertionError("condense must not fetch pages")))
+        calls = self._stub_condense(sj, monkeypatch)
+        list(sj.condense_entries([{"normalized_name": "mag"}], api_key="unused"))
+        assert calls["n"] == 1
+        assert sj._load_cache()["mag"]["index_line"] == "Dense one-liner"
+
+    def test_condense_skips_entries_that_already_have_one(self, isolated_summaries, monkeypatch):
+        sj = isolated_summaries
+        sj._save_cache({"mag": {"name": "Mag", "summary": "s", "index_line": "existing"}})
+        calls = self._stub_condense(sj, monkeypatch)
+        out = "\n".join(sj.condense_entries([{"normalized_name": "mag"}], api_key="unused"))
+        assert calls["n"] == 0
+        assert "already has an index line" in out
+
+    def test_force_rewrites_existing_lines(self, isolated_summaries, monkeypatch):
+        sj = isolated_summaries
+        sj._save_cache({"mag": {"name": "Mag", "summary": "s", "index_line": "old"}})
+        self._stub_condense(sj, monkeypatch, line="new and better")
+        list(sj.condense_entries([{"normalized_name": "mag"}], api_key="unused", force=True))
+        assert sj._load_cache()["mag"]["index_line"] == "new and better"
+
+    def test_quotes_and_newlines_are_stripped(self, isolated_summaries, monkeypatch):
+        sj = isolated_summaries
+        sj._save_cache({"mag": {"name": "Mag", "summary": "s"}})
+        self._stub_condense(sj, monkeypatch, line='"Flash only,\nno fees"')
+        list(sj.condense_entries([{"normalized_name": "mag"}], api_key="unused"))
+        line = sj._load_cache()["mag"]["index_line"]
+        assert "\n" not in line and not line.startswith('"')
+
+    def test_dry_run_writes_nothing(self, isolated_summaries, monkeypatch):
+        sj = isolated_summaries
+        sj._save_cache({"mag": {"name": "Mag", "summary": "s"}})
+        calls = self._stub_condense(sj, monkeypatch)
+        list(sj.condense_entries([{"normalized_name": "mag"}], api_key="unused", dry_run=True))
+        assert calls["n"] == 0
+        assert "index_line" not in sj._load_cache()["mag"]
+
+    def test_credit_exhaustion_stops_condensing(self, isolated_summaries, monkeypatch):
+        sj = isolated_summaries
+        sj._save_cache({f"m{i}": {"name": f"M{i}", "summary": "s"} for i in range(5)})
+
+        class _M:
+            def create(self, **kw):
+                raise Exception("Your credit balance is too low")
+
+        monkeypatch.setattr(sj.anthropic, "Anthropic", lambda **k: type("C", (), {"messages": _M()})())
+        out = "\n".join(sj.condense_entries(
+            [{"normalized_name": f"m{i}"} for i in range(5)], api_key="unused"))
+        assert "STOPPED" in out
 
 
 class TestCli:

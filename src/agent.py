@@ -13,7 +13,12 @@ from ingest import normalize_name
 from models_config import AGENT_THINKING, MODEL
 from pagefetch import fetch_page
 from storage import StorageBackend, format_pending_for_context, format_story_for_agent
-from summarize_journals import format_details, load_summaries_for, load_urls_for
+from summarize_journals import (
+    format_details,
+    load_index_lines_for,
+    load_summaries_for,
+    load_urls_for,
+)
 from workbook import format_feedback_brief, get_feedback_for_journal
 
 MAX_PAGE_CHARS = 8000
@@ -244,10 +249,12 @@ def _format_journal_list(
     summaries: dict[str, str],
     pending_by_norm: dict[str, str] | None = None,
     best_urls: dict[str, str] | None = None,
+    index_lines: dict[str, str] | None = None,
 ) -> str:
     lines = []
     pending_by_norm = pending_by_norm or {}
     best_urls = best_urls or {}
+    index_lines = index_lines or {}
     for j in sorted(journals, key=lambda x: x["rank"]):
         # Prefer the page a cached summary was actually built from: the rankings URL is
         # sometimes a contact page, and the summarizer records where it found the real
@@ -261,7 +268,11 @@ def _format_journal_list(
             or "no URL"
         )
         name = j.get("display_name") or j.get("name", "")
-        summary = _trim_sentences(summaries.get(j["normalized_name"], ""), LIST_SUMMARY_SENTENCES)
+        # A purpose-written index line is already at length and is used whole;
+        # only fall back to trimming prose when a journal has no index line yet.
+        summary = index_lines.get(j["normalized_name"]) or _trim_sentences(
+            summaries.get(j["normalized_name"], ""), LIST_SUMMARY_SENTENCES
+        )
         entry = f"#{j['rank']} {name} (score: {j.get('score', 'N/A')}, tier: {j.get('tier', 'N/A')}) — {url}"
         pending_story = pending_by_norm.get(j["normalized_name"])
         if pending_story:
@@ -284,14 +295,20 @@ def _build_journal_context(
     invalidate it.
     """
     summaries = load_summaries_for(journals)
+    index_lines = load_index_lines_for(journals)
     best_urls = load_urls_for(journals)
-    summarized = sum(1 for j in journals if j["normalized_name"] in summaries)
+    summarized = sum(
+        1 for j in journals
+        if j["normalized_name"] in summaries or j["normalized_name"] in index_lines
+    )
     # Flag pending-submission journals inline in the ranked list, where the
     # model reads candidates — the separate pending block alone gets overlooked.
     pending_by_norm = {
         normalize_name(p["journal"]): p["story_title"] for p in pending
     }
-    journal_list = _format_journal_list(journals, summaries, pending_by_norm, best_urls)
+    journal_list = _format_journal_list(
+        journals, summaries, pending_by_norm, best_urls, index_lines
+    )
     note = f" ({summarized} with cached summaries)" if summarized else ""
     genre_note = f" [Genre mode: {genre_mode}]"
     return (
