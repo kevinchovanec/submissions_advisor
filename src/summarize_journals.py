@@ -41,6 +41,7 @@ import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Generator
+from urllib.parse import urlparse
 
 import anthropic
 
@@ -682,17 +683,43 @@ def format_details(normalized_name: str) -> str | None:
     return "\n".join(lines)
 
 
+def _same_page(a: str, b: str) -> bool:
+    """Do two URLs address the same page, ignoring redirect cosmetics?
+
+    Compares host without a leading 'www.', path without a trailing slash, and the
+    query; scheme and fragment are ignored. Needed because a site that redirects
+    www -> apex, or adds a trailing slash, would otherwise look like a changed URL
+    forever.
+    """
+    pa, pb = urlparse(a or ""), urlparse(b or "")
+    norm = lambda p: (  # noqa: E731
+        (p.hostname or "").lower().removeprefix("www."),
+        (p.path or "").rstrip("/"),
+        p.query,
+    )
+    return norm(pa) == norm(pb)
+
+
 def _url_changed(entry: dict | None, journal: dict) -> bool:
     """Was this summary built from a different URL than the rankings now hold?
 
     A corrected journal_url makes the cached summary stale no matter how recently it
     was checked — it describes a page we are no longer pointing at. Without this,
-    fixing a URL would leave the old summary in place for the rest of the 90-day
-    recheck window.
+    fixing a URL would leave the old summary in place for the whole recheck window.
+
+    Compares against source_url, the URL that was *requested*, because entry["url"]
+    records where the fetch actually landed. Judging staleness on the landing URL
+    made every redirecting site look permanently changed — 66 of them here — and
+    re-summarized them on every run. Entries written before source_url existed fall
+    back to a redirect-insensitive comparison.
     """
     if not entry:
         return False
-    return (entry.get("url") or "") != _journal_url(journal)
+    current = _journal_url(journal)
+    source = entry.get("source_url")
+    if source:
+        return source != current
+    return not _same_page(entry.get("url") or "", current)
 
 
 def _due_for_recheck(norm: str, meta: dict) -> bool:
@@ -792,6 +819,7 @@ def generate_summaries(
                     # call — the prose is still accurate.
                     entry["url"] = pages[0] if pages else _journal_url(journal)
                     entry["pages"] = pages
+                    entry["source_url"] = _journal_url(journal)
                     cache[norm] = entry
                     _save_cache(cache)
                     _write_page_text(norm, text)
@@ -837,6 +865,9 @@ def generate_summaries(
             "details": result["details"],
             "pages": pages,
             "url": pages[0] if pages else _journal_url(journal),
+            # What the rankings asked for, as opposed to where the fetch landed.
+            # Staleness is judged on this, so a redirect does not read as a change.
+            "source_url": _journal_url(journal),
             "fetched_at": now(),
             "revision": (entry.get("revision", 1) + 1) if entry else 1,
         }

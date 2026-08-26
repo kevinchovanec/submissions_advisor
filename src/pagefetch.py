@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import ipaddress
 import socket
+import time
 from dataclasses import dataclass, field
 from urllib.parse import urljoin, urlparse
 
@@ -24,6 +25,13 @@ REQUEST_TIMEOUT = 10
 MAX_REDIRECTS = 4
 MAX_PAGE_LINKS = 30
 DEFAULT_MAX_CHARS = 8000
+
+# One retry for failures that are about the moment rather than the page. Small
+# journals run on shared hosting that intermittently 500s or rate-limits, and a
+# single flake was dropping the journal for the whole run.
+TRANSIENT_STATUSES = frozenset({408, 425, 429, 500, 502, 503, 504})
+RETRY_DELAY = 2.0
+MAX_ATTEMPTS = 2
 
 # Links whose URL contains one of these are never offered: they lead off the
 # editorial part of a journal's site and waste the caller's fetch budget.
@@ -41,6 +49,7 @@ class PageFetch:
     text: str = ""
     links: list[tuple[str, str]] = field(default_factory=list)
     error: str | None = None
+    transient: bool = False
 
     @property
     def ok(self) -> bool:
@@ -154,9 +163,22 @@ def extract_links(soup: BeautifulSoup, base_url: str) -> list[tuple[str, str]]:
 def fetch_page(url: str, max_chars: int = DEFAULT_MAX_CHARS) -> PageFetch:
     """Fetch a page, returning flattened text plus its same-site links.
 
+    Retries once on transient failures — a rate limit, a 5xx, a timeout — but not on
+    a 403 or 404, which will say the same thing however many times they are asked.
+
     Never raises — failures come back as `error` so callers can surface them to the
     model as an errored tool result rather than crashing the turn.
     """
+    result = _fetch_once(url, max_chars)
+    for _ in range(MAX_ATTEMPTS - 1):
+        if result.ok or not result.transient:
+            break
+        time.sleep(RETRY_DELAY)
+        result = _fetch_once(url, max_chars)
+    return result
+
+
+def _fetch_once(url: str, max_chars: int = DEFAULT_MAX_CHARS) -> PageFetch:
     try:
         # Follow redirects manually, re-validating each hop, so a public page
         # can't 302 the request onto an internal address.
@@ -185,5 +207,12 @@ def fetch_page(url: str, max_chars: int = DEFAULT_MAX_CHARS) -> PageFetch:
             text = " ".join(soup.get_text(separator=" ", strip=True).split())
             return PageFetch(url=current, text=text[:max_chars], links=links)
         return PageFetch(url=url, error=f"Too many redirects fetching: {url}")
+    except requests.HTTPError as e:
+        status = getattr(e.response, "status_code", None)
+        return PageFetch(url=url, error=f"Could not fetch page: {e}",
+                         transient=status in TRANSIENT_STATUSES)
+    except (requests.Timeout, requests.ConnectionError) as e:
+        # A refused connection or a timeout is usually the moment, not the address.
+        return PageFetch(url=url, error=f"Could not fetch page: {e}", transient=True)
     except Exception as e:
         return PageFetch(url=url, error=f"Could not fetch page: {e}")

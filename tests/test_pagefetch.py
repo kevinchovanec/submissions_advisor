@@ -111,6 +111,98 @@ class TestValidateUrl:
         assert pagefetch.validate_url("http://[::1]/x") is not None
 
 
+class TestTransientRetry:
+    """Small journals run on shared hosting that intermittently 500s or rate-limits.
+    One flake was dropping the journal for an entire run; a 403 or 404, by contrast,
+    says the same thing however many times it is asked."""
+
+    def _responder(self, monkeypatch, statuses):
+        """Serve the given status codes in order, counting attempts."""
+        calls = {"n": 0}
+        seq = list(statuses)
+
+        class _Resp:
+            is_redirect = False
+            is_permanent_redirect = False
+
+            def __init__(self, code):
+                self.status_code = code
+                self.text = "<html><body><p>Guidelines here.</p></body></html>"
+
+            def raise_for_status(self):
+                if self.status_code >= 400:
+                    err = pagefetch.requests.HTTPError(f"{self.status_code} Client Error")
+                    err.response = self
+                    raise err
+
+        def fake_get(*a, **k):
+            calls["n"] += 1
+            return _Resp(seq[min(calls["n"] - 1, len(seq) - 1)])
+
+        monkeypatch.setattr(pagefetch, "validate_url", lambda u: None)
+        monkeypatch.setattr(pagefetch.requests, "get", fake_get)
+        monkeypatch.setattr(pagefetch.time, "sleep", lambda s: None)
+        return calls
+
+    def test_a_500_is_retried_and_can_succeed(self, monkeypatch):
+        calls = self._responder(monkeypatch, [500, 200])
+        result = pagefetch.fetch_page("https://mag.example/")
+        assert calls["n"] == 2
+        assert result.ok
+        assert "Guidelines here." in result.text
+
+    def test_rate_limit_is_retried(self, monkeypatch):
+        calls = self._responder(monkeypatch, [429, 200])
+        assert pagefetch.fetch_page("https://mag.example/").ok
+        assert calls["n"] == 2
+
+    def test_403_is_not_retried(self, monkeypatch):
+        """A block is a decision, not a hiccup — retrying wastes time and looks rude."""
+        calls = self._responder(monkeypatch, [403, 403])
+        result = pagefetch.fetch_page("https://mag.example/")
+        assert calls["n"] == 1
+        assert not result.ok
+        assert not result.transient
+
+    def test_404_is_not_retried(self, monkeypatch):
+        calls = self._responder(monkeypatch, [404, 404])
+        assert pagefetch.fetch_page("https://mag.example/").ok is False
+        assert calls["n"] == 1
+
+    def test_a_persistent_500_gives_up_after_the_cap(self, monkeypatch):
+        calls = self._responder(monkeypatch, [500, 500, 500])
+        result = pagefetch.fetch_page("https://mag.example/")
+        assert calls["n"] == pagefetch.MAX_ATTEMPTS
+        assert not result.ok
+
+    def test_timeout_is_treated_as_transient(self, monkeypatch):
+        calls = {"n": 0}
+
+        def fake_get(*a, **k):
+            calls["n"] += 1
+            raise pagefetch.requests.Timeout("timed out")
+
+        monkeypatch.setattr(pagefetch, "validate_url", lambda u: None)
+        monkeypatch.setattr(pagefetch.requests, "get", fake_get)
+        monkeypatch.setattr(pagefetch.time, "sleep", lambda s: None)
+        result = pagefetch.fetch_page("https://mag.example/")
+        assert calls["n"] == pagefetch.MAX_ATTEMPTS
+        assert result.transient
+
+    def test_a_blocked_address_is_never_retried(self, monkeypatch):
+        """SSRF rejection is a decision of ours; repeating it is pure waste."""
+        calls = {"n": 0}
+
+        def counting(u):
+            calls["n"] += 1
+            return "Refusing to fetch a private or internal address: x"
+
+        monkeypatch.setattr(pagefetch, "validate_url", counting)
+        result = pagefetch.fetch_page("http://10.0.0.1/")
+        assert calls["n"] == 1
+        assert not result.transient
+
+
 class TestFetchPageErrors:
     def test_blocked_url_returns_error_not_exception(self):
         result = pagefetch.fetch_page("http://127.0.0.1/x")

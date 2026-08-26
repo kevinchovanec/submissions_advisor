@@ -170,11 +170,13 @@ python src/summarize_journals.py --only "hobart" --force   # redo one journal
 python src/summarize_journals.py --all --limit 20  # sample before committing to the lot
 ```
 
-> If `python` isn't found — for example in a VS Code PowerShell terminal, where conda isn't on the PATH — call the environment's interpreter directly instead. The leading `&` is required in PowerShell:
+> If `python` isn't found — for example in a VS Code PowerShell terminal, where conda isn't on the PATH — call the environment's interpreter by its full path instead:
 >
 > ```powershell
-> & "C:\Users\YOUR_USERNAME\anaconda3\envs\submission_advisor\python.exe" src\summarize_journals.py --all
+> C:\Users\YOUR_USERNAME\anaconda3\envs\submission_advisor\python.exe src\summarize_journals.py --all
 > ```
+>
+> No quotes are needed as long as your username has no spaces, and without quotes you don't need PowerShell's `&` call operator either. (If you do quote the path, `&` must be the *first* thing on the line — PowerShell rejects it mid-line with "The ampersand character is not allowed".)
 
 Progress is saved after every journal, so Ctrl-C is safe and re-running picks up where it stopped — journals with no summary yet are always processed first.
 

@@ -541,6 +541,66 @@ class TestAestheticDetection:
         assert isolated_summaries._has_aesthetic(about)
 
 
+class TestUrlStaleness:
+    """Staleness is judged on the URL that was *requested*, not the one the fetch
+    landed on. Comparing landing URLs made every redirecting site look permanently
+    changed — 66 of them — and re-summarized them on every run."""
+
+    def test_www_and_slash_redirects_are_not_a_change(self, isolated_summaries):
+        sj = isolated_summaries
+        entry = {"url": "https://pshares.org/", "source_url": "https://www.pshares.org/"}
+        assert not sj._url_changed(entry, {"journal_url": "https://www.pshares.org/"})
+
+    def test_a_real_url_change_is_detected(self, isolated_summaries):
+        sj = isolated_summaries
+        entry = {"url": "https://writersdigest.com/article", "source_url": "https://writersdigest.com/article"}
+        assert sj._url_changed(entry, {"journal_url": "https://memorious.org/?submit"})
+
+    def test_legacy_entry_without_source_url_tolerates_redirects(self, isolated_summaries):
+        """Entries written before source_url fall back to comparing pages, so a
+        www-stripping redirect doesn't read as a change."""
+        sj = isolated_summaries
+        entry = {"url": "https://pshares.org/"}
+        assert not sj._url_changed(entry, {"journal_url": "https://www.pshares.org/"})
+
+    def test_legacy_entry_still_detects_a_different_site(self, isolated_summaries):
+        sj = isolated_summaries
+        entry = {"url": "https://writersdigest.com/article"}
+        assert sj._url_changed(entry, {"journal_url": "https://memorious.org/"})
+
+    def test_source_url_is_recorded_on_write(self, isolated_summaries, monkeypatch):
+        sj = isolated_summaries
+        journal = {"normalized_name": "mag", "display_name": "Mag",
+                   "journal_url": "https://www.mag.example/sub", "rank": 1}
+        # The fetch lands somewhere else, as a redirect would.
+        monkeypatch.setattr(sj, "_gather_pages",
+                            lambda url: ("Guidelines up to 5000 words.", ["https://mag.example/sub/"], None))
+        monkeypatch.setattr(sj, "_summarize", lambda t, c: {
+            "summary": "s", "index_line": "line", "found_guidelines": True, "details": {}})
+        monkeypatch.setattr(sj.anthropic, "Anthropic", lambda **k: object())
+        list(sj.generate_summaries([journal], api_key="unused"))
+        entry = sj._load_cache()["mag"]
+        assert entry["source_url"] == "https://www.mag.example/sub", "records what was requested"
+        assert entry["url"] == "https://mag.example/sub/", "and where it landed"
+        # The combination must not look stale on the next run.
+        assert not sj._url_changed(entry, journal)
+
+
+class TestSamePage:
+    def test_ignores_www_slash_and_scheme(self, isolated_summaries):
+        sj = isolated_summaries
+        assert sj._same_page("https://www.x.example/a", "http://x.example/a/")
+
+    def test_different_path_is_a_different_page(self, isolated_summaries):
+        assert not isolated_summaries._same_page("https://x.example/a", "https://x.example/b")
+
+    def test_different_host_is_a_different_page(self, isolated_summaries):
+        assert not isolated_summaries._same_page("https://x.example/a", "https://y.example/a")
+
+    def test_query_is_significant(self, isolated_summaries):
+        assert not isolated_summaries._same_page("https://x.example/p", "https://x.example/p?submit")
+
+
 class TestIndexLines:
     """The ranked list carries one line per journal. Truncating a 3-sentence summary
     keeps whatever the first sentence happens to be — which is often a founding date
