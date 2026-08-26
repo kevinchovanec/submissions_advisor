@@ -419,6 +419,32 @@ class TestGateCascade:
         assert "STOPPED" not in out
         assert "1 generated" in out and "1 failed" in out
 
+    def test_unreachable_corrected_url_drops_the_stale_summary(self, isolated_summaries, monkeypatch):
+        """A summary built from the wrong page must not survive a URL correction that
+        can't be fetched — it once left real journals labelled 'NOT A JOURNAL'."""
+        sj = isolated_summaries
+        self._stub(sj, monkeypatch, summary="NOT A JOURNAL - a how-to article")
+        self._run(sj)
+        assert sj._load_cache()["mag"]["summary"].startswith("NOT A JOURNAL")
+
+        moved = dict(self.JOURNAL, journal_url="https://mag.example/real-submissions")
+        monkeypatch.setattr(sj, "_gather_pages",
+                            lambda url: ("", [], "Could not fetch page: 403 Client Error"))
+        out = "\n".join(sj.generate_summaries([moved], api_key="unused"))
+        assert "dropped its stale summary" in out
+        assert "mag" not in sj._load_cache(), "wrong-page text must not outlive the URL"
+
+    def test_unreachable_url_keeps_a_still_valid_summary(self, isolated_summaries, monkeypatch):
+        """If the URL didn't change, a transient failure must not destroy good data."""
+        sj = isolated_summaries
+        self._stub(sj, monkeypatch, summary="Perfectly good summary.")
+        self._run(sj)
+        meta = sj._load_meta(); meta["mag"]["checked_at"] = "2000-01-01T00:00:00+00:00"; sj._save_meta(meta)
+        monkeypatch.setattr(sj, "_gather_pages",
+                            lambda url: ("", [], "Could not fetch page: 500 Server Error"))
+        list(sj.generate_summaries([self.JOURNAL], api_key="unused"))
+        assert sj._load_cache()["mag"]["summary"] == "Perfectly good summary."
+
     def test_fetch_failure_is_reported_not_raised(self, isolated_summaries, monkeypatch):
         sj = isolated_summaries
         monkeypatch.setattr(sj, "_gather_pages", lambda url: ("", [], "Could not fetch page: boom"))

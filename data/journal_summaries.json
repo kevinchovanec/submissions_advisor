@@ -768,28 +768,6 @@
     "summary": "Arrowsmith Press, founded by Askold Melnyczuk, publishes original poetry and prose alongside a strong emphasis on literary translation, honoring the legacy of classicist William Arrowsmith. It also runs online columns exploring literature's relation to contemporary life; no submission mechanics are given here.",
     "url": "https://www.arrowsmithpress.com/about"
   },
-  "artful dodge": {
-    "details": {
-      "aesthetic": "Not a single journal — a aggregated reference list spanning the full range of literary publishing: mainstream prestige journals, experimental venues (Fence), genre-adjacent (Bear Deluxe), diaspora-focused (Callaloo), CNF-only (River Teeth), and open-form community magazines (Four Chambers).",
-      "fee": "unknown",
-      "multiple_submissions": "unknown",
-      "reading_period": "Varies by journal; examples: One Story Sept. 1–May 31; TriQuarterly Oct. 1–March 31; Kenyon Review contest Feb 1–28.",
-      "red_flags": "This is a third-party aggregator page, not an official journal site — details may be outdated (e.g., Black Clock noted as reopening 'Fall 2012'). Verify all specifics directly with each journal before submitting.",
-      "response_time": "unknown",
-      "simultaneous_submissions": "Varies; One Story explicitly allows simultaneous submissions; others not specified in this text.",
-      "word_limit": "Varies by journal; One Story listed as 3,000–8,000 words; Five Points prefers ~7,500 words; Kenyon Review Short Fiction Contest listed as 1,200 words or fewer."
-    },
-    "fetched_at": "2026-08-16T12:23:04.623782+00:00",
-    "found_guidelines": true,
-    "index_line": "Not a journal — Tankersley's aggregator listing dozens of journals/contests; outdated in places, verify directly before submitting",
-    "name": "Artful Dodge",
-    "pages": [
-      "https://edtankersley.com/literary-journals-submission-guidelines/"
-    ],
-    "revision": 2,
-    "summary": "This is a curated third-party directory of literary journals and contests compiled by Ed Tankersley, not a single journal's own site. It lists submission details and brief descriptions for dozens of well-known literary magazines (Tin House, Kenyon Review, One Story, etc.) and contests. Writers should visit individual journal sites for current, authoritative guidelines.",
-    "url": "https://edtankersley.com/literary-journals-submission-guidelines/"
-  },
   "arts and letters": {
     "details": {
       "aesthetic": "Poetry (4-6 poems suggested), fiction, creative nonfiction (both up to 25 pages), and flash (1-3 pieces, up to 1,000 words each); no stated thematic or stylistic preference beyond standard literary journal fare.",
@@ -2221,28 +2199,6 @@
     "source_url": "https://www.chautauquajournal.com/about-1",
     "summary": "Chautauqua is a literary journal now based independently at UNCW (formerly tied to the Chautauqua Institution), publishing fiction, essays, and poetry alongside interviews with writers about their personal writing practices, all shaped by an editorial ethos of reflection, dialogue, and community drawn from the Chautauqua philosophy of Arts, Learning, Spirituality, and Leisure. Editorial decisions are made collaboratively by graduate and undergraduate students working with professional editors. The journal is transitioning to a fully online publication and seeks diverse voices, both emerging and established, with a hopeful, welcoming tone.",
     "url": "https://www.chautauquajournal.com/about-1"
-  },
-  "chestnut review": {
-    "details": {
-      "aesthetic": "unknown",
-      "fee": "unknown",
-      "multiple_submissions": "unknown",
-      "reading_period": "unknown",
-      "red_flags": "This page contains no information about any specific literary journal. It is a craft/advice article from Writer's Digest and should not be used to evaluate submission targets.",
-      "response_time": "unknown",
-      "simultaneous_submissions": "unknown",
-      "word_limit": "unknown"
-    },
-    "fetched_at": "2026-08-16T12:10:49.866426+00:00",
-    "found_guidelines": false,
-    "index_line": "Chestnut Review: NOT A JOURNAL — this is a Writer's Digest how-to article on cover letters; no submission info here",
-    "name": "Chestnut Review",
-    "pages": [
-      "https://www.writersdigest.com/whats-new/literary-journal-submissions-101"
-    ],
-    "revision": 2,
-    "summary": "This is not a literary journal. It is a Writer's Digest instructional article about how to write cover letters for literary journal submissions. No journal is described here.",
-    "url": "https://www.writersdigest.com/whats-new/literary-journal-submissions-101"
   },
   "chicago quarterly review": {
     "details": {
@@ -7454,28 +7410,6 @@
     "source_url": "https://ndreview.nd.edu/submissions/",
     "summary": "Notre Dame Review is a university-affiliated literary journal that seeks excellence above all, with a stated preference for fiction and poetry engaging big issues. It reads only in two windows during the academic year, pays a small gratuity on publication, and enforces a cooling-off period for repeat rejections.",
     "url": "https://ndreview.nd.edu/submissions/"
-  },
-  "nowhere": {
-    "details": {
-      "aesthetic": "unknown",
-      "fee": "unknown",
-      "multiple_submissions": "unknown",
-      "reading_period": "unknown",
-      "red_flags": "This page describes no journal. It is a craft/advice article from Writer's Digest. No submission destination can be evaluated from this content.",
-      "response_time": "unknown",
-      "simultaneous_submissions": "unknown",
-      "word_limit": "unknown"
-    },
-    "fetched_at": "2026-08-16T12:21:40.858949+00:00",
-    "found_guidelines": false,
-    "index_line": "*Nowhere — not a journal; a Writer's Digest how-to on cover letters. No aesthetic or submission info to evaluate.",
-    "name": "*Nowhere",
-    "pages": [
-      "https://www.writersdigest.com/whats-new/literary-journal-submissions-101"
-    ],
-    "revision": 2,
-    "summary": "This is not a literary journal — it is a Writer's Digest instructional article about how to write cover letters for literary journal submissions. It contains no information about any specific journal's aesthetic, submission mechanics, or policies.",
-    "url": "https://www.writersdigest.com/whats-new/literary-journal-submissions-101"
   },
   "obsidian": {
     "details": {

@@ -803,6 +803,16 @@ def generate_summaries(
         if error:
             failed += 1
             yield f"{prefix}   could not read {name}: {error}"
+            # A stale entry describes a page this journal no longer points at. If the
+            # corrected URL can't be reached, keeping the old text is worse than
+            # having none — it once left real journals labelled "NOT A JOURNAL"
+            # because that was true of the wrong page they used to point at.
+            if entry and not dry_run and _url_changed(entry, journal):
+                cache.pop(norm, None)
+                meta.pop(norm, None)
+                _save_cache(cache)
+                _save_meta(meta)
+                yield f"{prefix}   dropped its stale summary (described the old URL)"
             continue
 
         stored_fp = (meta.get(norm) or {}).get("fingerprint")
