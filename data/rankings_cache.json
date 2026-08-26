@@ -872,17 +872,6 @@
     "category": "literary"
   },
   {
-    "rank": 82,
-    "name": "Fiction Magazine",
-    "normalized_name": "fiction magazine",
-    "score": 7.0,
-    "tier": "Tier 4",
-    "journal_url": "https://www.fictioninc.com/submit",
-    "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: none, Reading Period: Oct 15 - Apr 15, Response Time (months): DK, Maximum Word Count: best under 5K, Other Restrictions: N/A",
-    "fetched_at": "2026-05-11T11:15:15.385962+00:00",
-    "category": "literary"
-  },
-  {
     "rank": 84,
     "name": "Arts & Letters",
     "normalized_name": "arts and letters",
@@ -1291,17 +1280,6 @@
     "category": "literary"
   },
   {
-    "rank": 121,
-    "name": "Raritan (*no simultaneous subs)",
-    "normalized_name": "raritan no simultaneous subs",
-    "score": 4.0,
-    "tier": "Tier 4",
-    "journal_url": "https://derekannis.wordpress.com/submissions-calendar/",
-    "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: none, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: no simultaneous submissions",
-    "fetched_at": "2026-05-11T11:15:15.385962+00:00",
-    "category": "literary"
-  },
-  {
     "name": "Literary Review",
     "normalized_name": "literary review",
     "score": 4.0,
@@ -1387,17 +1365,6 @@
     "tier": "Tier 4",
     "journal_url": "https://stingingfly.org/submissions/",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: €175-1250, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: prefers new and emerging Irish and international writers.",
-    "fetched_at": "2026-05-11T11:15:15.385962+00:00",
-    "category": "literary"
-  },
-  {
-    "rank": 132,
-    "name": "One Teen Story",
-    "normalized_name": "one teen story",
-    "score": 2.0,
-    "tier": "Tier 4",
-    "journal_url": "https://one-story.com/write/submit-a-story/",
-    "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: $500, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: teen writers only",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
   },
@@ -1607,18 +1574,7 @@
     "normalized_name": "arrowsmith",
     "score": 1.0,
     "tier": "Tier 4",
-    "journal_url": "https://owl.purdue.edu/owl/subject_specific_writing/creative_writing/writers/professional_resources/submitting_to_literary_magazines.html",
-    "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
-    "fetched_at": "2026-05-11T11:15:15.385962+00:00",
-    "category": "literary"
-  },
-  {
-    "rank": 155,
-    "name": "As You Were",
-    "normalized_name": "as you were",
-    "score": 1.0,
-    "tier": "Tier 4",
-    "journal_url": "https://lithub.com/13-questions-to-ask-before-submitting-to-a-literary-journal/",
+    "journal_url": "https://www.arrowsmithpress.com/about",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -1706,7 +1662,7 @@
     "normalized_name": "chestnut review",
     "score": 1.0,
     "tier": "Tier 4",
-    "journal_url": "https://www.writersdigest.com/whats-new/literary-journal-submissions-101",
+    "journal_url": "https://chestnutreview.com/submissions/",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -2170,7 +2126,7 @@
     "normalized_name": "fiction international",
     "score": 0.5,
     "tier": "Tier 4",
-    "journal_url": "https://www.fictioninc.com/submit",
+    "journal_url": "https://fictioninternational.sdsu.edu/wordpress/submit/",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -2587,17 +2543,6 @@
     "category": "literary"
   },
   {
-    "rank": 249,
-    "name": "Shooter Literary Magazine",
-    "normalized_name": "shooter literary magazine",
-    "score": 0.0,
-    "tier": "Tier 5",
-    "journal_url": "https://shooterlitmag.com/submissions/",
-    "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: £25, Reading Period: Feb-May and Aug-Nov, Response Time (months): 1 month after deadline, Maximum Word Count: 2-6K, Other Restrictions: Themed issues 2x year",
-    "fetched_at": "2026-05-11T11:15:15.385962+00:00",
-    "category": "literary"
-  },
-  {
     "rank": 250,
     "name": "Rosebud",
     "normalized_name": "rosebud",
@@ -2704,17 +2649,6 @@
     "tier": "Tier 5",
     "journal_url": "https://www.elegantliterature.com/submission-guidelines/",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: 10 cents/word, Reading Period: not restricted, Response Time (months): 1, Maximum Word Count: .5-2K, Other Restrictions: new writers only",
-    "fetched_at": "2026-05-11T11:15:15.385962+00:00",
-    "category": "literary"
-  },
-  {
-    "rank": 261,
-    "name": "*Pedestal Magazine",
-    "normalized_name": "pedestal magazine",
-    "score": 0.0,
-    "tier": "Tier 5",
-    "journal_url": "https://thepedestalmagazine.com/submissions/",
-    "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: $0.05/word, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
   },
@@ -2977,7 +2911,7 @@
     "normalized_name": "memorious",
     "score": 0.0,
     "tier": "Tier 5",
-    "journal_url": "https://www.writersdigest.com/whats-new/literary-journal-submissions-101",
+    "journal_url": "https://memorious.org/?submit",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: not listed, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -3054,7 +2988,7 @@
     "normalized_name": "little fiction",
     "score": 0.0,
     "tier": "Tier 5",
-    "journal_url": "https://www.writersdigest.com/whats-new/literary-journal-submissions-101",
+    "journal_url": "http://www.littlefiction.com/beta/Submissions.html",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: on hiatus",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -3225,17 +3159,6 @@
     "category": "literary"
   },
   {
-    "rank": 310,
-    "name": "*Hysterical Rag",
-    "normalized_name": "hysterical rag",
-    "score": 0.0,
-    "tier": "Tier 5",
-    "journal_url": "https://duotrope.com/magazine/hysterical-rag-24613",
-    "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
-    "fetched_at": "2026-05-11T11:15:15.385962+00:00",
-    "category": "literary"
-  },
-  {
     "rank": 311,
     "name": "Fence",
     "normalized_name": "fence",
@@ -3373,7 +3296,7 @@
     "normalized_name": "bangalore review",
     "score": 0.0,
     "tier": "Tier 5",
-    "journal_url": "https://www.writersdigest.com/whats-new/literary-journal-submissions-101",
+    "journal_url": "https://bangalorereview.com/submissions/",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: none, Reading Period: not restricted, Response Time (months): 3, Maximum Word Count: 4K, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -3406,7 +3329,7 @@
     "normalized_name": "american reader",
     "score": 0.0,
     "tier": "Tier 5",
-    "journal_url": "https://www.writersdigest.com/whats-new/literary-journal-submissions-101",
+    "journal_url": "https://theamericanreader.com/about-us/submissions/",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -3440,17 +3363,6 @@
     "score": 0.0,
     "tier": "Tier 5",
     "journal_url": "https://northwestreview.submittable.com/submit",
-    "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
-    "fetched_at": "2026-05-11T11:15:15.385962+00:00",
-    "category": "literary"
-  },
-  {
-    "rank": 330,
-    "name": "Chariton Review",
-    "normalized_name": "chariton review",
-    "score": 0.0,
-    "tier": "Tier 5",
-    "journal_url": "https://duotrope.com/magazine/chariton-review-4607",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -3555,23 +3467,12 @@
     "category": "literary"
   },
   {
-    "rank": 340,
-    "name": "*Bigbridge.org",
-    "normalized_name": "bigbridgeorg",
-    "score": 0.0,
-    "tier": "Tier 5",
-    "journal_url": "https://www.clmp.org/programs-opportunities/calls-for-submissions/",
-    "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
-    "fetched_at": "2026-05-11T11:15:15.385962+00:00",
-    "category": "literary"
-  },
-  {
     "rank": 341,
     "name": "*The White Review",
     "normalized_name": "the white review",
     "score": 0.0,
     "tier": "Tier 5",
-    "journal_url": "https://www.writersdigest.com/whats-new/literary-journal-submissions-101",
+    "journal_url": "https://www.thewhitereview.org/submissions/",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -3604,7 +3505,7 @@
     "normalized_name": "nowhere",
     "score": 0.0,
     "tier": "Tier 5",
-    "journal_url": "https://www.writersdigest.com/whats-new/literary-journal-submissions-101",
+    "journal_url": "https://nowheremag.com/submit/",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: on hiatus",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -3617,17 +3518,6 @@
     "tier": "Tier 5",
     "journal_url": "https://www.everywritersresource.com/literarymagazines/contrary-magazine/",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
-    "fetched_at": "2026-05-11T11:15:15.385962+00:00",
-    "category": "literary"
-  },
-  {
-    "rank": 346,
-    "name": "Byliner",
-    "normalized_name": "byliner",
-    "score": 0.0,
-    "tier": "Tier 5",
-    "journal_url": "https://www.newpages.com/submission-opportunities/calls-for-submissions/",
-    "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: does not accept unsolitcited submissions in fiction",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
   },
@@ -3676,17 +3566,6 @@
     "category": "literary"
   },
   {
-    "rank": 351,
-    "name": "Tweed’s",
-    "normalized_name": "tweeds",
-    "score": 0.0,
-    "tier": "Tier 5",
-    "journal_url": "https://www.writersdigest.com/whats-new/literary-journal-submissions-101",
-    "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
-    "fetched_at": "2026-05-11T11:15:15.385962+00:00",
-    "category": "literary"
-  },
-  {
     "rank": 352,
     "name": "Kalliope: A Journal of Women's Literature & Art",
     "normalized_name": "kalliope a journal of womens literature and art",
@@ -3725,7 +3604,7 @@
     "normalized_name": "brooklyn review",
     "score": 0.0,
     "tier": "Tier 5",
-    "journal_url": "http://brooklynquarterly.org/submissions/",
+    "journal_url": "https://thebrooklynreview.com/submit/",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -3770,17 +3649,6 @@
     "score": 0.0,
     "tier": "Tier 5",
     "journal_url": "https://dogwood.submittable.com/submit",
-    "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
-    "fetched_at": "2026-05-11T11:15:15.385962+00:00",
-    "category": "literary"
-  },
-  {
-    "rank": 360,
-    "name": "Dossier Journal",
-    "normalized_name": "dossier journal",
-    "score": 0.0,
-    "tier": "Tier 5",
-    "journal_url": "https://duotrope.com/magazine/dossier-3132",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -3989,7 +3857,7 @@
     "normalized_name": "artful dodge",
     "score": 0.0,
     "tier": "Tier 5",
-    "journal_url": "https://edtankersley.com/literary-journals-submission-guidelines/",
+    "journal_url": "https://artfuldodge.spaces.wooster.edu/writers-guidelines/",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -4094,17 +3962,6 @@
     "category": "literary"
   },
   {
-    "rank": 392,
-    "name": "Quick Fiction",
-    "normalized_name": "quick fiction",
-    "score": 0.0,
-    "tier": "Tier 5",
-    "journal_url": "https://www.kipwilsonwrites.com/tag/literary-journals/",
-    "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
-    "fetched_at": "2026-05-11T11:15:15.385962+00:00",
-    "category": "literary"
-  },
-  {
     "rank": 393,
     "name": "Tiferet",
     "normalized_name": "tiferet",
@@ -4121,7 +3978,7 @@
     "normalized_name": "transformations",
     "score": 0.0,
     "tier": "Tier 5",
-    "journal_url": "https://thewritingpool.com/2010/05/18/transformational-journal-writing-workshop/",
+    "journal_url": "https://transformationsjournal.org/index.php/transformations/about/submissions",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -4167,17 +4024,6 @@
     "tier": "Tier 5",
     "journal_url": "https://www.apogeejournal.org/share-work",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: July and January, Response Time (months): DK, Maximum Word Count: 5K, Other Restrictions: N/A",
-    "fetched_at": "2026-05-11T11:15:15.385962+00:00",
-    "category": "literary"
-  },
-  {
-    "rank": 399,
-    "name": "Armchair/Shotgun",
-    "normalized_name": "armchairshotgun",
-    "score": 0.0,
-    "tier": "Tier 5",
-    "journal_url": "https://www.aerogrammestudio.com/2014/06/18/literary-magazines-for-new-and-unpublished-writers/",
-    "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
   },
@@ -4369,17 +4215,6 @@
     "category": "literary"
   },
   {
-    "rank": 418,
-    "name": "*Decadent Review",
-    "normalized_name": "decadent review",
-    "score": 0.0,
-    "tier": "Tier 5",
-    "journal_url": "https://duotrope.com/magazine/the-decadent-review-33055",
-    "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: not restricted, Response Time (months): under 3, Maximum Word Count: not restricted, Other Restrictions: Metafiction only",
-    "fetched_at": "2026-05-11T11:15:15.385962+00:00",
-    "category": "literary"
-  },
-  {
     "rank": 419,
     "name": "Eclipse Lit",
     "normalized_name": "eclipse lit",
@@ -4407,18 +4242,7 @@
     "normalized_name": "fictionweek literary review",
     "score": 0.0,
     "tier": "Tier 5",
-    "journal_url": "https://www.everywritersresource.com/literarymagazines/book-reviews/",
-    "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
-    "fetched_at": "2026-05-11T11:15:15.385962+00:00",
-    "category": "literary"
-  },
-  {
-    "rank": 422,
-    "name": "*Five Dials",
-    "normalized_name": "five dials",
-    "score": 0.0,
-    "tier": "Tier 5",
-    "journal_url": "https://www.penguin.co.uk/five-dials-archive",
+    "journal_url": "https://www.fictionweek.com/fwliteraryreview/submissions.html",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -4539,7 +4363,7 @@
     "normalized_name": "great plains quarterly",
     "score": 0.0,
     "tier": "Tier 5",
-    "journal_url": "https://wscpress.com/2194/news/plains-writers-series-february-28th-2019/",
+    "journal_url": "https://plains.unl.edu/publications/great-plains-quarterly/",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -4732,17 +4556,6 @@
     "category": "literary"
   },
   {
-    "rank": 452,
-    "name": "Seattle Review",
-    "normalized_name": "seattle review",
-    "score": 0.0,
-    "tier": "Tier 5",
-    "journal_url": "https://thejohnfox.com/category/literary-journals-2/",
-    "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
-    "fetched_at": "2026-05-11T11:15:15.385962+00:00",
-    "category": "literary"
-  },
-  {
     "rank": 453,
     "name": "*Solstice: a Magazine of Diverse Voices",
     "normalized_name": "solstice a magazine of diverse voices",
@@ -4891,7 +4704,7 @@
     "normalized_name": "3am magazine",
     "score": 0.0,
     "tier": "Tier 5",
-    "journal_url": "https://thesubmissionwizard.com/",
+    "journal_url": "https://www.3ammagazine.com/3am/submissions/",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -4902,7 +4715,7 @@
     "normalized_name": "100 word story",
     "score": 0.0,
     "tier": "Tier 5",
-    "journal_url": "https://www.beltwaypoetry.com/resources/journals/",
+    "journal_url": "https://100wordstory.org/submit/",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: submissions must be exactly 100 words",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
@@ -4957,7 +4770,7 @@
     "normalized_name": "firmament",
     "score": 0.0,
     "tier": "Tier 5",
-    "journal_url": "https://reedsy.com/resources/literary-magazines/",
+    "journal_url": "https://sublunaryeditions.com/firmament",
     "notes": "Circulation: DK, Monthly Visits to Site: DK, Payment: DK, Reading Period: DK, Response Time (months): DK, Maximum Word Count: DK, Other Restrictions: N/A",
     "fetched_at": "2026-05-11T11:15:15.385962+00:00",
     "category": "literary"
