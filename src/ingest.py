@@ -163,20 +163,51 @@ def _make_journal(name: str) -> dict:
     }
 
 
+# A market's status, on its own line, is how The Submission Grinder separates one
+# record from the next. Duotrope pastes contain none of these, so keying on them
+# costs nothing there.
+_STATUS_LINES = frozenset({
+    "open", "closed", "temporarily closed", "permanently closed", "opening soon",
+    "closing soon", "sporadic", "hiatus", "on hiatus", "by invitation only",
+    "invitation only", "reprints only", "unknown", "dead",
+})
+
+_HEADER_LINES = frozenset({
+    "title", "name", "journal", "market", "genres", "genre", "lengths", "length",
+    "payment", "media", "response", "status",
+})
+
+
 def from_text(text: str) -> list[dict]:
-    """
-    Parse plain tab-separated text pasted from Duotrope results.
-    Only the first column (Title) is used; all other columns are ignored.
-    Skips the header row and any blank lines.
+    """Parse plain tab-separated text pasted from a submissions database.
+
+    Duotrope puts one market per line with the title first, so the first column is
+    the name. The Submission Grinder spreads each market over three lines:
+
+        Sheltering Tree Media
+        Open
+        GeneralMystery/CrimeYoung Adult<TAB>Novel<TAB>Unknown<TAB>...
+
+    Reading the first column of every line turned that into three journals — the
+    real one, a market called "Open", and one called "GeneralMystery/CrimeYoung
+    Adult". The status line is the anchor: when one appears, it and the metadata row
+    that follows it both belong to the market named on the line before.
     """
     journals = []
-    for line in text.splitlines():
-        cols = line.split("\t")
-        name = cols[0].strip()
-        if not name or name.lower() in ("title", "name", "journal"):
+    lines = text.splitlines()
+    i = 0
+    while i < len(lines):
+        name = lines[i].split("\t")[0].strip()
+        i += 1
+        if not name:
             continue
-        # Skip lines that look like UI chrome (all-caps labels, single words that are column headers)
-        if name.lower() in ("genres", "lengths", "payment", "media"):
+        lowered = name.lower()
+        if lowered in _HEADER_LINES:
+            continue
+        if lowered in _STATUS_LINES:
+            # Skip the status itself and the metadata row belonging to the market
+            # named on the previous line, which is already recorded.
+            i += 1
             continue
         journals.append(_make_journal(name))
     return journals

@@ -126,10 +126,37 @@ export default function MatcherPage() {
     setUnranked([...unranked, journal])
   }
 
-  const totalJournals = batches.reduce((n, b) => {
-    const lines = b.split('\n').filter((l) => l.trim() && !['title', 'name', 'journal'].includes(l.trim().toLowerCase()))
-    return n + lines.length
-  }, 0)
+  // Mirrors src/ingest.py from_text. Duotrope is one market per line; The Submission
+  // Grinder uses three (name, status, metadata), so counting raw lines showed three
+  // times the real number here and then the true one after matching.
+  const STATUS_LINES = new Set([
+    'open', 'closed', 'temporarily closed', 'permanently closed', 'opening soon',
+    'closing soon', 'sporadic', 'hiatus', 'on hiatus', 'by invitation only',
+    'invitation only', 'reprints only', 'unknown', 'dead',
+  ])
+  const HEADER_LINES = new Set([
+    'title', 'name', 'journal', 'market', 'genres', 'genre', 'lengths', 'length',
+    'payment', 'media', 'response', 'status',
+  ])
+
+  function countJournals(batch: string): number {
+    const lines = batch.split('\n')
+    let count = 0
+    for (let i = 0; i < lines.length; i++) {
+      const name = (lines[i].split('\t')[0] ?? '').trim()
+      if (!name) continue
+      const lowered = name.toLowerCase()
+      if (HEADER_LINES.has(lowered)) continue
+      if (STATUS_LINES.has(lowered)) {
+        i++ // also skip the metadata row belonging to the market named above
+        continue
+      }
+      count++
+    }
+    return count
+  }
+
+  const totalJournals = batches.reduce((n, b) => n + countJournals(b), 0)
 
   return (
     <div className="p-6 max-w-5xl mx-auto">
