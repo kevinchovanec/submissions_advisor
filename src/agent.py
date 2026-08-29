@@ -244,6 +244,30 @@ def _trim_sentences(text: str, limit: int) -> str:
     return " ".join(parts[:limit]).strip()
 
 
+def journal_aliases(journals: list[dict]) -> dict[str, str]:
+    """Map every name a journal is known by to its canonical normalized name.
+
+    A matched journal has at least two: the name the writer pasted and the name the
+    rankings use ("Georgia Review" against "Georgia Review, The"). Anything that
+    looks a journal up by name — a pending submission logged months ago, a
+    get_journal_details call quoting the ranked list — has to resolve either.
+    """
+    out: dict[str, str] = {}
+    for j in journals:
+        canonical = j.get("normalized_name")
+        if not canonical:
+            continue
+        for candidate in (
+            canonical,
+            j.get("pasted_normalized_name"),
+            normalize_name(j.get("display_name") or ""),
+            normalize_name(j.get("matched_name") or ""),
+        ):
+            if candidate:
+                out.setdefault(candidate, canonical)
+    return out
+
+
 def _format_journal_list(
     journals: list[dict],
     summaries: dict[str, str],
@@ -303,9 +327,13 @@ def _build_journal_context(
     )
     # Flag pending-submission journals inline in the ranked list, where the
     # model reads candidates — the separate pending block alone gets overlooked.
-    pending_by_norm = {
-        normalize_name(p["journal"]): p["story_title"] for p in pending
-    }
+    # Resolve each logged journal name to the canonical ranked name before matching,
+    # so a submission logged as "Georgia Review" still marks "Georgia Review, The".
+    aliases = journal_aliases(journals)
+    pending_by_norm = {}
+    for p in pending:
+        key = normalize_name(p["journal"])
+        pending_by_norm[aliases.get(key, key)] = p["story_title"]
     journal_list = _format_journal_list(
         journals, summaries, pending_by_norm, best_urls, index_lines
     )
@@ -383,6 +411,7 @@ def stream_response(
                     to the wrong story.
     """
     client = anthropic.Anthropic(api_key=api_key or os.environ.get("ANTHROPIC_API_KEY"))
+    _aliases = journal_aliases(journals)
     _feedback = editor_feedback or []
     _pending = pending or []
     _allowed = allowed_slugs if allowed_slugs is not None else None

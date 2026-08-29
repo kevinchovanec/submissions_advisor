@@ -66,6 +66,7 @@ def match(
             ranked = ranked_index.get(override_key)
             if ranked:
                 entry.update(_merge_ranked(ranked, confidence=100.0, via_override=True))
+                entry["pasted_normalized_name"] = norm
                 results.append(entry)
                 continue
 
@@ -81,6 +82,7 @@ def match(
             matched_name, score, _ = result
             ranked = ranked_index[matched_name]
             entry.update(_merge_ranked(ranked, confidence=float(score)))
+            entry["pasted_normalized_name"] = norm
             if score < REVIEW_THRESHOLD:
                 low_confidence.append((journal["display_name"], ranked["name"], score))
         else:
@@ -107,6 +109,14 @@ def _merge_ranked(ranked: dict, confidence: float, via_override: bool = False) -
         "journal_url": ranked.get("journal_url"),
         "matched_name": ranked["name"],
         "match_confidence": confidence,
+        # Adopt the ranked journal's identity. Matching resolved the pasted name to
+        # this journal, and everything downstream — cached summaries, guideline
+        # details, pending-submission exclusions — is keyed on the ranked name. Keeping
+        # the pasted normalization here silently lost the summary for any journal
+        # whose paste spelled it differently: "Georgia Review" against the ranked
+        # "Georgia Review, The" looked like a journal with no summary at all.
+        "normalized_name": ranked["normalized_name"],
+        "pasted_normalized_name": None,  # filled in by the caller, which has it
     }
 
 

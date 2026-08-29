@@ -60,6 +60,80 @@ class TestJournalList:
         assert "Likes weird stuff." in out
 
 
+class TestMatchedJournalIdentity:
+    """A matched journal must adopt the ranked journal's identity.
+
+    Everything downstream — cached summaries, guideline details, pending exclusions —
+    is keyed on the ranked name. Keeping the pasted normalization silently lost the
+    summary for any journal spelled differently in the paste, and reported it as
+    having none: "Georgia Review" against the ranked "Georgia Review, The".
+    """
+
+    RANKINGS = [{
+        "rank": 1, "name": "Georgia Review, The", "normalized_name": "georgia review the",
+        "score": 92, "tier": "Tier 1", "journal_url": "https://garev.example/",
+    }]
+
+    def _match(self, pasted="Georgia Review"):
+        from ingest import from_text
+        from match import match as run_match, ranked_only
+        return ranked_only(run_match(from_text(pasted), self.RANKINGS))[0]
+
+    def test_adopts_the_ranked_normalized_name(self):
+        assert self._match()["normalized_name"] == "georgia review the"
+
+    def test_keeps_the_pasted_normalization_for_lookups(self):
+        assert self._match()["pasted_normalized_name"] == "georgia review"
+
+    def test_display_name_stays_as_pasted(self):
+        """The writer should see the list the way they pasted it."""
+        assert self._match()["display_name"] == "Georgia Review"
+
+    def test_summary_resolves_under_the_ranked_key(self, monkeypatch):
+        matched = self._match()
+        summaries = {"georgia review the": "Formally attentive literary fiction."}
+        out = agent._format_journal_list([matched], summaries, {})
+        assert "Formally attentive" in out
+
+    def test_pending_marks_a_journal_logged_under_the_pasted_name(self):
+        """A submission logged months ago as 'Georgia Review' must still exclude
+        'Georgia Review, The' — the failure this guards against costs a real
+        submission slot."""
+        matched = self._match()
+        pending = [{"journal": "Georgia Review", "story_title": "Alpha", "slug": "a"}]
+        block = agent._build_journal_context([matched], pending)
+        assert "UNDER REVIEW" in block
+        assert "Alpha" in block
+
+    def test_pending_marks_a_journal_logged_under_the_ranked_name(self):
+        matched = self._match()
+        pending = [{"journal": "The Georgia Review", "story_title": "Alpha", "slug": "a"}]
+        assert "UNDER REVIEW" in agent._build_journal_context([matched], pending)
+
+    def test_unrelated_pending_journal_is_not_marked(self):
+        matched = self._match()
+        pending = [{"journal": "Ploughshares", "story_title": "Alpha", "slug": "a"}]
+        assert "UNDER REVIEW" not in agent._build_journal_context([matched], pending)
+
+
+class TestJournalAliases:
+    JOURNALS = [{
+        "normalized_name": "georgia review the", "pasted_normalized_name": "georgia review",
+        "display_name": "Georgia Review", "matched_name": "Georgia Review, The",
+    }]
+
+    def test_every_spelling_resolves_to_the_canonical_name(self):
+        aliases = agent.journal_aliases(self.JOURNALS)
+        for spelling in ("georgia review", "georgia review the"):
+            assert aliases[spelling] == "georgia review the"
+
+    def test_unknown_name_is_absent(self):
+        assert "ploughshares" not in agent.journal_aliases(self.JOURNALS)
+
+    def test_tolerates_journals_without_a_match(self):
+        agent.journal_aliases([{"display_name": "Unranked Mag", "normalized_name": None}])
+
+
 class TestListSummaryTrimming:
     """The ranked list is an index, not the full record — carrying every sentence
     for every journal makes it the single largest cost in the app, since it is
