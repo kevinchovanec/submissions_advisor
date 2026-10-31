@@ -121,8 +121,12 @@ export default function MatcherPage() {
     .filter((j) => j.rank !== null && (j.match_confidence ?? 100) < REVIEW_THRESHOLD)
     .sort((a, b) => (a.match_confidence ?? 0) - (b.match_confidence ?? 0))
 
+  // A matched journal's normalized_name is the ranked journal's, shared by every
+  // pasted spelling that resolved to it, so it can't tell those rows apart.
+  const rowKey = (j: Journal) => j.pasted_normalized_name ?? j.normalized_name
+
   function handleReject(journal: Journal) {
-    setJournals(journals.filter((j) => j.normalized_name !== journal.normalized_name))
+    setJournals(journals.filter((j) => rowKey(j) !== rowKey(journal)))
     setUnranked([...unranked, journal])
   }
 
@@ -330,7 +334,7 @@ export default function MatcherPage() {
               </p>
               <ul className="divide-y divide-amber-200">
                 {lowConfidence.map((j) => (
-                  <li key={j.normalized_name} className="flex items-center gap-3 py-1.5">
+                  <li key={rowKey(j)} className="flex items-center gap-3 py-1.5">
                     <span className="font-medium flex-1">{j.display_name}</span>
                     <span className="text-amber-800 flex-1">→ <em>{j.matched_name}</em></span>
                     <span className="font-mono text-xs text-amber-700 w-10 text-right">
@@ -361,7 +365,7 @@ export default function MatcherPage() {
               </thead>
               <tbody className="bg-white divide-y divide-gray-100">
                 {journals.map((j) => (
-                  <tr key={j.display_name} className="hover:bg-gray-50">
+                  <tr key={rowKey(j)} className="hover:bg-gray-50">
                     <td className="px-3 py-2 font-mono text-gray-500">#{j.rank}</td>
                     <td className="px-3 py-2 font-medium">
                       {j.journal_url ? (

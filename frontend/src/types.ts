@@ -18,6 +18,8 @@ export interface Submission {
 export interface Journal {
   display_name: string;
   normalized_name: string;
+  /** The pasted name's normalization; set on matched journals, whose normalized_name is the ranked one. */
+  pasted_normalized_name?: string | null;
   deadline: string;
   response_days: number | null;
   submit_url: string;

@@ -59,7 +59,7 @@ from .models import (
     TemplateUpsert,
 )
 from scrape_rankings import load_rankings
-from match import match as run_match, ranked_only
+from match import collapse_duplicates, match as run_match, ranked_only
 from models_config import EXTRACTION_THINKING, MODEL
 from storage import format_selected_stories, format_story_roster
 from summarize_journals import generate_summaries, status_for
@@ -465,7 +465,7 @@ def match_journals(req: MatchRequest):
         return {"ranked": [], "unranked": []}
     rankings = req.custom_rankings if req.custom_rankings else load_rankings()
     matched = run_match(journals, rankings)
-    ranked = sorted(ranked_only(matched), key=lambda j: j["rank"])
+    ranked = sorted(collapse_duplicates(ranked_only(matched)), key=lambda j: j["rank"])
     unranked = [j for j in matched if j["rank"] is None]
     return {"ranked": ranked, "unranked": unranked}
 

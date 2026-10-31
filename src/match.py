@@ -132,6 +132,26 @@ def unranked_only(matched: list[dict]) -> list[dict]:
     return [j for j in matched if j["rank"] is None]
 
 
+def collapse_duplicates(ranked: list[dict]) -> list[dict]:
+    """
+    One row per ranked journal. Pasting from Duotrope and The Submission Grinder
+    lists the same journal under two spellings, and both resolve to one ranked
+    entry. Keep the best-confidence match; drop the others only when they too are
+    confident, since a low-confidence duplicate may be a different journal that
+    fuzzed onto this one, and it stays visible so the writer can reject it.
+    Order is preserved.
+    """
+    best: dict[str, dict] = {}
+    for j in ranked:
+        key = j["normalized_name"]
+        if key not in best or (j["match_confidence"] or 0) > (best[key]["match_confidence"] or 0):
+            best[key] = j
+    return [
+        j for j in ranked
+        if best[j["normalized_name"]] is j or (j["match_confidence"] or 0) < REVIEW_THRESHOLD
+    ]
+
+
 # ---------------------------------------------------------------------------
 # CLI
 # ---------------------------------------------------------------------------

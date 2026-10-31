@@ -183,12 +183,16 @@ export function createApiClient(accessToken: string | null, apiKey: string | nul
   }
 }
 
-/** Duplicate journals by display_name — keep first occurrence. */
-export function dedupeJournals<T extends { display_name: string }>(journals: T[]): T[] {
+/** Drop duplicate journals by the pasted name's normalization — keep first occurrence.
+ *  Same key MatcherPage uses for rows, so no two rows can share one. */
+export function dedupeJournals<T extends { normalized_name: string; pasted_normalized_name?: string | null }>(
+  journals: T[],
+): T[] {
   const seen = new Set<string>()
   return journals.filter((j) => {
-    if (seen.has(j.display_name)) return false
-    seen.add(j.display_name)
+    const key = j.pasted_normalized_name ?? j.normalized_name
+    if (seen.has(key)) return false
+    seen.add(key)
     return true
   })
 }
