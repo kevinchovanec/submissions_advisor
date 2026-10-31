@@ -9,6 +9,7 @@ import NotesPage from './pages/NotesPage'
 import PrivacyPage from './pages/PrivacyPage'
 import SettingsPage from './pages/SettingsPage'
 import TrackerPage from './pages/TrackerPage'
+import JournalsPage from './pages/JournalsPage'
 
 export default function App() {
   const { cloudMode, serverHasKey, userId, apiKey, isReady } = useAuth()
@@ -51,6 +52,7 @@ export default function App() {
         <Route path="/" element={<MatcherPage />} />
         <Route path="/stories" element={<StoriesPage />} />
         <Route path="/tracker" element={<TrackerPage />} />
+        <Route path="/journals" element={<JournalsPage />} />
         <Route path="/discuss" element={<DiscussPage />} />
         <Route path="/notes" element={<NotesPage />} />
         <Route path="/settings" element={<SettingsPage />} />

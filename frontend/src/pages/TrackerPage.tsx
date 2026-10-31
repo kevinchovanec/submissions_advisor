@@ -182,6 +182,7 @@ function SubRow({ row, onSave, onDelete, saving }: {
   onDelete: (journal: string) => void
   saving: boolean
 }) {
+  const navigate = useNavigate()
   const [editing, setEditing] = useState(false)
   const [outcome, setOutcome] = useState(row.outcome)
   const [notes, setNotes] = useState(row.notes)
@@ -237,7 +238,12 @@ function SubRow({ row, onSave, onDelete, saving }: {
         <span className={`flex-shrink-0 inline-block px-1.5 py-0.5 rounded text-xs font-medium capitalize ${OUTCOME_STYLES[row.outcome] ?? 'bg-gray-100 text-gray-600'}`}>
           {row.outcome}
         </span>
-        <span className="text-sm truncate">{row.journal}</span>
+        <button
+          className="text-sm truncate hover:text-indigo-600 hover:underline text-left"
+          onClick={() => navigate('/journals', { state: { journal: row.journal } })}
+        >
+          {row.journal}
+        </button>
         {row.notes && <span className="text-xs text-gray-400 truncate hidden sm:block">— {row.notes}</span>}
       </div>
       <div className="flex items-center gap-2 flex-shrink-0">

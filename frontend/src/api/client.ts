@@ -52,6 +52,7 @@ export interface ApiClient {
   // Match
   matchJournals(text: string, genreMode: string, customRankings?: object[] | null): Promise<MatchResult>
   uploadRankings(file: File): Promise<object[]>
+  listRankings(): Promise<{ name: string; rank: number; tier?: string | null; journal_url?: string | null }[]>
   // Journal summaries (generation is local-mode only)
   summariesStatus(journals: Journal[]): Promise<SummaryStatus>
   streamSummaries(req: {
@@ -145,6 +146,8 @@ export function createApiClient(accessToken: string | null, apiKey: string | nul
         genre_mode: genreMode,
         ...(customRankings ? { custom_rankings: customRankings } : {}),
       }),
+
+    listRankings: () => req('GET', '/api/rankings'),
 
     uploadRankings: async (file: File) => {
       const fd = new FormData()

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import type { Story } from '../types'
 
@@ -8,7 +8,9 @@ export default function StoriesPage() {
   const { apiClient, cloudMode } = useAuth()
   const qc = useQueryClient()
   const navigate = useNavigate()
-  const [selectedSlug, setSelectedSlug] = useState<string | null>(null)
+  const location = useLocation()
+  // Tracker and Journals link here with the story to open.
+  const [selectedSlug, setSelectedSlug] = useState<string | null>(location.state?.slug ?? null)
   const [showCreate, setShowCreate] = useState(false)
   const [syncMsg, setSyncMsg] = useState<string | null>(null)
 
