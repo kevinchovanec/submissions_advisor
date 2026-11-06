@@ -12,6 +12,8 @@ from typing import Optional
 
 from rapidfuzz import fuzz, process
 
+from ingest import normalize_name
+
 OVERRIDES_PATH = Path(__file__).parent.parent / "data" / "manual_overrides.csv"
 REVIEW_THRESHOLD = 95
 DEFAULT_MATCH_THRESHOLD = 85
@@ -22,14 +24,18 @@ DEFAULT_MATCH_THRESHOLD = 85
 # ---------------------------------------------------------------------------
 
 def _load_overrides() -> dict[str, str]:
-    """Returns {normalized_duotrope_name: normalized_ranked_name}."""
+    """Returns {normalized_duotrope_name: normalized_ranked_name}.
+
+    Both columns are run through normalize_name, so a row can be written with the
+    names as they appear ("Dr. T.J. Eckleburg Review") rather than pre-normalized.
+    """
     if not OVERRIDES_PATH.exists():
         return {}
     overrides = {}
     with open(OVERRIDES_PATH, newline="", encoding="utf-8") as f:
         for row in csv.DictReader(f):
-            key = row.get("duotrope_name", "").strip().lower()
-            val = row.get("krouse_name", "").strip().lower()
+            key = normalize_name(row.get("duotrope_name", ""))
+            val = normalize_name(row.get("krouse_name", ""))
             if key and val:
                 overrides[key] = val
     return overrides
@@ -52,6 +58,10 @@ def match(
     overrides = _load_overrides()
     ranked_index = {r["normalized_name"]: r for r in rankings}
     ranked_names = list(ranked_index.keys())
+    # Default-list keys were normalized with the source's asterisk still on, so
+    # "*The Boiler" is keyed "the boiler" while a paste of "The Boiler" normalizes
+    # to "boiler". The display name is clean now; index it too.
+    by_clean_name = {normalize_name(r["name"]): r for r in rankings}
 
     results = []
     low_confidence = []
@@ -60,15 +70,17 @@ def match(
         norm = journal["normalized_name"]
         entry = dict(journal)
 
-        # Check manual override first
-        if norm in overrides:
-            override_key = overrides[norm]
-            ranked = ranked_index.get(override_key)
-            if ranked:
-                entry.update(_merge_ranked(ranked, confidence=100.0, via_override=True))
-                entry["pasted_normalized_name"] = norm
-                results.append(entry)
-                continue
+        # Check manual override first, then an exact name
+        override_key = overrides.get(norm)
+        ranked = (
+            (ranked_index.get(override_key) or by_clean_name.get(override_key)) if override_key
+            else ranked_index.get(norm) or by_clean_name.get(norm)
+        )
+        if ranked:
+            entry.update(_merge_ranked(ranked, confidence=100.0, via_override=bool(override_key)))
+            entry["pasted_normalized_name"] = norm
+            results.append(entry)
+            continue
 
         # Fuzzy match
         result = process.extractOne(

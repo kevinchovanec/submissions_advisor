@@ -467,7 +467,7 @@ function LogSubmissionForm({ onLog, onCancel, loading }: { onLog: (j: string) =>
 const OUTCOMES = ['pending', 'accepted', 'rejected', 'withdrawn', 'shortlisted']
 
 function SubmissionRow({ sub, onUpdate, onDelete }: {
-  sub: { journal: string; date: string; outcome: string; notes: string }
+  sub: { journal: string; journal_display?: string; date: string; outcome: string; notes: string }
   onUpdate: (outcome: string, notes: string, sub_date: string) => void
   onDelete: () => void
 }) {
@@ -486,7 +486,7 @@ function SubmissionRow({ sub, onUpdate, onDelete }: {
 
   return editing ? (
     <tr className="bg-indigo-50">
-      <td className="px-3 py-2 font-medium">{sub.journal}</td>
+      <td className="px-3 py-2 font-medium">{sub.journal_display ?? sub.journal}</td>
       <td className="px-3 py-2">
         <input className="input py-0.5 text-xs" type="date" value={subDate} onChange={(e) => setSubDate(e.target.value)} />
       </td>
@@ -506,7 +506,7 @@ function SubmissionRow({ sub, onUpdate, onDelete }: {
     </tr>
   ) : (
     <tr className="hover:bg-gray-50">
-      <td className="px-3 py-2 font-medium">{sub.journal}</td>
+      <td className="px-3 py-2 font-medium">{sub.journal_display ?? sub.journal}</td>
       <td className="px-3 py-2 text-gray-500">{sub.date}</td>
       <td className="px-3 py-2">
         <span className={`inline-block px-1.5 py-0.5 rounded text-xs font-medium ${outcomeColors[sub.outcome] ?? 'bg-gray-100 text-gray-600'}`}>

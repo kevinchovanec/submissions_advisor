@@ -77,8 +77,16 @@ export default function JournalsPage() {
       p.spellings.set(name, (p.spellings.get(name) ?? 0) + 1)
       return p
     }
-    for (const row of rows) if (row.journal.trim()) profileFor(row.journal).submissions.push(row)
-    for (const note of notes) if (note.journal.trim()) profileFor(note.journal).notes.push(note)
+    // journal_display is the ranked spelling when the server could resolve one, so
+    // "Eckleburg" and "Dr. T. J. Eckleburg Review" arrive as the same name.
+    for (const row of rows) {
+      const name = row.journal_display ?? row.journal
+      if (name.trim()) profileFor(name).submissions.push(row)
+    }
+    for (const note of notes) {
+      const name = note.journal_display ?? note.journal
+      if (name.trim()) profileFor(name).notes.push(note)
+    }
 
     return Array.from(map.values())
       .map(({ spellings, ...p }) => ({

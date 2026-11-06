@@ -370,10 +370,10 @@ export default function MatcherPage() {
                     <td className="px-3 py-2 font-medium">
                       {j.journal_url ? (
                         <a href={j.journal_url} target="_blank" rel="noreferrer" className="text-indigo-600 hover:underline">
-                          {j.display_name}
+                          {j.matched_name ?? j.display_name}
                         </a>
                       ) : (
-                        j.display_name
+                        j.matched_name ?? j.display_name
                       )}
                     </td>
                     <td className="px-3 py-2">

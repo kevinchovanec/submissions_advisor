@@ -59,6 +59,7 @@ from .models import (
     TemplateUpsert,
 )
 from scrape_rankings import load_rankings
+from journal_names import JournalNameResolver
 from match import collapse_duplicates, match as run_match, ranked_only
 from models_config import EXTRACTION_THINKING, MODEL
 from storage import format_selected_stories, format_story_roster
@@ -194,6 +195,9 @@ def get_story(slug: str, storage=Depends(get_storage)):
     story = storage.load_story(slug)
     if story is None:
         raise HTTPException(status_code=404, detail="Story not found")
+    names = JournalNameResolver(load_rankings())
+    for sub in story.get("submitted_to", []):
+        sub["journal_display"] = names.display(sub.get("journal", ""))
     return story
 
 
@@ -313,7 +317,8 @@ def save_template(name: str, req: TemplateUpsert, storage=Depends(get_storage)):
 
 @app.get("/api/feedback")
 def list_feedback(storage=Depends(get_storage)):
-    return storage.list_feedback()
+    names = JournalNameResolver(load_rankings())
+    return [{**f, "journal_display": names.display(f.get("journal", ""))} for f in storage.list_feedback()]
 
 
 @app.post("/api/feedback", status_code=201)
@@ -473,6 +478,7 @@ def match_journals(req: MatchRequest):
 @app.get("/api/submissions")
 def list_all_submissions(storage=Depends(get_storage)):
     """All submissions across every story, sorted by date descending."""
+    names = JournalNameResolver(load_rankings())
     rows = []
     for s in storage.list_stories():
         full = storage.load_story(s["slug"])
@@ -483,6 +489,7 @@ def list_all_submissions(storage=Depends(get_storage)):
                 "story_slug": s["slug"],
                 "story_title": full["title"],
                 "journal": sub.get("journal", ""),
+                "journal_display": names.display(sub.get("journal", "")),
                 "date": sub.get("date", ""),
                 "outcome": sub.get("outcome", "pending"),
                 "notes": sub.get("notes", ""),

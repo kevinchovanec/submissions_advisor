@@ -123,6 +123,18 @@ def _parse_rankings(html: str) -> list[dict]:
 # Public API
 # ---------------------------------------------------------------------------
 
+def _strip_markers(name: str) -> str:
+    """Drop the source list's asterisks from a display name.
+
+    Krouse marks online-only magazines "*Joyland" and two print journals
+    "Hudson Review (*no simultaneous subs)". The asterisk reads as noise in every
+    screen that shows the name; the no-simultaneous note stays as plain text.
+    normalize_name already strips punctuation, so normalized_name - the key every
+    cache uses - is the same with or without it.
+    """
+    return re.sub(r"\s+", " ", name.replace("*", "")).strip()
+
+
 def load_rankings() -> list[dict]:
     """Load rankings — custom cache if present, otherwise default."""
     if CUSTOM_CACHE_PATH.exists():
@@ -130,6 +142,8 @@ def load_rankings() -> list[dict]:
             return json.load(f)
     cached = _load_cache()
     if cached:
+        for r in cached:
+            r["name"] = _strip_markers(r["name"])
         return cached
     raise FileNotFoundError(
         f"No rankings cache found at {CACHE_PATH}. "

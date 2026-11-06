@@ -69,7 +69,7 @@ export default function TrackerPage() {
         const q = search.toLowerCase()
         return (
           g.title.toLowerCase().includes(q) ||
-          [...g.pending, ...g.closed].some((r) => r.journal.toLowerCase().includes(q))
+          [...g.pending, ...g.closed].some((r) => (r.journal_display ?? r.journal).toLowerCase().includes(q))
         )
       })
       .sort((a, b) => {
@@ -200,7 +200,7 @@ function SubRow({ row, onSave, onDelete, saving }: {
   if (editing) {
     return (
       <div className="bg-indigo-50 rounded p-2 space-y-2">
-        <p className="text-sm font-medium">{row.journal}</p>
+        <p className="text-sm font-medium">{row.journal_display ?? row.journal}</p>
         <div className="flex gap-2 flex-wrap">
           <div>
             <label className="text-xs text-gray-500 block mb-0.5">Date</label>
@@ -240,9 +240,9 @@ function SubRow({ row, onSave, onDelete, saving }: {
         </span>
         <button
           className="text-sm truncate hover:text-indigo-600 hover:underline text-left"
-          onClick={() => navigate('/journals', { state: { journal: row.journal } })}
+          onClick={() => navigate('/journals', { state: { journal: row.journal_display ?? row.journal } })}
         >
-          {row.journal}
+          {row.journal_display ?? row.journal}
         </button>
         {row.notes && <span className="text-xs text-gray-400 truncate hidden sm:block">— {row.notes}</span>}
       </div>

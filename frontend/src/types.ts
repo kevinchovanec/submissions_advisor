@@ -10,6 +10,8 @@ export interface Story {
 
 export interface Submission {
   journal: string;
+  /** The ranked spelling when the stored name resolves to a ranked journal; display only. */
+  journal_display?: string;
   date: string;
   outcome: string;
   notes: string;
@@ -40,6 +42,8 @@ export interface Template {
 export interface FeedbackNote {
   id?: string;
   journal: string;
+  /** The ranked spelling when the stored name resolves to a ranked journal; display only. */
+  journal_display?: string;
   story: string;
   date: string | null;
   text: string;
@@ -67,6 +71,8 @@ export interface SubmissionRow {
   story_slug: string;
   story_title: string;
   journal: string;
+  /** The ranked spelling when the stored name resolves to a ranked journal; display only. */
+  journal_display?: string;
   date: string;
   outcome: string;
   notes: string;
